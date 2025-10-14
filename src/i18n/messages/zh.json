@@ -1,0 +1,459 @@
+{
+  "loading": "加载中...",
+  "metadata": {
+    "name": "ShipAny",
+    "title": "几小时内构建任何 AI SaaS 创业项目 | ShipAny",
+    "description": "ShipAny 是一个用于构建 AI SaaS 创业项目的 NextJS 模板，提供各种模板和组件，帮助您快速启动。",
+    "keywords": "ShipAny, AI SaaS 模板, NextJS 模板"
+  },
+  "user": {
+    "sign_in": "登录",
+    "sign_out": "退出登录",
+    "credits": "额度",
+    "api_keys": "API 密钥",
+    "my_orders": "我的订单",
+    "user_center": "用户中心",
+    "dashboard": "控制台",
+    "admin_system": "管理后台",
+    "profile": "个人资料",
+    "manage_account": "管理您的账户信息"
+  },
+  "sign_in": {
+    "title": "登录",
+    "welcome_back": "欢迎回来",
+    "description": "登录您的账户以继续分析应用评论",
+    "email_title": "邮箱地址",
+    "email_placeholder": "输入您的邮箱",
+    "password_title": "密码",
+    "password_placeholder": "输入您的密码",
+    "forgot_password": "忘记密码？",
+    "no_account": "还没有账户？",
+    "sign_in": "登录",
+    "signing_in": "登录中...",
+    "sign_up": "免费注册",
+    "continue": "或继续使用",
+    "google": "Google"
+  },
+  "sign_up": {
+    "title": "创建您的账户",
+    "description": "几分钟内开始使用 AI 分析应用评论",
+    "fullname_title": "姓名",
+    "fullname_placeholder": "张三",
+    "email_title": "邮箱地址",
+    "email_placeholder": "zhang@company.com",
+    "password_title": "密码",
+    "password_placeholder": "创建强密码",
+    "confirm_password_title": "确认密码",
+    "confirm_password_placeholder": "确认您的密码",
+    "password_requirements_title": "密码必须包含：",
+    "requirements": {
+      "min_length": "至少8个字符",
+      "lowercase": "一个小写字母",
+      "uppercase": "一个大写字母",
+      "number": "一个数字"
+    },
+    "terms_agreement": "我同意",
+    "terms_of_service": "服务条款",
+    "and": "和",
+    "privacy_policy": "隐私政策",
+    "create_account": "创建账户",
+    "creating_account": "创建账户中...",
+    "already_have_account": "已有账户？",
+    "sign_in_link": "登录",
+    "or_sign_up_with": "或使用以下方式注册",
+    "google": "Google",
+    "signing_in_with_google": "正在使用 Google 登录...",
+    "please_agree_terms": "请同意条款和条件",
+    "passwords_not_match": "密码不匹配",
+    "validation": {
+      "password_too_short": "密码必须至少8个字符",
+      "password_no_lowercase": "密码必须包含至少一个小写字母",
+      "password_no_uppercase": "密码必须包含至少一个大写字母",
+      "password_no_number": "密码必须包含至少一个数字",
+      "passwords_not_match": "密码不匹配"
+    },
+    "verification": {
+      "title": "输入我们发送到您邮箱的 6 位验证码",
+      "verify_email": "验证邮箱",
+      "verifying": "验证中...",
+      "didnt_receive_code": "没有收到验证码？",
+      "resend_code": "重新发送验证码",
+      "resending": "重新发送中...",
+      "resend_in": "{seconds}秒后重新发送",
+      "check_spam": "如果没有收到邮件，请检查垃圾邮件文件夹",
+      "complete_code": "请输入完整的 6 位验证码",
+      "invalid_code": "验证码无效。请重试。"
+    }
+  },
+  "sign_modal": {
+    "sign_in_title": "登录",
+    "sign_in_description": "登录您的账户",
+    "sign_up_title": "注册",
+    "sign_up_description": "创建新账户",
+    "email_title": "邮箱",
+    "email_placeholder": "请输入您的邮箱",
+    "password_title": "密码",
+    "password_placeholder": "请输入您的密码",
+    "forgot_password": "忘记密码？",
+    "or": "或",
+    "continue": "继续",
+    "no_account": "还没有账户？",
+    "email_sign_in": "使用邮箱登录",
+    "google_sign_in": "使用 Google 登录",
+    "github_sign_in": "使用 GitHub 登录",
+    "close_title": "关闭",
+    "cancel_title": "取消"
+  },
+  "billing": {
+    "title": "账单与使用情况",
+    "description": "管理您的订阅并监控使用情况",
+    "stats": {
+      "available_credits": "可用积分",
+      "one_time_credits": "一次性积分",
+      "subscription_credits": "订阅积分",
+      "subscription_credits_desc": "每月重置",
+      "subscription_credits_desc_yearly": "每月重置，年费扣款",
+      "next_reset": "下次重置",
+      "monthly_usage_rate": "当月使用率",
+      "total_used": "已使用",
+      "total_earned": "已获得",
+      "usage_rate": "使用率",
+      "pro_plan": "专业版",
+      "free_plan": "免费版",
+      "credits_consumed": "已消耗积分",
+      "credits_purchased": "已购买积分",
+      "of_total_credits": "总积分占比",
+      "recharge": "充值",
+      "subscription_required": "需要订阅",
+      "one_time_credits_desc": "一次性购买积分",
+      "subscription_required_desc": "需要激活订阅"
+    },
+    "tabs": {
+      "current_plan": "当前计划",
+      "usage_history": "使用记录",
+      "billing_history": "账单记录",
+      "upgrade": "升级计划"
+    },
+    "current_plan": {
+      "title": "当前计划",
+      "description": "您当前的订阅详情和使用情况",
+      "monthly_plan": "月付计划",
+      "yearly_plan": "年付计划",
+      "one_time_plan": "一次性计划",
+      "active": "激活",
+      "inactive": "未激活",
+      "expired": "已过期",
+      "cancelled": "已取消",
+      "plan_credits": "计划积分",
+      "manage_billing": "管理账单",
+      "expires": "到期时间",
+      "usage_progress": "使用进度",
+      "credits_remaining": "积分剩余",
+      "no_active_plan": "无激活计划",
+      "no_active_plan_description": "您当前使用免费计划。升级以获得更多积分和功能。",
+      "view_plans": "查看计划",
+      "recharge": "充值",
+      "next_renewal": "下次续费",
+      "credits_reset_date": "积分重置时间",
+      "subscription_renewal_date": "订阅续费时间",
+      "monthly_reset": "每月重置",
+      "yearly_billing": "年费扣款",
+      "yearly_subscription_note": "💡 年订阅说明：积分每月重置，但订阅费用按年收取。您每月都会获得新的积分额度，但只会在订阅到期时收取下一年的费用。",
+      "monthly_subscription_note": "💡 月订阅说明：积分每月重置，订阅费用也按月收取。您每月都会获得新的积分额度，同时按月收取订阅费用。"
+    },
+    "usage_history": {
+      "title": "使用记录",
+      "description": "最近的积分交易和使用情况",
+      "date": "日期",
+      "type": "类型",
+      "credits": "积分",
+      "earned": "获得",
+      "used": "使用",
+      "welcome_bonus": "欢迎奖励",
+      "plan_purchase": "计划购买",
+      "system_credit": "系统积分",
+      "api_usage": "API使用",
+      "pagination": {
+        "previous": "上一页",
+        "next": "下一页",
+        "showing": "显示",
+        "to": "到",
+        "of": "共",
+        "entries": "条记录"
+      }
+    },
+    "billing_history": {
+      "title": "账单记录",
+      "description": "您的历史订单和付款",
+      "date": "日期",
+      "plan": "计划",
+      "amount": "金额",
+      "status": "状态",
+      "credits": "积分"
+    },
+    "upgrade": {
+      "title": "升级您的计划",
+      "description": "选择适合您需求的计划",
+      "includes": "包含：",
+      "per_month": "每月",
+      "per_year": "每年",
+      "one_time": "一次性",
+      "get_started": "开始使用",
+      "upgrade": "升级",
+      "processing": "处理中..."
+    },
+    "recharge_modal": {
+      "recharge_title": "充值积分",
+      "recharge_description": "选择充值计划为您的账户添加积分",
+      "select_plan_error": "请选择一个计划",
+      "checkout_failed": "支付失败",
+      "recharge_failed": "充值失败",
+      "popular": "热门",
+      "one_time": "一次性",
+      "credits": "积分",
+      "includes": "包含：",
+      "valid_12_months": "有效期12个月",
+      "selected_plan": "已选计划：",
+      "price": "价格：",
+      "cancel": "取消",
+      "recharge": "充值",
+      "processing": "处理中..."
+    }
+  },
+  "my_orders": {
+    "title": "我的订单",
+    "description": "在 ShipAny 上购买的订单。",
+    "no_orders": "未找到订单",
+    "tip": "",
+    "activate_order": "激活订单",
+    "actived": "已激活",
+    "join_discord": "加入 Discord",
+    "read_docs": "阅读文档",
+    "table": {
+      "order_no": "订单号",
+      "email": "邮箱",
+      "product_name": "产品名称",
+      "amount": "金额",
+      "paid_at": "支付时间",
+      "github_username": "GitHub 用户名",
+      "status": "状态"
+    }
+  },
+  "my_credits": {
+    "title": "我的积分",
+    "left_tip": "剩余积分: {left_credits}",
+    "no_credits": "没有积分记录",
+    "recharge": "充值",
+    "table": {
+      "trans_no": "交易号",
+      "trans_type": "交易类型",
+      "credits": "积分",
+      "updated_at": "更新时间",
+      "status": "状态"
+    }
+  },
+  "api_keys": {
+    "title": "API 密钥",
+    "tip": "请妥善保管您的 API 密钥，避免泄露",
+    "no_api_keys": "没有 API 密钥",
+    "create_api_key": "创建 API 密钥",
+    "table": {
+      "name": "名称",
+      "key": "密钥",
+      "created_at": "创建时间"
+    },
+    "form": {
+      "name": "名称",
+      "name_placeholder": "API 密钥名称",
+      "submit": "提交"
+    }
+  },
+  "blog": {
+    "title": "博客",
+    "description": "关于 ShipAny 的新闻、资源和更新",
+    "read_more_text": "阅读更多"
+  },
+  "my_invites": {
+    "title": "我的邀请",
+    "description": "查看您的邀请记录",
+    "no_invites": "未找到邀请记录",
+    "my_invite_link": "我的邀请链接",
+    "edit_invite_link": "编辑邀请链接",
+    "copy_invite_link": "复制邀请链接",
+    "invite_code": "邀请码",
+    "invite_tip": "每邀请 1 位朋友购买 ShipAny，奖励 $50。",
+    "invite_balance": "邀请奖励余额",
+    "total_invite_count": "总邀请人数",
+    "total_paid_count": "已充值人数",
+    "total_award_amount": "总奖励金额",
+    "update_invite_code": "设置邀请码",
+    "update_invite_code_tip": "输入你的自定义邀请码",
+    "update_invite_button": "保存",
+    "no_orders": "你需要先购买过 ShipAny 才能邀请朋友",
+    "no_affiliates": "你暂无邀请朋友的权限，请联系我们申请开通。",
+    "table": {
+      "invite_time": "邀请时间",
+      "invite_user": "邀请用户",
+      "status": "状态",
+      "reward_percent": "奖励比例",
+      "reward_amount": "奖励金额",
+      "pending": "已注册，未支付",
+      "completed": "已支付"
+    }
+  },
+  "feedback": {
+    "title": "反馈",
+    "description": "我们很乐意听取您对产品的看法或如何改进产品体验。",
+    "submit": "提交",
+    "loading": "提交中...",
+    "contact_tip": "其他联系方式",
+    "rating_tip": "您对 ShipAny 的看法如何？",
+    "placeholder": "在这里留下您的反馈..."
+  },
+  "sign_card": {
+    "free_plan_badge": "永久免费计划可用",
+    "title_line1": "将应用评论转化为",
+    "title_line2": "商业智能",
+    "description": "通过 AI 驱动的洞察和交互式聊天，即时分析任何应用的评论，发现隐藏的机会。",
+    "features": [
+      {
+        "title": "AI 驱动分析",
+        "description": "先进的机器学习算法分析数百万条评论，提取有意义的洞察和模式。"
+      },
+      {
+        "title": "交互式 AI 聊天",
+        "description": "提出问题并深入洞察，通过对话全面探索数据。"
+      },
+      {
+        "title": "痛点检测",
+        "description": "自动识别用户痛点、功能请求和从评论情感中发现的改进机会。"
+      }
+    ],
+    "benefits": ["无需信用卡", "已分析 5000万+ 评论", "实时洞察"]
+  },
+  "forgot_password": {
+    "title": "忘记密码？",
+    "description": "别担心，我们会发送重置说明。",
+    "email_title": "邮箱地址",
+    "email_placeholder": "输入您的邮箱地址",
+    "send_reset_link": "发送重置链接",
+    "sending_reset_link": "发送重置链接中...",
+    "back_to_sign_in": "返回登录",
+    "success": {
+      "title": "检查您的邮箱",
+      "description": "我们已向以下地址发送密码重置链接：",
+      "expires_in": "链接将在 15 分钟后过期",
+      "check_spam": "如果没有收到邮件，请检查垃圾邮件文件夹。",
+      "resend_email": "重新发送邮件",
+      "sending": "发送中..."
+    },
+    "help": {
+      "still_trouble": "仍然遇到问题？",
+      "contact_support": "联系客服"
+    }
+  },
+  "reset_password": {
+    "title": "设置新密码",
+    "description": "您的新密码必须与之前使用过的密码不同。",
+    "email_title": "邮箱地址",
+    "email_placeholder": "输入您的邮箱地址",
+    "new_password_title": "新密码",
+    "new_password_placeholder": "输入您的新密码",
+    "confirm_password_title": "确认新密码",
+    "confirm_password_placeholder": "确认您的新密码",
+    "password_requirements_title": "密码必须包含：",
+    "requirements": {
+      "min_length": "至少 8 个字符",
+      "lowercase": "一个小写字母",
+      "uppercase": "一个大写字母",
+      "number": "一个数字"
+    },
+    "update_password": "更新密码",
+    "updating_password": "更新密码中...",
+    "password_updated": "密码已更新",
+    "password_updated_description": "您的密码已成功更新。您现在可以使用新密码登录。",
+    "continue_to_sign_in": "继续登录",
+    "remember_password": "记得密码？登录",
+    "invalid_link": "无效的重置链接",
+    "invalid_link_description": "此密码重置链接无效或已过期。请重新申请一个。",
+    "request_new_link": "申请新的重置链接",
+    "validating_token": "验证重置链接中...",
+    "token_expired": "重置链接已过期",
+    "token_expired_description": "此密码重置链接已过期。请重新申请一个。",
+    "token_invalid": "无效的重置链接",
+    "token_invalid_description": "此密码重置链接无效。请重新申请一个。",
+    "resetting_for": "正在为以下账户重置密码",
+    "validation": {
+      "email_required": "邮箱地址是必需的",
+      "password_too_short": "密码长度至少为 8 个字符",
+      "password_no_lowercase": "密码必须包含至少一个小写字母",
+      "password_no_uppercase": "密码必须包含至少一个大写字母",
+      "password_no_number": "密码必须包含至少一个数字",
+      "passwords_not_match": "密码不匹配"
+    }
+  },
+  "email": {
+    "verification": {
+      "title": "邮箱验证",
+      "subject": "验证您的邮箱地址 - {projectName}",
+      "welcome": "欢迎使用 {projectName}",
+      "verify_title": "验证您的邮箱地址",
+      "description": "感谢您的注册！请使用下面的验证码完成您的邮箱验证。",
+      "verification_code": "您的验证码是：",
+      "ignore_message": "如果您没有请求此邮箱验证，请忽略此邮件。",
+      "visit_website": "访问我们的官方网站",
+      "copyright": "© {year} {projectName}。保留所有权利。"
+    },
+    "reset_password": {
+      "title": "密码重置",
+      "subject": "重置您的密码 - {projectName}",
+      "welcome": "欢迎使用 {projectName}",
+      "reset_title": "重置您的密码",
+      "description": "我们收到了重置您 {projectName} 账户密码的请求。如果您发起了此请求，请点击下面的按钮设置新密码。",
+      "reset_button": "重置我的密码",
+      "ignore_message": "如果您没有请求此密码重置，请忽略此邮件。",
+      "expires_in": "此链接将在 15 分钟后过期。",
+      "visit_website": "访问我们的官方网站",
+      "copyright": "© {year} {projectName}。保留所有权利。"
+    }
+  },
+  "profile": {
+    "title": "个人资料",
+    "description": "管理您的账户信息",
+    "avatar": {
+      "title": "头像",
+      "description": "点击上传按钮上传自定义头像",
+      "upload": "上传头像",
+      "uploading": "上传中...",
+      "optional_tip": "头像是可选的，但强烈推荐"
+    },
+    "name": {
+      "title": "姓名",
+      "description": "请输入您的显示名称",
+      "placeholder": "输入您的显示名称",
+      "validation_tip": "请使用3-30个字符作为您的姓名",
+      "save": "保存",
+      "saving": "保存中..."
+    },
+    "messages": {
+      "avatar_updated": "头像更新成功",
+      "avatar_upload_failed": "头像上传失败",
+      "profile_updated": "个人资料更新成功",
+      "profile_update_failed": "个人资料更新失败",
+      "nickname_required": "请输入昵称",
+      "nickname_length": "昵称必须在3-30个字符之间"
+    }
+  },
+  "summary": {
+    "title": "生成增强报告",
+    "description": "这将生成您评论的综合分析报告。请确认继续。",
+    "subscription_required": "需要订阅",
+    "subscription_required_desc": "增强报告生成需要活跃的订阅。请升级您的计划以访问此功能。",
+    "subscription_credits_available": "订阅积分可用",
+    "subscription_credits_desc": "此操作将消耗您活跃计划中的订阅积分。",
+    "cancel": "取消",
+    "generate": "生成",
+    "generating": "生成中...",
+    "upgrade": "升级"
+  }
+}

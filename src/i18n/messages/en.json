@@ -1,0 +1,460 @@
+{
+  "loading": "Loading...",
+  "metadata": {
+    "name": "ReviewInsight",
+    "title": "Transform App Reviews Into Business Intelligence | ReviewInsight",
+    "description": "ReviewInsight analyzes app reviews to extract business intelligence, helping you discover user insights, pain points, and market opportunities through AI-powered analysis.",
+    "keywords": "ReviewInsight, App Review Analysis, Business Intelligence, AI Analysis, User Insights, Market Research"
+  },
+  "user": {
+    "sign_in": "Sign In",
+    "sign_out": "Sign Out",
+    "credits": "Credits",
+    "api_keys": "API Keys",
+    "my_orders": "My Orders",
+    "user_center": "User Center",
+    "dashboard": "Dashboard",
+    "admin_system": "Admin System",
+    "profile": "Profile",
+    "manage_account": "Manage your account information"
+  },
+  "sign_in": {
+    "title": "Sign In",
+    "welcome_back": "Welcome back",
+    "description": "Sign in to your account to continue analyzing app reviews",
+    "email_title": "Email address",
+    "email_placeholder": "Enter your email",
+    "password_title": "Password",
+    "password_placeholder": "Enter your password",
+    "forgot_password": "Forgot password?",
+    "no_account": "Don't have an account?",
+    "sign_in": "Sign in",
+    "signing_in": "Signing in...",
+    "sign_up": "Sign up for free",
+    "continue": "Or continue with",
+    "google": "Google"
+  },
+  "sign_up": {
+    "title": "Create your account",
+    "description": "Start analyzing app reviews with AI in minutes",
+    "fullname_title": "Full name",
+    "fullname_placeholder": "John Doe",
+    "email_title": "Email address",
+    "email_placeholder": "john@company.com",
+    "password_title": "Password",
+    "password_placeholder": "Create a strong password",
+    "confirm_password_title": "Confirm password",
+    "confirm_password_placeholder": "Confirm your password",
+    "password_requirements_title": "Password must contain:",
+    "requirements": {
+      "min_length": "At least 8 characters",
+      "lowercase": "One lowercase letter",
+      "uppercase": "One uppercase letter",
+      "number": "One number"
+    },
+    "terms_agreement": "I agree to the",
+    "terms_of_service": "Terms of Service",
+    "and": "and",
+    "privacy_policy": "Privacy Policy",
+    "create_account": "Create account",
+    "creating_account": "Creating account...",
+    "already_have_account": "Already have an account?",
+    "sign_in_link": "Sign in",
+    "or_sign_up_with": "Or sign up with",
+    "google": "Google",
+    "signing_in_with_google": "Signing in with Google...",
+    "please_agree_terms": "Please agree to the terms and conditions",
+    "passwords_not_match": "Passwords do not match",
+    "validation": {
+      "password_too_short": "Password must be at least 8 characters long",
+      "password_no_lowercase": "Password must contain at least one lowercase letter",
+      "password_no_uppercase": "Password must contain at least one uppercase letter",
+      "password_no_number": "Password must contain at least one number",
+      "passwords_not_match": "Passwords do not match"
+    },
+    "verification": {
+      "title": "Enter the 6-digit code we sent to your email",
+      "verify_email": "Verify Email",
+      "verifying": "Verifying...",
+      "didnt_receive_code": "Didn't receive the code?",
+      "resend_code": "Resend code",
+      "resending": "Resending...",
+      "resend_in": "Resend in {seconds}s",
+      "check_spam": "Check your spam folder if you don't see the email",
+      "complete_code": "Please enter the complete 6-digit code",
+      "invalid_code": "Invalid verification code. Please try again."
+    }
+  },
+  "forgot_password": {
+    "title": "Forgot your password?",
+    "description": "No worries, we'll send you reset instructions.",
+    "email_title": "Email address",
+    "email_placeholder": "Enter your email address",
+    "send_reset_link": "Send reset link",
+    "sending_reset_link": "Sending reset link...",
+    "back_to_sign_in": "Back to sign in",
+    "success": {
+      "title": "Check your email",
+      "description": "We've sent a password reset link to",
+      "expires_in": "Link expires in 15 minutes",
+      "check_spam": "If you don't see the email, check your spam folder.",
+      "resend_email": "Resend email",
+      "sending": "Sending..."
+    },
+    "help": {
+      "still_trouble": "Still having trouble?",
+      "contact_support": "Contact support"
+    }
+  },
+  "reset_password": {
+    "title": "Set new password",
+    "description": "Your new password must be different from previous used passwords.",
+    "email_title": "Email address",
+    "email_placeholder": "Enter your email address",
+    "new_password_title": "New password",
+    "new_password_placeholder": "Enter your new password",
+    "confirm_password_title": "Confirm new password",
+    "confirm_password_placeholder": "Confirm your new password",
+    "password_requirements_title": "Password must contain:",
+    "requirements": {
+      "min_length": "At least 8 characters",
+      "lowercase": "One lowercase letter",
+      "uppercase": "One uppercase letter",
+      "number": "One number"
+    },
+    "update_password": "Update password",
+    "updating_password": "Updating password...",
+    "password_updated": "Password updated",
+    "password_updated_description": "Your password has been successfully updated. You can now sign in with your new password.",
+    "continue_to_sign_in": "Continue to sign in",
+    "remember_password": "Remember your password? Sign in",
+    "invalid_link": "Invalid reset link",
+    "invalid_link_description": "This password reset link is invalid or has expired. Please request a new one.",
+    "request_new_link": "Request new reset link",
+    "validating_token": "Validating reset link...",
+    "token_expired": "Reset link expired",
+    "token_expired_description": "This password reset link has expired. Please request a new one.",
+    "token_invalid": "Invalid reset link",
+    "token_invalid_description": "This password reset link is invalid. Please request a new one.",
+    "resetting_for": "Resetting password for",
+    "validation": {
+      "email_required": "Email is required",
+      "password_too_short": "Password must be at least 8 characters long",
+      "password_no_lowercase": "Password must contain at least one lowercase letter",
+      "password_no_uppercase": "Password must contain at least one uppercase letter",
+      "password_no_number": "Password must contain at least one number",
+      "passwords_not_match": "Passwords do not match"
+    }
+  },
+  "sign_modal": {
+    "sign_in_title": "Sign In",
+    "sign_in_description": "Sign in to your account",
+    "sign_up_title": "Sign Up",
+    "sign_up_description": "Create an account",
+    "email_title": "Email",
+    "email_placeholder": "Input your email here",
+    "password_title": "Password",
+    "password_placeholder": "Input your password here",
+    "forgot_password": "Forgot password?",
+    "or": "Or",
+    "continue": "Continue",
+    "no_account": "Don't have an account?",
+    "email_sign_in": "Sign in with Email",
+    "google_sign_in": "Sign in with Google",
+    "github_sign_in": "Sign in with GitHub",
+    "close_title": "Close",
+    "cancel_title": "Cancel"
+  },
+  "billing": {
+    "title": "Billing & Usage",
+    "description": "Manage your subscription and monitor your usage",
+    "stats": {
+      "available_credits": "Available Credits",
+      "one_time_credits": "One-time Credits",
+      "subscription_credits": "Subscription Credits",
+      "subscription_credits_desc": "Monthly reset",
+      "subscription_credits_desc_yearly": "Monthly reset, yearly billing",
+      "next_reset": "Next reset",
+      "monthly_usage_rate": "Monthly Usage Rate",
+      "total_used": "Total Used",
+      "total_earned": "Total Earned",
+      "usage_rate": "Usage Rate",
+      "pro_plan": "Pro Plan",
+      "free_plan": "Free Plan",
+      "credits_consumed": "Credits consumed",
+      "credits_purchased": "Credits purchased",
+      "of_total_credits": "Of total credits",
+      "recharge": "Recharge",
+      "subscription_required": "Subscription Required",
+      "one_time_credits_desc": "One-time purchase credits",
+      "subscription_required_desc": "Requires active subscription"
+    },
+    "tabs": {
+      "current_plan": "Current Plan",
+      "usage_history": "Usage History",
+      "billing_history": "Billing History",
+      "upgrade": "Upgrade Plan"
+    },
+    "current_plan": {
+      "title": "Current Plan",
+      "description": "Your current subscription details and usage",
+      "monthly_plan": "Monthly",
+      "yearly_plan": "Yearly",
+      "one_time_plan": "One-time",
+      "active": "Active",
+      "inactive": "Inactive",
+      "expired": "Expired",
+      "cancelled": "Cancelled",
+      "plan_credits": "Plan Credits",
+      "manage_billing": "Manage Billing",
+      "expires": "Expires",
+      "usage_progress": "Usage Progress",
+      "credits_remaining": "credits remaining",
+      "no_active_plan": "No Active Plan",
+      "no_active_plan_description": "You're currently on the free plan. Upgrade to get more credits and features.",
+      "view_plans": "View Plans",
+      "recharge": "Recharge",
+      "next_renewal": "Next Renewal",
+      "credits_reset_date": "Credits Reset Date",
+      "subscription_renewal_date": "Subscription Renewal Date",
+      "monthly_reset": "Monthly Reset",
+      "yearly_billing": "Yearly Billing",
+      "yearly_subscription_note": "💡 Yearly subscription note: Credits reset monthly, but billing occurs yearly. You'll receive new credit allocation each month, but will only be charged for the next year when your subscription expires.",
+      "monthly_subscription_note": "💡 Monthly subscription note: Credits reset monthly, and billing occurs monthly. You'll receive new credit allocation each month, and will be charged monthly for your subscription."
+    },
+    "usage_history": {
+      "title": "Usage History",
+      "description": "Recent credit transactions and usage",
+      "date": "Date",
+      "type": "Type",
+      "credits": "Credits",
+      "earned": "Earned",
+      "used": "Used",
+      "desc": "Description",
+      "welcome_bonus": "Welcome bonus",
+      "plan_purchase": "Plan purchase",
+      "system_credit": "System credit",
+      "api_usage": "API usage",
+      "pagination": {
+        "previous": "Previous",
+        "next": "Next",
+        "showing": "Showing",
+        "to": "to",
+        "of": "of",
+        "entries": "entries"
+      }
+    },
+    "billing_history": {
+      "title": "Billing History",
+      "description": "Your past orders and payments",
+      "date": "Date",
+      "plan": "Plan",
+      "amount": "Amount",
+      "status": "Status",
+      "credits": "Credits"
+    },
+    "upgrade": {
+      "title": "Upgrade Your Plan",
+      "description": "Choose a plan that fits your needs",
+      "includes": "Includes:",
+      "per_month": "per month",
+      "per_year": "per year",
+      "one_time": "one-time",
+      "get_started": "Get Started",
+      "upgrade": "Upgrade",
+      "processing": "Processing..."
+    },
+    "recharge_modal": {
+      "recharge_title": "Recharge Credits",
+      "recharge_description": "Select a recharge plan to add credits to your account",
+      "select_plan_error": "Please select a plan",
+      "checkout_failed": "Checkout failed",
+      "recharge_failed": "Recharge failed",
+      "popular": "Popular",
+      "one_time": "one-time",
+      "credits": "credits",
+      "includes": "Includes:",
+      "valid_12_months": "Valid for 12 months",
+      "selected_plan": "Selected Plan:",
+      "price": "Price:",
+      "cancel": "Cancel",
+      "recharge": "Recharge",
+      "processing": "Processing..."
+    }
+  },
+  "my_orders": {
+    "title": "My Orders",
+    "description": "orders paid with ShipAny.",
+    "no_orders": "No orders found",
+    "tip": "",
+    "activate_order": "Activate Order",
+    "actived": "Activated",
+    "join_discord": "Join Discord",
+    "read_docs": "Read Docs",
+    "table": {
+      "order_no": "Order No",
+      "email": "Email",
+      "product_name": "Product Name",
+      "amount": "Amount",
+      "paid_at": "Paid At",
+      "github_username": "GitHub Username",
+      "status": "Status"
+    }
+  },
+  "my_credits": {
+    "title": "My Credits",
+    "left_tip": "left credits: {left_credits}",
+    "no_credits": "No credits records",
+    "recharge": "Recharge",
+    "table": {
+      "trans_no": "Trans No",
+      "trans_type": "Trans Type",
+      "credits": "Credits",
+      "updated_at": "Updated At",
+      "status": "Status"
+    }
+  },
+  "api_keys": {
+    "title": "API Keys",
+    "tip": "Please keep your apikey safe to avoid leaks",
+    "no_api_keys": "No API Keys",
+    "create_api_key": "Create API Key",
+    "table": {
+      "name": "Name",
+      "key": "Key",
+      "created_at": "Created At"
+    },
+    "form": {
+      "name": "Name",
+      "name_placeholder": "API Key Name",
+      "submit": "Submit"
+    }
+  },
+  "blog": {
+    "title": "Blog",
+    "description": "News, resources, and updates about ShipAny",
+    "read_more_text": "Read More"
+  },
+  "my_invites": {
+    "title": "My Invites",
+    "description": "View your invite records",
+    "no_invites": "No invite records found",
+    "my_invite_link": "My Invite Link",
+    "edit_invite_link": "Edit Invite Link",
+    "copy_invite_link": "Copy Invite Link",
+    "invite_code": "Invite Code",
+    "invite_tip": "Invite 1 friend to buy ShipAny, reward $50.",
+    "invite_balance": "Invite Reward Balance",
+    "total_invite_count": "Total Invite Count",
+    "total_paid_count": "Total Paid Count",
+    "total_award_amount": "Total Award Amount",
+    "update_invite_code": "Set Invite Code",
+    "update_invite_code_tip": "Input your custom invite code",
+    "update_invite_button": "Save",
+    "no_orders": "You can't invite others before you bought ShipAny",
+    "no_affiliates": "You're not allowed to invite others, please contact us to apply for permission.",
+    "table": {
+      "invite_time": "Invite Time",
+      "invite_user": "Invite User",
+      "status": "Status",
+      "reward_percent": "Reward Percent",
+      "reward_amount": "Reward Amount",
+      "pending": "Pending",
+      "completed": "Completed"
+    }
+  },
+  "feedback": {
+    "title": "Feedback",
+    "description": "We'd love to hear your thoughts on the product or how we can improve the experience.",
+    "submit": "Submit",
+    "loading": "Submitting...",
+    "contact_tip": "Other ways to contact us",
+    "rating_tip": "What do you think of ShipAny?",
+    "placeholder": "Leave your feedback here..."
+  },
+  "sign_card": {
+    "free_plan_badge": "Free forever plan available",
+    "title_line1": "Transform App Reviews Into",
+    "title_line2": "Business Intelligence",
+    "description": "Analyze any app's reviews instantly with AI-powered insights and interactive chat to discover hidden opportunities.",
+    "features": [
+      {
+        "title": "AI-Powered Analysis",
+        "description": "Advanced machine learning algorithms analyze millions of reviews to extract meaningful insights and patterns."
+      },
+      {
+        "title": "Interactive AI Chat",
+        "description": "Ask questions and dig deeper into insights, have conversations to explore data comprehensively."
+      },
+      {
+        "title": "Pain Point Detection",
+        "description": "Automatically identify user frustrations, feature requests, and improvement opportunities from review sentiment."
+      }
+    ],
+    "benefits": ["No credit card required", "50M+ reviews analyzed", "Real-time insights"]
+  },
+  "email": {
+    "verification": {
+      "title": "Email Verification",
+      "subject": "Verify your email address - {projectName}",
+      "welcome": "Welcome to {projectName}",
+      "verify_title": "Verify Your Email Address",
+      "description": "Thanks for signing up! To complete your registration, please verify your email address using the code below.",
+      "verification_code": "Your verification code is:",
+      "ignore_message": "If you didn't request this email verification, please ignore this message.",
+      "visit_website": "Visit our official website",
+      "copyright": "© {year} {projectName}. All rights reserved."
+    },
+    "reset_password": {
+      "title": "Password Reset",
+      "subject": "Reset your password - {projectName}",
+      "welcome": "Welcome to {projectName}",
+      "reset_title": "Reset Your Password",
+      "description": "We received a request to reset your password for your {projectName} account. If you made this request, click the button below to set a new password.",
+      "reset_button": "Reset My Password",
+      "ignore_message": "If you didn't request this password reset, please ignore this email.",
+      "expires_in": "This link expires in 15 minutes.",
+      "visit_website": "Visit our official website",
+      "copyright": "© {year} {projectName}. All rights reserved."
+    }
+  },
+  "profile": {
+    "title": "Profile",
+    "description": "Manage your account information",
+    "avatar": {
+      "title": "Avatar",
+      "description": "Click upload button to upload a custom one",
+      "upload": "Upload Avatar",
+      "uploading": "Uploading...",
+      "optional_tip": "An avatar is optional but strongly recommended"
+    },
+    "name": {
+      "title": "Name",
+      "description": "Please enter your display name",
+      "placeholder": "Enter your display name",
+      "validation_tip": "Please use 3-30 characters for your name",
+      "save": "Save",
+      "saving": "Saving..."
+    },
+    "messages": {
+      "avatar_updated": "Avatar updated successfully",
+      "avatar_upload_failed": "Failed to upload avatar",
+      "profile_updated": "Profile updated successfully",
+      "profile_update_failed": "Failed to update profile",
+      "nickname_required": "Please enter a nickname",
+      "nickname_length": "Nickname must be between 3 and 30 characters"
+    }
+  },
+  "summary": {
+    "title": "Generate Enhanced Report",
+    "description": "This will generate a comprehensive analysis report of your reviews. Please confirm to continue.",
+    "subscription_required": "Subscription Required",
+    "subscription_required_desc": "Enhanced report generation requires an active subscription. Please upgrade your plan to access this feature.",
+    "subscription_credits_available": "Subscription Credits Available",
+    "subscription_credits_desc": "This operation will consume subscription credits from your active plan.",
+    "cancel": "Cancel",
+    "generate": "Generate",
+    "generating": "Generating...",
+    "upgrade": "Upgrade"
+  }
+}

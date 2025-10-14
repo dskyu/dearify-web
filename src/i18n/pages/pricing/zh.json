@@ -1,0 +1,238 @@
+{
+  "pricing": {
+    "name": "pricing",
+    "label": "定价",
+    "title": "简单透明的定价",
+    "description": "选择适合您需求的套餐",
+    "groups": [
+      {
+        "name": "monthly",
+        "title": "月付",
+        "description": "月付",
+        "label": ""
+      },
+      {
+        "name": "yearly",
+        "title": "年付",
+        "description": "年付",
+        "label": "-17%"
+      }
+    ],
+    "items": [
+      {
+        "title": "免费版",
+        "description": "完美适合入门使用",
+        "features_title": "包含功能",
+        "features": ["分析3个应用", "100 AI积分", "基础AI聊天", "社区支持"],
+        "interval": "one-time",
+        "amount": 0,
+        "currency": "USD",
+        "price": "$0",
+        "original_price": "$0",
+        "unit": "USD",
+        "period": "",
+        "is_featured": false,
+        "tip": "无需信用卡",
+        "button": {
+          "title": "免费开始",
+          "url": "/#pricing",
+          "icon": "RiFlashlightFill"
+        },
+        "group": "monthly",
+        "product_id": "free",
+        "product_name": "ReviewInsight 免费版",
+        "credits": 100,
+        "valid_months": 1
+      },
+      {
+        "title": "入门版",
+        "description": "完美适合小团队",
+        "features_title": "包含功能",
+        "features": ["分析最多10个应用", "1000 AI积分", "包含AI聊天", "生成分析报告", "邮件支持"],
+        "interval": "month",
+        "amount": 2000,
+        "currency": "USD",
+        "price": "$20",
+        "original_price": "$40",
+        "unit": "USD",
+        "period": "月",
+        "is_featured": false,
+        "tip": "一次付费，构建无限项目！",
+        "button": {
+          "title": "选择入门版",
+          "url": "/#pricing",
+          "icon": "RiFlashlightFill"
+        },
+        "group": "monthly",
+        "product_id": "starter_monthly",
+        "product_name": "ReviewInsight 入门版",
+        "credits": 1000,
+        "valid_months": 1
+      },
+      {
+        "title": "专业版",
+        "description": "快速启动您的SaaS创业项目",
+        "label": "热门",
+        "features_title": "包含入门版所有功能，另加",
+        "features": ["无限应用分析", "5000 AI积分", "包含AI聊天", "生成分析报告", "社交媒体评论分析（即将推出）", "专属支持"],
+        "interval": "month",
+        "amount": 6000,
+        "currency": "USD",
+        "price": "$60",
+        "original_price": "$120",
+        "unit": "USD",
+        "period": "月",
+        "is_featured": true,
+        "tip": "一次付费，构建无限项目！",
+        "group": "monthly",
+        "button": {
+          "title": "选择专业版",
+          "url": "/#pricing",
+          "icon": "RiFlashlightFill"
+        },
+        "product_id": "professional_monthly",
+        "product_name": "ReviewInsight 专业版",
+        "credits": 5000,
+        "valid_months": 1
+      },
+      {
+        "title": "免费版",
+        "description": "完美适合入门使用",
+        "features_title": "包含功能",
+        "features": ["分析3个应用", "100 AI积分", "基础AI聊天", "社区支持"],
+        "interval": "one-time",
+        "amount": 0,
+        "currency": "USD",
+        "price": "$0",
+        "original_price": "$0",
+        "unit": "USD",
+        "period": "",
+        "is_featured": false,
+        "tip": "无需信用卡",
+        "button": {
+          "title": "免费开始",
+          "url": "/#pricing",
+          "icon": "RiFlashlightFill"
+        },
+        "group": "yearly",
+        "product_id": "free_yearly",
+        "product_name": "ReviewInsight 免费版",
+        "credits": 100,
+        "valid_months": 1
+      },
+      {
+        "title": "入门版",
+        "description": "完美适合小团队",
+        "features_title": "包含功能",
+        "features": ["分析最多10个应用", "1000 AI积分", "包含AI聊天", "生成分析报告", "邮件支持"],
+        "interval": "year",
+        "amount": 20000,
+        "currency": "USD",
+        "price": "$16.7",
+        "original_price": "$32",
+        "unit": "USD",
+        "period": "月",
+        "is_featured": false,
+        "tip": "一次付费，构建无限项目！",
+        "button": {
+          "title": "选择入门版",
+          "url": "/#pricing",
+          "icon": "RiFlashlightFill"
+        },
+        "group": "yearly",
+        "product_id": "starter_yearly",
+        "product_name": "ReviewInsight 入门版",
+        "credits": 1000,
+        "valid_months": 12
+      },
+      {
+        "title": "专业版",
+        "description": "适合分析大量数据",
+        "label": "最受欢迎",
+        "features_title": "包含入门版所有功能，另加",
+        "features": ["无限应用分析", "5000 AI积分", "包含AI聊天", "生成分析报告", "社交媒体评论分析（即将推出）", "专属支持"],
+        "interval": "year",
+        "amount": 60000,
+        "currency": "USD",
+        "price": "$50",
+        "original_price": "$100",
+        "unit": "USD",
+        "period": "月",
+        "is_featured": true,
+        "tip": "一次付费，构建无限项目！",
+        "group": "yearly",
+        "button": {
+          "title": "选择专业版",
+          "url": "/#pricing",
+          "icon": "RiFlashlightFill"
+        },
+        "product_id": "professional",
+        "product_name": "ReviewInsight 专业版",
+        "credits": 5000,
+        "valid_months": 12
+      }
+    ]
+  },
+  "recharge": {
+    "name": "recharge",
+    "label": "充值",
+    "title": "充值",
+    "description": "充值您的积分",
+    "items": [
+      {
+        "interval": "one-time",
+        "product_id": "one-time-starter-pack",
+        "title": "入门包",
+        "description": "入门包",
+        "credits": 50,
+        "price": 5,
+        "currency": "usd"
+      },
+      {
+        "interval": "one-time",
+        "product_id": "one-time-basic-pack",
+        "title": "基础包",
+        "description": "基础包",
+        "credits": 100,
+        "price": 10,
+        "currency": "usd"
+      },
+      {
+        "interval": "one-time",
+        "product_id": "one-time-standard-pack",
+        "title": "标准包",
+        "description": "标准包",
+        "credits": 200,
+        "price": 20,
+        "currency": "usd"
+      },
+      {
+        "interval": "one-time",
+        "product_id": "one-time-pro-pack",
+        "title": "专业包",
+        "description": "专业包",
+        "credits": 500,
+        "price": 50,
+        "currency": "usd"
+      },
+      {
+        "interval": "one-time",
+        "product_id": "one-time-premium-pack",
+        "title": "高级包",
+        "description": "高级包",
+        "credits": 1000,
+        "price": 100,
+        "currency": "usd"
+      },
+      {
+        "interval": "one-time",
+        "product_id": "one-time-enterprise-pack",
+        "title": "企业包",
+        "description": "企业包",
+        "credits": 5000,
+        "price": 500,
+        "currency": "usd"
+      }
+    ]
+  }
+}

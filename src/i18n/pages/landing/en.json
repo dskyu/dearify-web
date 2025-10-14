@@ -1,0 +1,426 @@
+{
+  "template": "shipany-template-one",
+  "theme": "light",
+  "header": {
+    "brand": {
+      "title": "Dearify",
+      "logo": {
+        "src": "/logo.png",
+        "alt": "Dearify"
+      },
+      "url": "/"
+    },
+    "nav": {
+      "items": [
+        {
+          "title": "Features",
+          "url": "/#introduce"
+        },
+        {
+          "title": "How it Works",
+          "url": "/#usage"
+        },
+        {
+          "title": "Showcases",
+          "url": "/showcase"
+        },
+        {
+          "title": "Pricing",
+          "url": "/pricing"
+        }
+      ]
+    },
+    "buttons": [],
+    "show_sign": true,
+    "show_theme": false,
+    "show_locale": false
+  },
+  "hero": {
+    "title": "All-in-one AI Art Studio for Couples",
+    "highlight_text": "We Read It for You.",
+    "description": "Search any app and get instant insights from millions of app store and social media reviews. Chat with AI to dig deeper and discover hidden business opportunities.",
+    "announcement": {
+      "icon": "RiFlashlightFill",
+      "label": "2025",
+      "title": "568,323+ headshots already created",
+      "url": "/#pricing"
+    },
+    "tip": "🎁 50% off before 2025",
+    "buttons": [],
+    "show_happy_users": true,
+    "show_badge": false
+  },
+
+  "introduce": {
+    "name": "introduce",
+    "title": "Comprehensive review analysis with AI chat",
+    "label": "Introduce",
+    "description": "Our AI analyzes reviews from app stores, then lets you chat to dig deeper into insights",
+    "image": {
+      "src": "/imgs/features/1.png"
+    },
+    "items": [
+      {
+        "title": "AI-Powered Analysis",
+        "description": "Advanced machine learning algorithms analyze millions of reviews to extract meaningful insights and patterns.",
+        "icon": "RiBrainLine",
+        "label": "indigo"
+      },
+      {
+        "title": "AI Chat Interface",
+        "description": "Have multi-turn conversations with AI to dig deeper into insights, ask follow-up questions, and explore data.",
+        "icon": "RiMessage3Line",
+        "label": "emerald"
+      },
+      {
+        "title": "Pain Point Detection",
+        "description": "Automatically identify user frustrations, feature requests, and improvement opportunities from review sentiment.",
+        "icon": "RiFocus2Line",
+        "label": "red"
+      },
+      {
+        "title": "Competitive Intelligence",
+        "description": "Discover what users love and hate about competitor apps to inform your strategic decisions.",
+        "icon": "RiEyeLine",
+        "label": "orange"
+      },
+      {
+        "title": "Trend Monitoring",
+        "description": "Track review sentiment over time and identify emerging issues before they impact your ratings.",
+        "icon": "RiArrowRightUpLine",
+        "label": "emerald"
+      },
+      {
+        "title": "Multi-Platform Coverage",
+        "description": "Analyze reviews from App Store, Google Play, Twitter, Instagram, TikTok, and other social platforms.",
+        "icon": "RiGlobalLine",
+        "label": "blue"
+      }
+    ]
+  },
+  "benefit": {
+    "name": "benefit",
+    "title": "Why Choose ReviewMind Over ChatGPT?",
+    "label": "AI-Powered vs Manual Analysis",
+    "description": "See how our specialized AI analysis compares to generic ChatGPT for app review insights",
+    "items": [
+      {
+        "title": "Data Collection",
+        "children": [
+          {
+            "label": "included",
+            "description": "Automated collection from multiple platforms"
+          },
+          {
+            "label": "manual",
+            "description": "Manual copy-paste required"
+          }
+        ]
+      },
+      {
+        "title": "Review Volume",
+        "children": [
+          {
+            "label": "included",
+            "description": "Process millions of reviews instantly"
+          },
+          {
+            "label": "limited",
+            "description": "Limited by token/context window"
+          }
+        ]
+      },
+      {
+        "title": "Real-time Analysis",
+        "children": [
+          {
+            "label": "included",
+            "description": "Live updates and monitoring"
+          },
+          {
+            "label": "not-available",
+            "description": "Static analysis only"
+          }
+        ]
+      },
+      {
+        "title": "Platform Coverage",
+        "children": [
+          {
+            "label": "included",
+            "description": "App Store, Google Play, Social Media"
+          },
+          {
+            "label": "manual",
+            "description": "Whatever you manually provide"
+          }
+        ]
+      },
+      {
+        "title": "Sentiment Analysis",
+        "children": [
+          {
+            "label": "included",
+            "description": "Advanced ML-powered sentiment detection"
+          },
+          {
+            "label": "basic",
+            "description": "Basic sentiment understanding"
+          }
+        ]
+      },
+      {
+        "title": "Competitive Analysis",
+        "children": [
+          {
+            "label": "included",
+            "description": "Built-in competitor comparison tools"
+          },
+          {
+            "label": "not-available",
+            "description": "Not available"
+          }
+        ]
+      },
+      {
+        "title": "One-Click Report Generation",
+        "children": [
+          {
+            "label": "included",
+            "description": "Generate comprehensive reports instantly"
+          },
+          {
+            "label": "not-available",
+            "description": "Report generation not supported"
+          }
+        ]
+      }
+    ]
+  },
+  "usage": {
+    "name": "usage",
+    "title": "How ReviewInsight Works",
+    "description": "Get actionable insights from any app in just four simple steps",
+    "image_position": "left",
+    "text_align": "center",
+    "items": [
+      {
+        "label": "01",
+        "title": "Search Any App",
+        "description": "Simply enter any app name - from Instagram to Uber, we'll find and analyze it instantly."
+      },
+      {
+        "label": "02",
+        "title": "Real-time Analysis",
+        "description": "Our AI processes reviews from app stores and social media platforms in real-time."
+      },
+      {
+        "label": "03",
+        "title": "Chat with AI",
+        "description": "Ask questions, dig deeper into insights, and have conversations to uncover hidden patterns."
+      },
+      {
+        "label": "04",
+        "title": "Take Action",
+        "description": "Use insights to improve your app, outperform competitors, and increase user satisfaction."
+      }
+    ]
+  },
+  "showcase": {},
+  "testimonial": {
+    "name": "testimonial",
+    "label": "Testimonial",
+    "title": "What people are saying",
+    "description": "Real feedback from real users on social media",
+    "icon": "GoThumbsup",
+    "items": [
+      {
+        "title": "Sarah Chen",
+        "username": "sarah_chen",
+        "description": "Just used ReviewInsight to analyze our competitor's app reviews. The AI chat feature is incredible - I could ask follow-up questions and dig deeper into user pain points. Our product roadmap is now completely data-driven! 🚀",
+        "time": "2h",
+        "likes": 127,
+        "retweets": 34,
+        "replies": 12,
+        "verified": true,
+        "icon": "https://images.pexels.com/photos/774909/pexels-photo-774909.jpeg?auto=compress&cs=tinysrgb&w=100&h=100&fit=crop&crop=face"
+      },
+      {
+        "title": "Michael Rodriguez",
+        "username": "mikeceo",
+        "description": "ReviewInsight's multi-platform analysis revealed gaps in the market we never knew existed. The AI literally chatted with me for 30 minutes, helping me understand user sentiment across App Store, Google Play, and social media. Game changer for startups! 💡",
+        "time": "4h",
+        "likes": 89,
+        "retweets": 23,
+        "replies": 8,
+        "verified": false,
+        "icon": "https://images.pexels.com/photos/1222271/pexels-photo-1222271.jpeg?auto=compress&cs=tinysrgb&w=100&h=100&fit=crop&crop=face"
+      },
+      {
+        "title": "Lisa Thompson",
+        "username": "lisatech",
+        "description": "The conversational AI in ReviewInsight is next level. Instead of static reports, I can ask \"What do users hate most about our checkout process?\" and get instant, detailed answers. Our app rating went from 3.2 to 4.6 in 3 months! 📈",
+        "time": "6h",
+        "likes": 203,
+        "retweets": 67,
+        "replies": 19,
+        "verified": true,
+        "icon": "https://images.pexels.com/photos/1239291/pexels-photo-1239291.jpeg?auto=compress&cs=tinysrgb&w=100&h=100&fit=crop&crop=face"
+      },
+      {
+        "title": "David Kim",
+        "username": "davidkimux",
+        "description": "As a UX designer, ReviewInsight has become my secret weapon. The pain point analysis helped us redesign our onboarding flow, reducing drop-off by 40%. The AI chat makes it so easy to explore user feedback patterns! 🎨",
+        "time": "8h",
+        "likes": 156,
+        "retweets": 41,
+        "replies": 15,
+        "verified": true,
+        "icon": "https://images.pexels.com/photos/1043471/pexels-photo-1043471.jpeg?auto=compress&cs=tinysrgb&w=100&h=100&fit=crop&crop=face"
+      },
+      {
+        "title": "Emma Wilson",
+        "username": "emmawilson_pm",
+        "description": "ReviewInsight's competitive analysis is insane! We discovered our main competitor's users were complaining about a feature we were about to build the same way. Saved us months of development time and helped us build it better! 💪",
+        "time": "12h",
+        "likes": 94,
+        "retweets": 28,
+        "replies": 11,
+        "verified": false,
+        "icon": "https://images.pexels.com/photos/1181686/pexels-photo-1181686.jpeg?auto=compress&cs=tinysrgb&w=100&h=100&fit=crop&crop=face"
+      },
+      {
+        "title": "Alex Johnson",
+        "username": "alexjohnsondev",
+        "description": "The real-time sentiment tracking in ReviewInsight caught a critical bug before it tanked our ratings. The AI immediately flagged unusual negative sentiment patterns and we fixed the issue within hours. This tool pays for itself! 🛡️",
+        "time": "1d",
+        "likes": 178,
+        "retweets": 52,
+        "replies": 23,
+        "verified": true,
+        "icon": "https://images.pexels.com/photos/1681010/pexels-photo-1681010.jpeg?auto=compress&cs=tinysrgb&w=100&h=100&fit=crop&crop=face"
+      }
+    ]
+  },
+  "faq": {
+    "name": "faq",
+    "label": "FAQ",
+    "title": "Frequently Asked Questions",
+    "description": "Everything you need to know about ReviewInsight",
+    "items": [
+      {
+        "title": "How does ReviewInsight analyze app reviews?",
+        "description": "ReviewInsight uses advanced AI and natural language processing to analyze reviews from app stores (App Store, Google Play). Our algorithms identify sentiment, extract key themes, detect pain points, and surface actionable insights from millions of user reviews in real-time."
+      },
+      {
+        "title": "Can I analyze any app, including competitors?",
+        "description": "Yes! You can analyze any publicly available app on major app stores. This includes your own apps, competitor apps, and any app you're curious about. Our system works with apps across all categories."
+      },
+      {
+        "title": "What makes the AI chat feature special?",
+        "description": "Unlike traditional analytics dashboards, our AI chat lets you have natural conversations about your data. Ask questions like 'What do users hate most about the checkout process?' or 'How does our app compare to competitors?' The AI understands context, remembers your conversation, and can dig deeper into specific insights based on your questions."
+      },
+      {
+        "title": "How accurate is the sentiment analysis?",
+        "description": "Our AI models achieve 94%+ accuracy in sentiment analysis, trained on millions of app reviews across different languages and contexts. We use ensemble methods combining multiple AI models and continuously improve accuracy through machine learning. The system also handles sarcasm, context, and nuanced expressions that traditional tools miss."
+      },
+      {
+        "title": "Do you support multiple languages?",
+        "description": "Yes! ReviewInsight supports 25+ languages including English, Spanish, French, German, Chinese, Japanese, Korean, Portuguese, and more. Our AI automatically detects the language and provides insights in your preferred language, making it perfect for global apps and international market analysis."
+      },
+      {
+        "title": "How often is the data updated?",
+        "description": "Review data is updated in real-time as new reviews are published. Our system continuously monitors app stores and social platforms, typically capturing new reviews within 5-15 minutes of publication. This ensures you always have the latest insights and can quickly respond to emerging issues or trends."
+      }
+    ]
+  },
+  "cta": {
+    "name": "cta",
+    "title": "Ready to analyze any app instantly?",
+    "description": "Join thousands of companies already using ReviewInsight to gain competitive advantage",
+    "buttons": [
+      {
+        "title": "Get Start Free",
+        "url": "/#pricing",
+        "target": "_self",
+        "icon": "GoArrowUpRight"
+      }
+    ]
+  },
+  "footer": {
+    "name": "footer",
+    "brand": {
+      "title": "ReviewInsight",
+      "description": "ReviewInsight is a platform for analyzing app reviews. It uses advanced AI and natural language processing to analyze reviews from app stores (App Store, Google Play).",
+      "logo": {
+        "src": "/logo.png",
+        "alt": "ReviewInsight"
+      },
+      "url": "/"
+    },
+    "copyright": "© 2025 • ReviewInsight All rights reserved.",
+    "nav": {
+      "items": [
+        {
+          "title": "About",
+          "children": [
+            {
+              "title": "Features",
+              "url": "/#feature",
+              "target": "_self"
+            },
+            {
+              "title": "Showcases",
+              "url": "/showcase",
+              "target": "_self"
+            },
+            {
+              "title": "Pricing",
+              "url": "/pricing",
+              "target": "_self"
+            }
+          ]
+        },
+
+        {
+          "title": "Friends",
+          "children": [
+            {
+              "title": "SNSTracker",
+              "url": "https://snstracker.com",
+              "target": "_blank"
+            }
+          ]
+        }
+      ]
+    },
+    "social": {
+      "items": [
+        {
+          "title": "X",
+          "icon": "RiTwitterXFill",
+          "url": "https://x.com/suzuki_haruna_x",
+          "target": "_blank"
+        },
+        {
+          "title": "Email",
+          "icon": "RiMailLine",
+          "url": "mailto:support@reviewinsight.app",
+          "target": "_self"
+        }
+      ]
+    },
+    "agreement": {
+      "items": [
+        {
+          "title": "Privacy Policy",
+          "url": "/privacy-policy"
+        },
+        {
+          "title": "Terms of Service",
+          "url": "/terms-of-service"
+        }
+      ]
+    }
+  }
+}
