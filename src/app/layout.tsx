@@ -3,6 +3,19 @@ import "@/app/globals.css";
 import { setRequestLocale } from "next-intl/server";
 import { locales } from "@/i18n/locale";
 import { cn } from "@/lib/utils";
+import { Inter, Manrope } from "next/font/google";
+
+const inter = Inter({
+  subsets: ["latin"],
+  display: "swap",
+  variable: "--font-body",
+});
+
+const manrope = Manrope({
+  subsets: ["latin"],
+  display: "swap",
+  variable: "--font-heading-font",
+});
 
 export default async function RootLayout({
   children,
@@ -28,7 +41,7 @@ export default async function RootLayout({
         {locales && locales.map((loc) => <link key={loc} rel="alternate" hrefLang={loc} href={`${webUrl}${loc === "en" ? "" : `/${loc}`}/`} />)}
         <link rel="alternate" hrefLang="x-default" href={webUrl} />
       </head>
-      <body className={cn("min-h-screen overflow-x-hidden")}>{children}</body>
+      <body className={cn("min-h-screen overflow-x-hidden", inter.variable, manrope.variable)}>{children}</body>
     </html>
   );
 }

@@ -36,9 +36,9 @@
     "show_locale": false
   },
   "hero": {
-    "title": "All-in-one AI Art Studio for Couples",
+    "title": "All-in-one AI Art Studio for Couples and Families",
     "highlight_text": "We Read It for You.",
-    "description": "Search any app and get instant insights from millions of app store and social media reviews. Chat with AI to dig deeper and discover hidden business opportunities.",
+    "description": "Dearify is an AI creation platform for intimate relationships — couples, spouses, and families. In minutes, co-create beautiful couple photos, custom love songs, and memory videos that turn everyday moments into lasting keepsakes.",
     "announcement": {
       "icon": "RiFlashlightFill",
       "label": "2025",
@@ -309,28 +309,28 @@
     "description": "Everything you need to know about ReviewInsight",
     "items": [
       {
-        "title": "How does ReviewInsight analyze app reviews?",
-        "description": "ReviewInsight uses advanced AI and natural language processing to analyze reviews from app stores (App Store, Google Play). Our algorithms identify sentiment, extract key themes, detect pain points, and surface actionable insights from millions of user reviews in real-time."
+        "title": "What can we create with Dearify?",
+        "description": "Photos, custom love songs, and memory videos for couples, spouses, and families — all in one place."
       },
       {
-        "title": "Can I analyze any app, including competitors?",
-        "description": "Yes! You can analyze any publicly available app on major app stores. This includes your own apps, competitor apps, and any app you're curious about. Our system works with apps across all categories."
+        "title": "Do we have to create together at the same time?",
+        "description": "No. You can create solo, then invite your partner or family to review, edit, and approve."
       },
       {
-        "title": "What makes the AI chat feature special?",
-        "description": "Unlike traditional analytics dashboards, our AI chat lets you have natural conversations about your data. Ask questions like 'What do users hate most about the checkout process?' or 'How does our app compare to competitors?' The AI understands context, remembers your conversation, and can dig deeper into specific insights based on your questions."
+        "title": "Is my face data stored?",
+        "description": "We use face features only to generate your results and offer one-click deletion from Settings."
       },
       {
-        "title": "How accurate is the sentiment analysis?",
-        "description": "Our AI models achieve 94%+ accuracy in sentiment analysis, trained on millions of app reviews across different languages and contexts. We use ensemble methods combining multiple AI models and continuously improve accuracy through machine learning. The system also handles sarcasm, context, and nuanced expressions that traditional tools miss."
+        "title": "Can I print or share our creations?",
+        "description": "Yes. Export print-ready photos and 1080p/4K videos, then share or order prints."
       },
       {
-        "title": "Do you support multiple languages?",
-        "description": "Yes! ReviewInsight supports 25+ languages including English, Spanish, French, German, Chinese, Japanese, Korean, Portuguese, and more. Our AI automatically detects the language and provides insights in your preferred language, making it perfect for global apps and international market analysis."
+        "title": "Can I imitate a specific singer?",
+        "description": "For legal and ethical reasons we use original vocal styles, not specific celebrity voices."
       },
       {
-        "title": "How often is the data updated?",
-        "description": "Review data is updated in real-time as new reviews are published. Our system continuously monitors app stores and social platforms, typically capturing new reviews within 5-15 minutes of publication. This ensures you always have the latest insights and can quickly respond to emerging issues or trends."
+        "title": "Who is Dearify for?",
+        "description": "Couples, newlyweds, long-distance partners, and families documenting milestones like newborns and anniversaries."
       }
     ]
   },

@@ -1,9 +1,19 @@
 "use client";
 
 import HeroBg from "./bg";
+import ImageComparison from "./ImageComparison";
 import { Hero as HeroType } from "@/types/blocks/hero";
 import { HeroSection } from "../animation";
-import { ArrowRight, Search, Sparkles } from "lucide-react";
+import {
+  ArrowRight,
+  Search,
+  Sparkles,
+  Palette,
+  Zap,
+  Shield,
+  CheckCircle,
+  Star,
+} from "lucide-react";
 import { BsGooglePlay } from "react-icons/bs";
 import { SiAppstore } from "react-icons/si";
 import { useEffect, useState } from "react";
@@ -58,103 +68,101 @@ export default function Hero({ hero }: { hero: HeroType }) {
   return (
     <>
       <HeroBg />
-      <section className="py-24">
+      <section className="py-16 lg:py-24">
         <div className="container">
-          <div className="text-center">
-            {hero.announcement && (
-              <HeroSection delay={0}>
-                <div className="inline-flex items-center space-x-2 bg-gradient-to-r from-indigo-50 to-purple-50 text-indigo-700 px-4 py-2 mt-6 rounded-full text-sm font-medium mb-8 border border-indigo-100">
+          <div className="grid lg:grid-cols-12 gap-8 lg:gap-12 items-center">
+            {/* Left Column - Text Content */}
+            <div className="lg:col-span-7 space-y-8">
+              {/* Top Stats */}
+              <HeroSection>
+                <div className="inline-flex items-center space-x-2 bg-gradient-to-r from-green-50 to-emerald-50 text-green-700 px-4 py-2 rounded-full text-sm font-medium border border-green-100">
                   <Sparkles className="w-4 h-4 animate-pulse" />
-                  <span>{hero.announcement.title}</span>
+                  <span>{reviewCount + appCount}M+ apps already analyzed</span>
                 </div>
               </HeroSection>
-            )}
 
-            <HeroSection delay={200}>
-              {texts && texts.length > 1 ? (
-                <h1 className="mx-auto mb-3 mt-4 max-w-6xl text-balance text-4xl font-bold lg:mb-7 lg:text-7xl">
-                  {texts[0]}
-                  <span className="bg-linear-to-r from-primary via-primary to-primary/50 bg-clip-text text-transparent animate-pulse">{highlightText}</span>
-                  {texts[1]}
+              {/* Main Title */}
+              <HeroSection>
+                <h1 className="text-2xl sm:text-3xl md:text-4xl lg:text-5xl xl:text-6xl 2xl:text-7xl font-bold leading-tight text-center lg:text-left whitespace-nowrap">
+                  <span className="bg-gradient-to-r from-purple-600 to-black bg-clip-text text-transparent">
+                    The best AI Art Studio
+                  </span>
+                  <br />
+                  <span className="bg-gradient-to-r from-purple-600 to-black bg-clip-text text-transparent">
+                    for Couples and Families
+                  </span>
                 </h1>
-              ) : (
-                <h1 className="mx-auto mb-3 mt-4 max-w-6xl text-balance text-4xl font-bold lg:mb-7 lg:text-7xl">{hero.title}</h1>
-              )}
-            </HeroSection>
+              </HeroSection>
 
-            <HeroSection delay={400}>
-              <p className="m mx-auto max-w-3xl text-muted-foreground lg:text-xl" dangerouslySetInnerHTML={{ __html: hero.description || "" }} />
-            </HeroSection>
+              {/* Description */}
+              <HeroSection>
+                <p
+                  className="text-xl text-black font-bold leading-relaxed"
+                  dangerouslySetInnerHTML={{ __html: hero.description || "" }}
+                />
+              </HeroSection>
 
-            <HeroSection delay={600}>
-              <div className="max-w-2xl mx-auto mb-12 pt-12">
-                <div className="bg-white/80 backdrop-blur-sm rounded-2xl shadow-xl border border-gray-200/50 p-2 hover:shadow-2xl transition-all duration-300">
-                  <div className="flex flex-col sm:flex-row gap-2">
-                    <div className="flex-1 relative">
-                      <Search className="absolute left-4 top-1/2 transform -translate-y-1/2 text-gray-400 w-5 h-5" />
-                      <input
-                        type="text"
-                        placeholder="Search any app (e.g., Instagram, TikTok)"
-                        value={appName}
-                        onChange={(e) => setAppName(e.target.value)}
-                        className="w-full pl-12 pr-4 py-4 text-lg border-0 rounded-xl focus:outline-none focus:ring-0 bg-transparent"
-                        onKeyDown={(e) => e.key === "Enter" && handleAnalyze()}
-                      />
+              {/* Features Grid */}
+              <HeroSection>
+                <div className="grid grid-cols-2 gap-4">
+                  <div className="flex items-center space-x-3">
+                    <div className="w-10 h-10 bg-pink-100 rounded-lg flex items-center justify-center">
+                      <Palette className="w-5 h-5 text-pink-600" />
                     </div>
-                    <button
-                      onClick={handleAnalyze}
-                      className="bg-gradient-to-r from-gray-900 to-gray-800 text-white px-8 py-4 rounded-xl text-lg font-medium hover:from-gray-800 hover:to-gray-700 transition-all duration-300 whitespace-nowrap transform hover:scale-105 shadow-lg hover:shadow-xl"
-                    >
-                      Analyze Now
-                      <ArrowRight className="inline-block ml-2 w-5 h-5" />
-                    </button>
+                    <span className="text-sm font-medium">
+                      Pick from 150+ styles
+                    </span>
+                  </div>
+                  <div className="flex items-center space-x-3">
+                    <div className="w-10 h-10 bg-red-100 rounded-lg flex items-center justify-center">
+                      <Zap className="w-5 h-5 text-red-600" />
+                    </div>
+                    <span className="text-sm font-medium">
+                      Done in less than 1 hour
+                    </span>
+                  </div>
+                  <div className="flex items-center space-x-3">
+                    <div className="w-10 h-10 bg-green-100 rounded-lg flex items-center justify-center">
+                      <Shield className="w-5 h-5 text-green-600" />
+                    </div>
+                    <span className="text-sm font-medium">
+                      100% money-back guarantee
+                    </span>
+                  </div>
+                  <div className="flex items-center space-x-3">
+                    <div className="w-10 h-10 bg-blue-100 rounded-lg flex items-center justify-center">
+                      <CheckCircle className="w-5 h-5 text-blue-600" />
+                    </div>
+                    <span className="text-sm font-medium">
+                      Customize with AI or human editors
+                    </span>
                   </div>
                 </div>
-                <p className="text-sm text-gray-500 mt-4">✨ Instant analysis • Always free • Works with any app</p>
-              </div>
-            </HeroSection>
+              </HeroSection>
 
-            {/* Data Sources */}
-            <HeroSection delay={800}>
-              <div className="flex flex-wrap justify-center items-center gap-8 mb-12 text-sm text-gray-600">
-                {[
-                  { icon: SiAppstore, name: "App Store", color: "blue" },
-                  {
-                    icon: BsGooglePlay,
-                    name: "Google Play",
-                    color: "green",
-                  },
-                ].map((source, index) => (
-                  <div
-                    key={index}
-                    className="flex items-center space-x-2 transform hover:scale-110 transition-all duration-300"
-                    style={{ animationDelay: `${index * 100}ms` }}
+              {/* CTA Buttons */}
+              <HeroSection>
+                <div className="flex flex-col sm:flex-row gap-4">
+                  <button
+                    onClick={handleAnalyze}
+                    className="bg-gradient-to-r from-primary to-primary/80 text-white px-8 py-4 rounded-xl text-lg font-medium hover:from-primary/90 hover:to-primary/70 transition-all duration-300 flex items-center justify-center shadow-lg hover:shadow-xl"
                   >
-                    <div className={`w-8 h-8 bg-${source.color}-50 rounded-lg flex items-center justify-center hover:bg-${source.color}-100 transition-colors`}>
-                      {<source.icon className={`w-4 h-4 text-${source.color}-600`} />}
-                    </div>
-                    <span>{source.name}</span>
-                  </div>
-                ))}
-              </div>
-            </HeroSection>
+                    Get your photos now
+                    <ArrowRight className="ml-2 w-5 h-5" />
+                  </button>
+                </div>
+              </HeroSection>
+            </div>
 
-            <HeroSection delay={1000}>
-              <div className="flex flex-col sm:flex-row gap-6 justify-center items-center text-sm text-gray-600 mb-16">
-                <div className="flex items-center space-x-2">
-                  <div className="w-2 h-2 bg-green-500 rounded-full animate-pulse"></div>
-                  <span>{reviewCount}M+ reviews analyzed</span>
-                </div>
-                <div className="flex items-center space-x-2">
-                  <div className="w-2 h-2 bg-blue-500 rounded-full animate-pulse" style={{ animationDelay: "1s" }}></div>
-                  <span>{appCount}K+ apps covered</span>
-                </div>
-                <div className="flex items-center space-x-2">
-                  <div className="w-2 h-2 bg-purple-500 rounded-full animate-pulse" style={{ animationDelay: "2s" }}></div>
-                  <span>Real-time updates</span>
-                </div>
-              </div>
-            </HeroSection>
+            {/* Right Column - Image/Visual */}
+            <div className="lg:col-span-5">
+              <HeroSection>
+                <ImageComparison
+                  beforeLabel="Selfie"
+                  afterLabel="AI Generated"
+                />
+              </HeroSection>
+            </div>
           </div>
         </div>
       </section>

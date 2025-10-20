@@ -1,6 +1,11 @@
 "use client";
 
-import { Select, SelectContent, SelectItem, SelectTrigger } from "@/components/ui/select";
+import {
+  Select,
+  SelectContent,
+  SelectItem,
+  SelectTrigger,
+} from "@/components/ui/select";
 import { useParams, usePathname, useRouter } from "next/navigation";
 
 import { MdLanguage } from "react-icons/md";
@@ -26,9 +31,15 @@ export default function ({ isIcon = false }: { isIcon?: boolean }) {
     <Select value={locale} onValueChange={handleSwitchLanguage}>
       <SelectTrigger className="flex items-center gap-2 border-none bg-transparent text-black dark:text-white outline-hidden hover:bg-transparent focus:ring-0 focus:ring-offset-0">
         <MdLanguage className="text-xl" />
-        {!isIcon && <span className="hidden md:block">{localeNames[locale]}</span>}
+        {!isIcon && (
+          <span className="hidden md:block">{localeNames[locale]}</span>
+        )}
       </SelectTrigger>
-      <SelectContent className="z-50 bg-background absolute" position="popper" sideOffset={4}>
+      <SelectContent
+        className="z-50 bg-background absolute"
+        position="popper"
+        sideOffset={4}
+      >
         {Object.keys(localeNames).map((key: string) => {
           const name = localeNames[key];
           return (

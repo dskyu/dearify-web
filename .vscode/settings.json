@@ -4,5 +4,6 @@
   "prettier.requireConfig": false,
   "prettier.useEditorConfig": false,
   "prettier.resolveGlobalModules": false,
-  "prettier.configPath": ".prettierrc.json"
+  "prettier.ignorePath": ".prettierignore",
+  "prettier.prettierPath": "./node_modules/prettier/index.cjs"
 }

@@ -1,10 +1,10 @@
 {
   "loading": "Loading...",
   "metadata": {
-    "name": "ReviewInsight",
-    "title": "Transform App Reviews Into Business Intelligence | ReviewInsight",
-    "description": "ReviewInsight analyzes app reviews to extract business intelligence, helping you discover user insights, pain points, and market opportunities through AI-powered analysis.",
-    "keywords": "ReviewInsight, App Review Analysis, Business Intelligence, AI Analysis, User Insights, Market Research"
+    "name": "Dearify",
+    "title": "Dearify — AI Art Studio for Couples | Create Photos, Songs & Videos Together",
+    "description": "Create couple photos, custom love songs, and anniversary videos together. Dearify is an all-in-one AI art studio for couples, spouses, and families.",
+    "keywords": "couple photo generator, love song maker, anniversary video creator"
   },
   "user": {
     "sign_in": "Sign In",
@@ -391,7 +391,11 @@
         "description": "Automatically identify user frustrations, feature requests, and improvement opportunities from review sentiment."
       }
     ],
-    "benefits": ["No credit card required", "50M+ reviews analyzed", "Real-time insights"]
+    "benefits": [
+      "No credit card required",
+      "50M+ reviews analyzed",
+      "Real-time insights"
+    ]
   },
   "email": {
     "verification": {
