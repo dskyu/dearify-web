@@ -16,6 +16,7 @@ import {
 } from "lucide-react";
 import { useEffect, useState } from "react";
 import { useRouter } from "@/i18n/navigation";
+import ShinyText from "@/components/ShinyText";
 
 export default function Hero({ hero }: { hero: HeroType }) {
   const router = useRouter();
@@ -149,7 +150,7 @@ export default function Hero({ hero }: { hero: HeroType }) {
                 </div>
 
                 {/* Main Title */}
-                <h1 className="text-2xl sm:text-3xl md:text-4xl lg:text-5xl xl:text-6xl 2xl:text-7xl font-bold leading-none text-center lg:text-left whitespace-nowrap">
+                <h1 className="text-4xl sm:text-4xl md:text-4xl lg:text-5xl xl:text-5xl 2xl:text-6xl font-bold leading-none text-center lg:text-left whitespace-nowrap">
                   <span className="bg-gradient-to-r from-purple-600 to-black bg-clip-text text-transparent">
                     The best AI Art Studio
                   </span>
@@ -160,17 +161,17 @@ export default function Hero({ hero }: { hero: HeroType }) {
                 </h1>
                 {/* Description */}
                 <p
-                  className="text-base sm:text-lg text-black font-bold leading-relaxed max-w-[60%]"
+                  className="text-base sm:text-lg text-black font-bold leading-relaxed max-w-[100%] 2xl:max-w-[80%]"
                   dangerouslySetInnerHTML={{ __html: hero.description || "" }}
                 />
                 {/* Features Grid */}
-                <div className="grid grid-cols-2 gap-2 max-w-[60%]">
+                <div className="grid grid-cols-2 gap-2 max-w-[100%] 2xl:max-w-[60%]">
                   <div className="flex items-center space-x-2">
                     <div className="w-8 h-8 bg-pink-100 rounded-md flex items-center justify-center">
                       <Palette className="w-4 h-4 text-pink-600" />
                     </div>
                     <span className="text-xs font-light">
-                      Pick from 150+ styles
+                      Pick from 50+ styles
                     </span>
                   </div>
                   <div className="flex items-center space-x-2">
@@ -178,7 +179,7 @@ export default function Hero({ hero }: { hero: HeroType }) {
                       <Zap className="w-4 h-4 text-red-600" />
                     </div>
                     <span className="text-xs font-light">
-                      Done in less than 1 hour
+                      Done in less than 5 minutes
                     </span>
                   </div>
                   <div className="flex items-center space-x-2">
@@ -194,7 +195,7 @@ export default function Hero({ hero }: { hero: HeroType }) {
                       <CheckCircle className="w-4 h-4 text-blue-600" />
                     </div>
                     <span className="text-xs font-light">
-                      Customize with AI or human editors
+                      Customize with AI
                     </span>
                   </div>
                 </div>
@@ -204,10 +205,19 @@ export default function Hero({ hero }: { hero: HeroType }) {
               <div className="flex flex-col sm:flex-row gap-4 mt-8">
                 <button
                   onClick={handleAnalyze}
-                  className="bg-gradient-to-r from-primary to-primary/80 text-white px-8 py-4 rounded-xl text-lg font-medium hover:from-primary/90 hover:to-primary/70 transition-all duration-300 flex items-center justify-center shadow-lg hover:shadow-xl"
+                  className="relative bg-gradient-to-r from-primary to-primary/80 text-white px-8 py-4 rounded-full text-lg font-medium hover:from-primary/90 hover:to-primary/70 transition-all duration-300 flex items-center justify-center shadow-lg hover:shadow-xl overflow-hidden group"
                 >
-                  Get Start Now
-                  <ArrowRight className="ml-2 w-5 h-5" />
+                  {/* Glow effect */}
+                  <div className="absolute -inset-2 bg-gradient-to-r from-primary via-primary/90 to-primary rounded-full blur-xl opacity-0 group-hover:opacity-100 transition-all duration-500 animate-pulse scale-110"></div>
+                  <div className="absolute -inset-1 bg-gradient-to-r from-primary/80 to-primary/60 rounded-full blur-lg opacity-0 group-hover:opacity-100 transition-all duration-400"></div>
+                  <div className="absolute -inset-0.5 bg-gradient-to-r from-primary/60 to-primary/40 rounded-full blur-md opacity-0 group-hover:opacity-100 transition-all duration-300"></div>
+                  <div className="absolute inset-0 bg-gradient-to-r from-primary/30 to-transparent rounded-full opacity-0 group-hover:opacity-100 transition-all duration-200"></div>
+
+                  {/* Button content */}
+                  <span className="relative z-10 flex items-center">
+                    Get Start Now
+                    <ArrowRight className="ml-2 w-5 h-5" />
+                  </span>
                 </button>
               </div>
             </div>
@@ -275,7 +285,7 @@ export default function Hero({ hero }: { hero: HeroType }) {
                   <div
                     key={i}
                     onClick={() => setSelectedImageIndex(i)}
-                    className={`w-12 h-12 rounded-full bg-gradient-to-br from-blue-400 to-purple-600 flex items-center justify-center text-white text-xs font-bold cursor-pointer transition-all duration-200 ${
+                    className={`w-10 h-10 xl:w-12 xl:h-12 rounded-full bg-gradient-to-br from-blue-400 to-purple-600 flex items-center justify-center text-white text-xs font-bold cursor-pointer transition-all duration-200 ${
                       i === selectedImageIndex
                         ? "ring-2 ring-purple-500 ring-offset-2"
                         : "hover:scale-110"

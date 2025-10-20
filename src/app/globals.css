@@ -72,3 +72,35 @@ button {
 .scrollbar-hide::-webkit-scrollbar {
   display: none; /* Safari and Chrome */
 }
+
+@layer utilities {
+  @keyframes nav-menu-in {
+    0% {
+      opacity: 0;
+      transform: translateY(-0.5rem) scale(0.98);
+    }
+    100% {
+      opacity: 1;
+      transform: translateY(0) scale(1);
+    }
+  }
+
+  @keyframes nav-menu-out {
+    0% {
+      opacity: 1;
+      transform: translateY(0) scale(1);
+    }
+    100% {
+      opacity: 0;
+      transform: translateY(-0.35rem) scale(0.97);
+    }
+  }
+
+  .animate-nav-menu-in {
+    animation: nav-menu-in 180ms ease-out;
+  }
+
+  .animate-nav-menu-out {
+    animation: nav-menu-out 140ms ease-in forwards;
+  }
+}

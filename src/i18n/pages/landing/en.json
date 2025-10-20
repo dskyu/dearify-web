@@ -14,7 +14,27 @@
       "items": [
         {
           "title": "Products",
-          "url": "/#introduce"
+          "url": "/#introduce",
+          "children": [
+            {
+              "title": "Image Generation",
+              "description": "Create beautiful images with our AI art studio",
+              "icon": "RiImage2Line",
+              "url": "/#image-generation"
+            },
+            {
+              "title": "Music Generation",
+              "description": "Create beautiful music with our AI art studio",
+              "icon": "RiMusic2Line",
+              "url": "/#music-generation"
+            },
+            {
+              "title": "Video Generation",
+              "description": "Create beautiful videos with our AI art studio",
+              "icon": "RiVideoLine",
+              "url": "/#video-generation"
+            }
+          ]
         },
         {
           "title": "Blogs",
@@ -22,7 +42,34 @@
         },
         {
           "title": "Use Cases",
-          "url": "/showcase"
+          "url": "/showcase",
+          "children": [
+            {
+              "title": "Weddings",
+              "url": "/use-case/wedding",
+              "icon": "RiHeart2Line"
+            },
+            {
+              "title": "Kids & Children",
+              "url": "/use-case/kids",
+              "icon": "RiUserSmileLine"
+            },
+            {
+              "title": "Anniversaries",
+              "url": "/use-case/anniversary",
+              "icon": "RiCalendar2Line"
+            },
+            {
+              "title": "Family Moments",
+              "url": "/use-case/family",
+              "icon": "RiTeamLine"
+            },
+            {
+              "title": "Travel Memories",
+              "url": "/use-case/travel",
+              "icon": "RiEarthLine"
+            }
+          ]
         },
         {
           "title": "Pricing",

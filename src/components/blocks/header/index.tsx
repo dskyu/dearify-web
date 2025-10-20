@@ -32,7 +32,86 @@ import { Menu, BarChart3, X } from "lucide-react";
 import SignToggle from "@/components/sign/toggle";
 import ThemeToggle from "@/components/theme/toggle";
 import { cn } from "@/lib/utils";
-import { useState } from "react";
+import { useState, useRef, useEffect } from "react";
+
+// 智能菜单项组件，能够根据位置调整子菜单对齐
+function SmartNavigationMenuItem({
+  item,
+  index,
+}: {
+  item: any;
+  index: number;
+}) {
+  const [alignment, setAlignment] = useState<"start" | "center" | "end">(
+    "center",
+  );
+  const triggerRef = useRef<HTMLButtonElement>(null);
+
+  if (item.children && item.children.length > 0) {
+    return (
+      <NavigationMenuItem key={index} className="text-gray-600">
+        <NavigationMenuTrigger
+          ref={triggerRef}
+          className="text-gray-900 bg-transparent hover:text-primary hover:bg-transparent px-4 py-2 text-sm font-medium"
+        >
+          {item.icon && (
+            <Icon name={item.icon} className="size-4 shrink-0 mr-2" />
+          )}
+          <span>{item.title}</span>
+        </NavigationMenuTrigger>
+        <NavigationMenuContent align={alignment}>
+          <ul className="w-80 p-2 bg-white rounded-xl border border-gray-200 shadow-xl">
+            <NavigationMenuLink>
+              {item.children.map((iitem: any, ii: number) => (
+                <li key={ii}>
+                  <Link
+                    className={cn(
+                      "flex select-none gap-3 rounded-lg p-3 leading-none no-underline outline-hidden transition-colors hover:bg-gray-50 hover:text-gray-900 focus:bg-gray-50 focus:text-gray-900",
+                    )}
+                    href={iitem.url as any}
+                    target={iitem.target}
+                  >
+                    {iitem.icon && (
+                      <Icon
+                        name={iitem.icon}
+                        className="size-5 shrink-0 text-gray-600"
+                      />
+                    )}
+                    <div className="flex-1">
+                      <div className="text-sm font-semibold text-gray-900">
+                        {iitem.title}
+                      </div>
+                      <p className="text-xs leading-snug text-gray-600 mt-1">
+                        {iitem.description}
+                      </p>
+                    </div>
+                  </Link>
+                </li>
+              ))}
+            </NavigationMenuLink>
+          </ul>
+        </NavigationMenuContent>
+      </NavigationMenuItem>
+    );
+  }
+
+  return (
+    <NavigationMenuItem key={index}>
+      <Link
+        className={cn(
+          "text-gray-900 hover:text-primary px-4 py-2 text-sm font-medium transition-colors",
+        )}
+        href={item.url as any}
+        target={item.target}
+      >
+        {item.icon && (
+          <Icon name={item.icon} className="size-4 shrink-0 mr-2" />
+        )}
+        {item.title}
+      </Link>
+    </NavigationMenuItem>
+  );
+}
 
 export default function Header({ header }: { header: HeaderType }) {
   if (header.disabled) {
@@ -71,75 +150,9 @@ export default function Header({ header }: { header: HeaderType }) {
               <div className="flex items-center">
                 <NavigationMenu>
                   <NavigationMenuList className="gap-1">
-                    {header.nav?.items?.map((item, i) => {
-                      if (item.children && item.children.length > 0) {
-                        return (
-                          <NavigationMenuItem key={i} className="text-gray-600">
-                            <NavigationMenuTrigger className="text-gray-900 hover:text-primary px-4 py-2 text-sm font-medium">
-                              {item.icon && (
-                                <Icon
-                                  name={item.icon}
-                                  className="size-4 shrink-0 mr-2"
-                                />
-                              )}
-                              <span>{item.title}</span>
-                            </NavigationMenuTrigger>
-                            <NavigationMenuContent>
-                              <ul className="w-80 p-3">
-                                <NavigationMenuLink>
-                                  {item.children.map((iitem, ii) => (
-                                    <li key={ii}>
-                                      <Link
-                                        className={cn(
-                                          "flex select-none gap-4 rounded-md p-3 leading-none no-underline outline-hidden transition-colors hover:bg-accent hover:text-accent-foreground focus:bg-accent focus:text-accent-foreground",
-                                        )}
-                                        href={iitem.url as any}
-                                        target={iitem.target}
-                                      >
-                                        {iitem.icon && (
-                                          <Icon
-                                            name={iitem.icon}
-                                            className="size-5 shrink-0"
-                                          />
-                                        )}
-                                        <div>
-                                          <div className="text-sm font-semibold">
-                                            {iitem.title}
-                                          </div>
-                                          <p className="text-sm leading-snug text-muted-foreground">
-                                            {iitem.description}
-                                          </p>
-                                        </div>
-                                      </Link>
-                                    </li>
-                                  ))}
-                                </NavigationMenuLink>
-                              </ul>
-                            </NavigationMenuContent>
-                          </NavigationMenuItem>
-                        );
-                      }
-
-                      return (
-                        <NavigationMenuItem key={i}>
-                          <Link
-                            className={cn(
-                              "text-gray-900 hover:text-primary px-4 py-2 text-sm font-medium transition-colors",
-                            )}
-                            href={item.url as any}
-                            target={item.target}
-                          >
-                            {item.icon && (
-                              <Icon
-                                name={item.icon}
-                                className="size-4 shrink-0 mr-2"
-                              />
-                            )}
-                            {item.title}
-                          </Link>
-                        </NavigationMenuItem>
-                      );
-                    })}
+                    {header.nav?.items?.map((item, i) => (
+                      <SmartNavigationMenuItem key={i} item={item} index={i} />
+                    ))}
                   </NavigationMenuList>
                 </NavigationMenu>
               </div>
