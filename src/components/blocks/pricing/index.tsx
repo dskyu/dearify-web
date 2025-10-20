@@ -10,10 +10,15 @@ import { Label } from "@/components/ui/label";
 import { loadStripe } from "@stripe/stripe-js";
 import { toast } from "sonner";
 import { useAppContext } from "@/contexts/app";
-import { AnimatedSection } from "../animation";
 import { useRouter } from "@/i18n/navigation";
 
-export default function Pricing({ pricing, isAnimated = true }: { pricing: PricingType; isAnimated?: boolean }) {
+export default function Pricing({
+  pricing,
+  isAnimated = true,
+}: {
+  pricing: PricingType;
+  isAnimated?: boolean;
+}) {
   if (pricing.disabled) {
     return null;
   }
@@ -106,90 +111,61 @@ export default function Pricing({ pricing, isAnimated = true }: { pricing: Prici
   }, [pricing.items]);
 
   return (
-    <section id={pricing.name} className="py-16">
+    <section id={pricing.name} className="py-24">
       <div className="container">
-        {isAnimated ? (
-          <AnimatedSection>
-            <div className="mx-auto mb-12 text-center">
-              <h2 className="mb-4 text-4xl font-semibold lg:text-5xl">{pricing.title}</h2>
-              <p className="text-muted-foreground lg:text-lg">{pricing.description}</p>
-            </div>
-          </AnimatedSection>
-        ) : (
-          <div className="mx-auto mb-12 text-center">
-            <h2 className="mb-4 text-4xl font-semibold lg:text-5xl">{pricing.title}</h2>
-            <p className="text-muted-foreground lg:text-lg">{pricing.description}</p>
-          </div>
-        )}
+        <div className="mx-auto mb-12 text-center">
+          <h2 className="mb-4 text-4xl font-semibold lg:text-5xl">
+            {pricing.title}
+          </h2>
+          <p className="text-muted-foreground lg:text-lg">
+            {pricing.description}
+          </p>
+        </div>
 
-        <div className="w-full flex flex-col items-center gap-2">
-          {isAnimated ? (
-            <AnimatedSection>
-              {pricing.groups && pricing.groups.length > 0 && (
-                <div className="flex h-12 mb-12 items-center rounded-md bg-muted p-1 text-lg">
-                  <RadioGroup
-                    value={group}
-                    className={`h-full grid-cols-${pricing.groups.length}`}
-                    onValueChange={(value) => {
-                      setGroup(value);
-                    }}
-                  >
-                    {pricing.groups.map((item, i) => {
-                      return (
-                        <div key={i} className='h-full rounded-md transition-all has-[button[data-state="checked"]]:bg-white'>
-                          <RadioGroupItem value={item.name || ""} id={item.name} className="peer sr-only" />
-                          <Label
-                            htmlFor={item.name}
-                            className="flex h-full cursor-pointer items-center justify-center px-7 font-semibold text-muted-foreground peer-data-[state=checked]:text-primary"
+        <div className="w-full flex flex-col items-center gap-2 mx-12">
+          {pricing.groups && pricing.groups.length > 0 && (
+            <div className="flex h-12 mb-12 items-center rounded-md bg-muted p-1 text-lg">
+              <RadioGroup
+                value={group}
+                className={`h-full grid-cols-${pricing.groups.length}`}
+                onValueChange={(value) => {
+                  setGroup(value);
+                }}
+              >
+                {pricing.groups.map((item, i) => {
+                  return (
+                    <div
+                      key={i}
+                      className='h-full rounded-md has-[button[data-state="checked"]]:bg-white'
+                    >
+                      <RadioGroupItem
+                        value={item.name || ""}
+                        id={item.name}
+                        className="peer sr-only"
+                      />
+                      <Label
+                        htmlFor={item.name}
+                        className="flex h-full cursor-pointer items-center justify-center px-7 font-semibold text-muted-foreground peer-data-[state=checked]:text-primary"
+                      >
+                        {item.title}
+                        {item.label && (
+                          <Badge
+                            variant="outline"
+                            className="border-primary bg-primary px-1.5 ml-1 text-primary-foreground"
                           >
-                            {item.title}
-                            {item.label && (
-                              <Badge variant="outline" className="border-primary bg-primary px-1.5 ml-1 text-primary-foreground">
-                                {item.label}
-                              </Badge>
-                            )}
-                          </Label>
-                        </div>
-                      );
-                    })}
-                  </RadioGroup>
-                </div>
-              )}
-            </AnimatedSection>
-          ) : (
-            pricing.groups &&
-            pricing.groups.length > 0 && (
-              <div className="flex h-12 mb-12 items-center rounded-md bg-muted p-1 text-lg">
-                <RadioGroup
-                  value={group}
-                  className={`h-full grid-cols-${pricing.groups.length}`}
-                  onValueChange={(value) => {
-                    setGroup(value);
-                  }}
-                >
-                  {pricing.groups.map((item, i) => {
-                    return (
-                      <div key={i} className='h-full rounded-md transition-all has-[button[data-state="checked"]]:bg-white'>
-                        <RadioGroupItem value={item.name || ""} id={item.name} className="peer sr-only" />
-                        <Label
-                          htmlFor={item.name}
-                          className="flex h-full cursor-pointer items-center justify-center px-7 font-semibold text-muted-foreground peer-data-[state=checked]:text-primary"
-                        >
-                          {item.title}
-                          {item.label && (
-                            <Badge variant="outline" className="border-primary bg-primary px-1.5 ml-1 text-primary-foreground">
-                              {item.label}
-                            </Badge>
-                          )}
-                        </Label>
-                      </div>
-                    );
-                  })}
-                </RadioGroup>
-              </div>
-            )
+                            {item.label}
+                          </Badge>
+                        )}
+                      </Label>
+                    </div>
+                  );
+                })}
+              </RadioGroup>
+            </div>
           )}
-          <div className={`w-full mt-0 grid gap-6 md:grid-cols-${pricing.items?.filter((item) => !item.group || item.group === group)?.length}`}>
+          <div
+            className={`w-full mt-0 grid gap-6 md:grid-cols-${pricing.items?.filter((item) => !item.group || item.group === group)?.length}`}
+          >
             {pricing.items?.map((item, index) => {
               if (item.group && item.group !== group) {
                 return null;
@@ -199,8 +175,8 @@ export default function Pricing({ pricing, isAnimated = true }: { pricing: Prici
                 <div
                   className={
                     item.is_featured
-                      ? `bg-gray-900 rounded-2xl p-8 text-white relative scale-105 shadow-xl h-full flex flex-col`
-                      : `bg-white rounded-2xl p-8 border border-gray-200 hover:shadow-lg transition-all duration-300 transform hover:scale-105 h-full flex flex-col`
+                      ? `bg-gray-900 rounded-2xl p-8 text-white relative shadow-xl h-full flex flex-col`
+                      : `bg-white rounded-2xl p-8 border border-gray-200 h-full flex flex-col`
                   }
                 >
                   {item.is_featured && (
@@ -212,12 +188,44 @@ export default function Pricing({ pricing, isAnimated = true }: { pricing: Prici
                   )}
 
                   <div className="flex-1">
-                    <h3 className={item.is_featured ? `text-2xl font-bold text-white mb-2` : `text-2xl font-bold text-gray-900 mb-2`}>{item.title}</h3>
-                    {item.description && <p className={item.is_featured ? `text-gray-100 mb-6 text-sm` : `text-gray-600 mb-6 text-sm`}>{item.description}</p>}
-                    <p className={item.is_featured ? `text-gray-100 mb-6` : `text-gray-600 mb-6`}>{item.label}</p>
+                    <h3
+                      className={
+                        item.is_featured
+                          ? `text-2xl font-bold text-white mb-2`
+                          : `text-2xl font-bold text-gray-900 mb-2`
+                      }
+                    >
+                      {item.title}
+                    </h3>
+                    {item.description && (
+                      <p
+                        className={
+                          item.is_featured
+                            ? `text-gray-100 mb-6 text-sm`
+                            : `text-gray-600 mb-6 text-sm`
+                        }
+                      >
+                        {item.description}
+                      </p>
+                    )}
+
                     <div className="mb-8">
-                      <span className={item.is_featured ? `text-4xl font-bold text-white` : `text-4xl font-bold text-gray-900`}>{item.price}</span>
-                      <span className={item.is_featured ? `text-gray-100` : `text-gray-600`}>{item.period ? `/${item.period}` : ``}</span>
+                      <span
+                        className={
+                          item.is_featured
+                            ? `text-4xl font-bold text-white`
+                            : `text-4xl font-bold text-gray-900`
+                        }
+                      >
+                        {item.price}
+                      </span>
+                      <span
+                        className={
+                          item.is_featured ? `text-gray-100` : `text-gray-600`
+                        }
+                      >
+                        {item.period ? `/${item.period}` : ``}
+                      </span>
                     </div>
                     <ul className="space-y-4 mb-8">
                       {item.features &&
@@ -225,14 +233,22 @@ export default function Pricing({ pricing, isAnimated = true }: { pricing: Prici
                           return (
                             <li className="flex items-center" key={`${fi}`}>
                               <CheckCircle className="w-5 h-5 text-green-500 mr-3 flex-shrink-0" />
-                              <span className={item.is_featured ? `text-gray-100` : `text-gray-600`}>{feature}</span>
+                              <span
+                                className={
+                                  item.is_featured
+                                    ? `text-gray-100`
+                                    : `text-gray-600`
+                                }
+                              >
+                                {feature}
+                              </span>
                             </li>
                           );
                         })}
                     </ul>
                   </div>
                   <button
-                    className="w-full bg-gray-100 text-gray-900 py-3 rounded-xl font-medium hover:bg-gray-200 transition-colors mt-auto flex items-center justify-center"
+                    className="w-full bg-gray-100 text-gray-900 py-3 rounded-xl font-medium mt-auto flex items-center justify-center"
                     disabled={isLoading}
                     onClick={() => {
                       if (isLoading) {
@@ -242,26 +258,33 @@ export default function Pricing({ pricing, isAnimated = true }: { pricing: Prici
                       handleCheckout(item);
                     }}
                   >
-                    {(!isLoading || (isLoading && productId !== item.product_id)) && <p>{item.button?.title}</p>}
-                    {isLoading && productId === item.product_id && <p>{item.button?.title}</p>}
-                    {isLoading && productId === item.product_id && <Loader className="mr-2 h-4 w-4 animate-spin" />}
+                    {(!isLoading ||
+                      (isLoading && productId !== item.product_id)) && (
+                      <p>{item.button?.title}</p>
+                    )}
+                    {isLoading && productId === item.product_id && (
+                      <p>{item.button?.title}</p>
+                    )}
+                    {isLoading && productId === item.product_id && (
+                      <Loader className="mr-2 h-4 w-4 animate-spin" />
+                    )}
                   </button>
 
                   {item.tip && (
-                    <p className={item.is_featured ? `text-gray-100 mb-6 text-center mt-2 text-sm` : `text-gray-500 mb-6 text-center mt-2 text-sm`}>
+                    <p
+                      className={
+                        item.is_featured
+                          ? `text-gray-100 mb-6 text-center mt-2 text-sm`
+                          : `text-gray-500 mb-6 text-center mt-2 text-sm`
+                      }
+                    >
                       {item.tip}
                     </p>
                   )}
                 </div>
               );
 
-              return isAnimated ? (
-                <AnimatedSection delay={200 * index} key={index}>
-                  {content}
-                </AnimatedSection>
-              ) : (
-                <div key={index}>{content}</div>
-              );
+              return <div key={index}>{content}</div>;
             })}
           </div>
         </div>

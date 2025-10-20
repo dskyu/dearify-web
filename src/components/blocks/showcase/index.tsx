@@ -1,7 +1,6 @@
 "use client";
 
 import { Section as SectionType } from "@/types/blocks/section";
-import { AnimatedSection } from "../animation";
 import { ShowcaseCard, ShowcaseData } from "./card";
 
 interface ShowcaseProps {
@@ -34,10 +33,17 @@ const defaultData: ShowcaseData = {
       name: "Zoom Communications, Inc.",
       email: "",
       avatar: "",
-      website: "https://apps.apple.com/us/developer/zoom-communications-inc/id530594111?uo=4",
+      website:
+        "https://apps.apple.com/us/developer/zoom-communications-inc/id530594111?uo=4",
     },
     downloads: "",
-    histogram: { "1": 147667, "2": 28234, "3": 68625, "4": 238585, "5": 2486183 },
+    histogram: {
+      "1": 147667,
+      "2": 28234,
+      "3": 68625,
+      "4": 238585,
+      "5": 2486183,
+    },
     store_url: "https://apps.apple.com/us/app/zoom-workplace/id546505307?uo=4",
     updated_at: "1750783587",
     category_id: "6000",
@@ -90,8 +96,11 @@ const defaultData: ShowcaseData = {
       },
       {
         title: "Erosion of Trust Due to Billing Errors",
-        impact: "Direct financial harm to users, leading to severe lack of trust, chargebacks, and public complaints that deter potential paying customers.",
-        reviews: ["Excessive cost: They charged me $200 a month as well as the $19.00 subscription fee. I could not get it resolved."],
+        impact:
+          "Direct financial harm to users, leading to severe lack of trust, chargebacks, and public complaints that deter potential paying customers.",
+        reviews: [
+          "Excessive cost: They charged me $200 a month as well as the $19.00 subscription fee. I could not get it resolved.",
+        ],
         mentions: "1 mention • 100% negative sentiment",
         severity: "High",
       },
@@ -118,7 +127,8 @@ const defaultData: ShowcaseData = {
     pain_points: [
       {
         title: "Inability to Log In/Join Meetings",
-        impact: "High user churn, immediate abandonment of the app, inability to use core functionality, and highly negative sentiment.",
+        impact:
+          "High user churn, immediate abandonment of the app, inability to use core functionality, and highly negative sentiment.",
         reviews: [
           "LOOK HERE I WAS SIGNING IN BUT YOU GUYS WONT LET ME WHEN MY SISTER HAS BUT NOT ME SO ALLOW ME RIGHT NOW!😡🤬",
           "I signed up for a free workshop and got locked out of my account because the link didn’t work. You’d think I was trying to hack Fort Knox",
@@ -133,7 +143,8 @@ const defaultData: ShowcaseData = {
       },
       {
         title: "No Audio in Zoom Phone Calls",
-        impact: "Renders a core feature (phone calls) unusable, leading to significant frustration for business users reliant on this functionality.",
+        impact:
+          "Renders a core feature (phone calls) unusable, leading to significant frustration for business users reliant on this functionality.",
         reviews: [
           "Can’t hear anything when making Zoom phone calls to landlines or mobiles: I cannot hear anything when making Zoom phone calls to landlines or mobiles while the call receiver on the other end can hear me. \n\nI checked everything. Since the call receiver can hear me, it’s not the microphone. And I check my iPhone speakers, I can hear the button tone each time I press a number to make calls. So my iPhone speaker works fine. I can even hear the ringtone before the call receiver picks up but I cannot hear anything after the calls are picked up. I can see the call duration counter starts counting but I cannot hear anything. There must be something wrong with the Zoom App on iPhone coz I can hear everything either using the Zoom Phone Web App or the desktop App on my computer.\n\nPLEASE FIX THIS!!\n\nThanks",
         ],
@@ -142,7 +153,8 @@ const defaultData: ShowcaseData = {
       },
       {
         title: "Confusing UI Changes (Chat, Personal Meeting Room)",
-        impact: "Decreased user efficiency, frustration with recent updates, and a perception that the app is becoming harder to use.",
+        impact:
+          "Decreased user efficiency, frustration with recent updates, and a perception that the app is becoming harder to use.",
         reviews: [
           "Chat: I usually love the updates. The new chat features that make it so you have to click the button up top that pulls down and shows you options to start a chat, main chat and then private chats has to be the worst update ever. \nIt’d be different if when the chat was disabled that you’d still see you had the option to message people but you don’t. You have to click the pull down box to be able to tell. It’s frustrating and now I sound like a boomer complaining about it. Thanks for listening to my Ted Talk.",
           'Making things harder, thanks.: Why did you bury the "start personal meeting room" feature? It used to be one tap. Now it’s frustrating and buried.',
@@ -152,7 +164,8 @@ const defaultData: ShowcaseData = {
       },
       {
         title: "Safari Link Integration Issues",
-        impact: "Disrupted workflow and inconvenience for users trying to join meetings via Safari links.",
+        impact:
+          "Disrupted workflow and inconvenience for users trying to join meetings via Safari links.",
         reviews: [
           "Need to integrate the Zoom app to link better with Safari: Safari is not integrating well with the zoo hyper link. When I try to open  hyper link it does not open in safari. I have to copy and paste the hyper link to safari so that it can open. This is a new problem that I am experiencing with all my zoom sessions. Please try to fix this problem. Is there any solution available to this problem. Thank you very much.",
         ],
@@ -161,14 +174,18 @@ const defaultData: ShowcaseData = {
       },
       {
         title: "Excessive or Unresolved Billing Issues",
-        impact: "Financial distress for users, severe brand reputation damage, and potential customer churn for paid users.",
-        reviews: ["Excessive cost: They charged me $200 a month as well as the $19.00 subscription fee. I could not get it resolved."],
+        impact:
+          "Financial distress for users, severe brand reputation damage, and potential customer churn for paid users.",
+        reviews: [
+          "Excessive cost: They charged me $200 a month as well as the $19.00 subscription fee. I could not get it resolved.",
+        ],
         mentions: "1 mention • 100% negative sentiment",
         severity: "High",
       },
       {
         title: "Disappearing Features (e.g., Floating Emojis, Zoom ID)",
-        impact: "Frustration over perceived feature degradation, loss of functionality important for specific use cases (e.g., proof of attendance).",
+        impact:
+          "Frustration over perceived feature degradation, loss of functionality important for specific use cases (e.g., proof of attendance).",
         reviews: [
           "Floating emojis: The floating emojis disappeared from my iPhone zoom meeting what happped",
           "Unable to see zoom id anymore: When I join zoom meetings through an app called meeting guide before you updated it with your ai stuff I could see the zoom id if I clicked something. Now there no way to see the zoom id and I need to see the id for proof of attendance. Idk who’s idea it was to remove that option but can you please fix this before I have to go to court on the 17th or I’m screwed because you guys removed a feature that is very important I need to see the zoom id when I join a meeting thanks",
@@ -178,8 +195,11 @@ const defaultData: ShowcaseData = {
       },
       {
         title: "Connectivity/Disconnection Issues",
-        impact: "Interrupted meetings, reduced productivity, and a less reliable user experience.",
-        reviews: ["Disconnecting issues: The session kept disconnecting me multiple times. Had to reconnect to get back in."],
+        impact:
+          "Interrupted meetings, reduced productivity, and a less reliable user experience.",
+        reviews: [
+          "Disconnecting issues: The session kept disconnecting me multiple times. Had to reconnect to get back in.",
+        ],
         mentions: "1 mention • 100% negative sentiment",
         severity: "Medium",
       },
@@ -188,7 +208,8 @@ const defaultData: ShowcaseData = {
       {
         title: "Improve Onboarding and Account Access",
         impact: "High Impact",
-        revenue: "Increased user base, reduced churn from new users, and improved conversion to paid tiers.",
+        revenue:
+          "Increased user base, reduced churn from new users, and improved conversion to paid tiers.",
         reviews: [
           "LOOK HERE I WAS SIGNING IN BUT YOU GUYS WONT LET ME WHEN MY SISTER HAS BUT NOT ME SO ALLOW ME RIGHT NOW!😡🤬",
           "I’m trying to sign up, but this app won’t let me sign up",
@@ -198,7 +219,8 @@ const defaultData: ShowcaseData = {
           "Does not work on new iPad: This app will not let me log in or join a meeting. My iPad is new and fully updated. I'm getting over 500 mps on my wifi and Zoom works well on other devices. This app keeps saying to check the internet connection. Very frustrating!",
         ],
         interest: "Very High (critical for user adoption and retention)",
-        requests: "Many users struggle with initial sign-up and subsequent logins, indicating a significant barrier to entry and continued use.",
+        requests:
+          "Many users struggle with initial sign-up and subsequent logins, indicating a significant barrier to entry and continued use.",
       },
       {
         title: "Enhance Zoom Phone Audio Reliability",
@@ -208,18 +230,21 @@ const defaultData: ShowcaseData = {
           "Can’t hear anything when making Zoom phone calls to landlines or mobiles: I cannot hear anything when making Zoom phone calls to landlines or mobiles while the call receiver on the other end can hear me. ... PLEASE FIX THIS!!",
         ],
         interest: "Very High (essential for business users)",
-        requests: "Critical bug fix requested for a core communication feature.",
+        requests:
+          "Critical bug fix requested for a core communication feature.",
       },
       {
         title: "Refine UI/UX for Key Features (Chat, Personal Meeting Room)",
         impact: "Medium Impact",
-        revenue: "Improved user satisfaction and reduced negative sentiment from long-time users.",
+        revenue:
+          "Improved user satisfaction and reduced negative sentiment from long-time users.",
         reviews: [
           "Chat: I usually love the updates. The new chat features that make it so you have to click the button up top that pulls down and shows you options to start a chat, main chat and then private chats has to be the worst update ever.",
           'Making things harder, thanks.: Why did you bury the "start personal meeting room" feature? It used to be one tap. Now it’s frustrating and buried.',
         ],
         interest: "High (improves daily workflow for frequent users)",
-        requests: "User feedback indicates recent changes have negatively impacted usability, suggesting a need for re-evaluation or options.",
+        requests:
+          "User feedback indicates recent changes have negatively impacted usability, suggesting a need for re-evaluation or options.",
       },
       {
         title: "Improve Safari Link Handling",
@@ -229,23 +254,34 @@ const defaultData: ShowcaseData = {
           "Need to integrate the Zoom app to link better with Safari: Safari is not integrating well with the zoo hyper link. When I try to open  hyper link it does not open in safari. I have to copy and paste the hyper link to safari so that it can open. This is a new problem that I am experiencing with all my zoom sessions. Please try to fix this problem.",
         ],
         interest: "Medium (improves efficiency for iOS users)",
-        requests: "Direct request for better integration to streamline meeting access.",
+        requests:
+          "Direct request for better integration to streamline meeting access.",
       },
       {
         title: "Streamline Customer Support Accessibility",
         impact: "High Impact",
-        revenue: "Improved customer loyalty and reduced negative reviews related to unresolved issues.",
-        reviews: ["Why do they make is so hard to find their support team on a iPad. But I lol,e zoom but not easy on a iPad"],
+        revenue:
+          "Improved customer loyalty and reduced negative reviews related to unresolved issues.",
+        reviews: [
+          "Why do they make is so hard to find their support team on a iPad. But I lol,e zoom but not easy on a iPad",
+        ],
         interest: "High (essential for issue resolution and user retention)",
-        requests: "Users struggle to find help, particularly on specific devices.",
+        requests:
+          "Users struggle to find help, particularly on specific devices.",
       },
       {
-        title: "Address Billing Discrepancies and Provide Clear Resolution Paths",
+        title:
+          "Address Billing Discrepancies and Provide Clear Resolution Paths",
         impact: "Critical Impact",
-        revenue: "Prevents financial disputes and maintains trust with paying customers.",
-        reviews: ["Excessive cost: They charged me $200 a month as well as the $19.00 subscription fee. I could not get it resolved."],
-        interest: "Very High (directly impacts user trust and financial well-being)",
-        requests: "Immediate resolution and clear communication are needed for billing errors.",
+        revenue:
+          "Prevents financial disputes and maintains trust with paying customers.",
+        reviews: [
+          "Excessive cost: They charged me $200 a month as well as the $19.00 subscription fee. I could not get it resolved.",
+        ],
+        interest:
+          "Very High (directly impacts user trust and financial well-being)",
+        requests:
+          "Immediate resolution and clear communication are needed for billing errors.",
       },
     ],
     user_satisfaction: {
@@ -305,25 +341,33 @@ const defaultData: ShowcaseData = {
   last_updated: "2 min ago",
 };
 
-export default function Showcase({ section, data = defaultData, className = "" }: ShowcaseProps) {
+export default function Showcase({
+  section,
+  data = defaultData,
+  className = "",
+}: ShowcaseProps) {
   if (section?.disabled) {
     return null;
   }
 
   return (
-    <section id="business-intelligence" className={`py-24 bg-white ${className}`}>
+    <section
+      id="business-intelligence"
+      className={`py-24 bg-white ${className}`}
+    >
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-        <AnimatedSection>
-          <div className="text-center mb-20">
-            <h2 className="text-3xl md:text-4xl font-bold text-gray-900 mb-4">Showcase Preview</h2>
-            <p className="text-xl text-gray-600 max-w-3xl mx-auto">See how ReviewMind transforms raw review data into actionable business intelligence</p>
-          </div>
-        </AnimatedSection>
+        <div className="text-center mb-20">
+          <h2 className="text-3xl md:text-4xl font-bold text-gray-900 mb-4">
+            Showcase Preview
+          </h2>
+          <p className="text-xl text-gray-600 max-w-3xl mx-auto">
+            See how ReviewMind transforms raw review data into actionable
+            business intelligence
+          </p>
+        </div>
 
         <div className="max-w-6xl mx-auto">
-          <AnimatedSection delay={200}>
-            <ShowcaseCard data={data} />
-          </AnimatedSection>
+          <ShowcaseCard data={data} />
         </div>
       </div>
     </section>

@@ -1,6 +1,5 @@
 "use client";
 import { Section as SectionType } from "@/types/blocks/section";
-import { AnimatedSection } from "../animation";
 import Icon from "@/components/icon";
 
 export default function Feature1({ section }: { section: SectionType }) {
@@ -11,24 +10,34 @@ export default function Feature1({ section }: { section: SectionType }) {
   return (
     <section id={section.name} className="py-24 bg-white">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-        <AnimatedSection>
-          <div className="text-center mb-20">
-            <h2 className="text-3xl md:text-4xl font-bold text-gray-900 mb-4">{section.title}</h2>
-            <p className="text-xl text-gray-600 max-w-3xl mx-auto">{section.description}</p>
-          </div>
-        </AnimatedSection>
+        <div className="text-center mb-20">
+          <h2 className="text-3xl md:text-4xl font-bold text-gray-900 mb-4">
+            {section.title}
+          </h2>
+          <p className="text-xl text-gray-600 max-w-3xl mx-auto">
+            {section.description}
+          </p>
+        </div>
 
         <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-8">
           {section.items?.map((feature, index) => (
-            <AnimatedSection key={index} delay={index * 100}>
-              <div className="group p-8 rounded-2xl border border-gray-100 hover:border-gray-200 hover:shadow-lg transition-all duration-300 transform hover:scale-105">
-                <div className="w-12 h-12 bg-gray-50 rounded-xl flex items-center justify-center mb-6 group-hover:scale-110 transition-transform duration-200">
-                  <Icon name={feature.icon || ""} className={`h-6 w-auto text-${feature.label || "gray"}-600`} />
-                </div>
-                <h3 className="text-xl font-semibold text-gray-900 mb-4">{feature.title}</h3>
-                <p className="text-gray-600 leading-relaxed">{feature.description}</p>
+            <div
+              key={index}
+              className="group p-8 rounded-2xl border border-gray-100"
+            >
+              <div className="w-12 h-12 bg-gray-50 rounded-xl flex items-center justify-center mb-6">
+                <Icon
+                  name={feature.icon || ""}
+                  className={`h-6 w-auto text-${feature.label || "gray"}-600`}
+                />
               </div>
-            </AnimatedSection>
+              <h3 className="text-xl font-semibold text-gray-900 mb-4">
+                {feature.title}
+              </h3>
+              <p className="text-gray-600 leading-relaxed">
+                {feature.description}
+              </p>
+            </div>
           ))}
         </div>
       </div>

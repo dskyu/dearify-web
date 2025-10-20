@@ -13,15 +13,15 @@
     "nav": {
       "items": [
         {
-          "title": "Features",
+          "title": "Products",
           "url": "/#introduce"
         },
         {
-          "title": "How it Works",
+          "title": "Blogs",
           "url": "/#usage"
         },
         {
-          "title": "Showcases",
+          "title": "Use Cases",
           "url": "/showcase"
         },
         {
@@ -362,6 +362,91 @@
     "nav": {
       "items": [
         {
+          "title": "Blogs",
+          "children": [
+            {
+              "title": "FeaturesFeaturesFeaturesFeaturesFeaturesFeaturesFeatures",
+              "url": "/#feature",
+              "target": "_self"
+            },
+            {
+              "title": "Showcases",
+              "url": "/showcase",
+              "target": "_self"
+            },
+            {
+              "title": "Pricing",
+              "url": "/pricing",
+              "target": "_self"
+            }
+          ]
+        },
+        {
+          "title": "Use Cases",
+          "children": [
+            {
+              "title": "Features",
+              "url": "/#feature",
+              "target": "_self"
+            },
+            {
+              "title": "Showcases",
+              "url": "/showcase",
+              "target": "_self"
+            },
+            {
+              "title": "Pricing",
+              "url": "/pricing",
+              "target": "_self"
+            },
+            {
+              "title": "Pricing",
+              "url": "/pricing",
+              "target": "_self"
+            },
+            {
+              "title": "Pricing",
+              "url": "/pricing",
+              "target": "_self"
+            },
+            {
+              "title": "Pricing",
+              "url": "/pricing",
+              "target": "_self"
+            },
+            {
+              "title": "Pricing",
+              "url": "/pricing",
+              "target": "_self"
+            },
+            {
+              "title": "Pricing",
+              "url": "/pricing",
+              "target": "_self"
+            },
+            {
+              "title": "Pricing",
+              "url": "/pricing",
+              "target": "_self"
+            },
+            {
+              "title": "Pricing",
+              "url": "/pricing",
+              "target": "_self"
+            },
+            {
+              "title": "Pricing",
+              "url": "/pricing",
+              "target": "_self"
+            },
+            {
+              "title": "Pricing",
+              "url": "/pricing",
+              "target": "_self"
+            }
+          ]
+        },
+        {
           "title": "About",
           "children": [
             {
@@ -378,17 +463,6 @@
               "title": "Pricing",
               "url": "/pricing",
               "target": "_self"
-            }
-          ]
-        },
-
-        {
-          "title": "Friends",
-          "children": [
-            {
-              "title": "SNSTracker",
-              "url": "https://snstracker.com",
-              "target": "_blank"
             }
           ]
         }

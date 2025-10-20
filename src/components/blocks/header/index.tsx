@@ -45,8 +45,9 @@ export default function Header({ header }: { header: HeaderType }) {
       <section className="fixed top-0 w-full z-50 py-4">
         <div className="container max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="bg-white/80 backdrop-blur-md rounded-full shadow-sm border border-gray-100/50 px-6 py-4">
-            <nav className="hidden justify-between lg:flex">
-              <div className="flex items-center gap-8">
+            <nav className="hidden justify-between items-center lg:flex">
+              {/* Brand */}
+              <div className="flex items-center">
                 <Link
                   href={(header.brand?.url as any) || "/"}
                   className="flex items-center gap-3"
@@ -64,85 +65,86 @@ export default function Header({ header }: { header: HeaderType }) {
                     </span>
                   )}
                 </Link>
-                <div className="flex items-center">
-                  <NavigationMenu className="justify-start flex-none">
-                    <NavigationMenuList className="justify-start flex-none gap-1">
-                      {header.nav?.items?.map((item, i) => {
-                        if (item.children && item.children.length > 0) {
-                          return (
-                            <NavigationMenuItem
-                              key={i}
-                              className="text-gray-600"
-                            >
-                              <NavigationMenuTrigger className="text-gray-900 hover:text-primary px-4 py-2 text-sm font-medium">
-                                {item.icon && (
-                                  <Icon
-                                    name={item.icon}
-                                    className="size-4 shrink-0 mr-2"
-                                  />
-                                )}
-                                <span>{item.title}</span>
-                              </NavigationMenuTrigger>
-                              <NavigationMenuContent>
-                                <ul className="w-80 p-3">
-                                  <NavigationMenuLink>
-                                    {item.children.map((iitem, ii) => (
-                                      <li key={ii}>
-                                        <Link
-                                          className={cn(
-                                            "flex select-none gap-4 rounded-md p-3 leading-none no-underline outline-hidden transition-colors hover:bg-accent hover:text-accent-foreground focus:bg-accent focus:text-accent-foreground",
-                                          )}
-                                          href={iitem.url as any}
-                                          target={iitem.target}
-                                        >
-                                          {iitem.icon && (
-                                            <Icon
-                                              name={iitem.icon}
-                                              className="size-5 shrink-0"
-                                            />
-                                          )}
-                                          <div>
-                                            <div className="text-sm font-semibold">
-                                              {iitem.title}
-                                            </div>
-                                            <p className="text-sm leading-snug text-muted-foreground">
-                                              {iitem.description}
-                                            </p>
-                                          </div>
-                                        </Link>
-                                      </li>
-                                    ))}
-                                  </NavigationMenuLink>
-                                </ul>
-                              </NavigationMenuContent>
-                            </NavigationMenuItem>
-                          );
-                        }
+              </div>
 
+              {/* Centered Navigation Menu */}
+              <div className="flex items-center">
+                <NavigationMenu>
+                  <NavigationMenuList className="gap-1">
+                    {header.nav?.items?.map((item, i) => {
+                      if (item.children && item.children.length > 0) {
                         return (
-                          <NavigationMenuItem key={i}>
-                            <Link
-                              className={cn(
-                                "text-gray-900 hover:text-primary px-4 py-2 text-sm font-medium transition-colors",
-                              )}
-                              href={item.url as any}
-                              target={item.target}
-                            >
+                          <NavigationMenuItem key={i} className="text-gray-600">
+                            <NavigationMenuTrigger className="text-gray-900 hover:text-primary px-4 py-2 text-sm font-medium">
                               {item.icon && (
                                 <Icon
                                   name={item.icon}
                                   className="size-4 shrink-0 mr-2"
                                 />
                               )}
-                              {item.title}
-                            </Link>
+                              <span>{item.title}</span>
+                            </NavigationMenuTrigger>
+                            <NavigationMenuContent>
+                              <ul className="w-80 p-3">
+                                <NavigationMenuLink>
+                                  {item.children.map((iitem, ii) => (
+                                    <li key={ii}>
+                                      <Link
+                                        className={cn(
+                                          "flex select-none gap-4 rounded-md p-3 leading-none no-underline outline-hidden transition-colors hover:bg-accent hover:text-accent-foreground focus:bg-accent focus:text-accent-foreground",
+                                        )}
+                                        href={iitem.url as any}
+                                        target={iitem.target}
+                                      >
+                                        {iitem.icon && (
+                                          <Icon
+                                            name={iitem.icon}
+                                            className="size-5 shrink-0"
+                                          />
+                                        )}
+                                        <div>
+                                          <div className="text-sm font-semibold">
+                                            {iitem.title}
+                                          </div>
+                                          <p className="text-sm leading-snug text-muted-foreground">
+                                            {iitem.description}
+                                          </p>
+                                        </div>
+                                      </Link>
+                                    </li>
+                                  ))}
+                                </NavigationMenuLink>
+                              </ul>
+                            </NavigationMenuContent>
                           </NavigationMenuItem>
                         );
-                      })}
-                    </NavigationMenuList>
-                  </NavigationMenu>
-                </div>
+                      }
+
+                      return (
+                        <NavigationMenuItem key={i}>
+                          <Link
+                            className={cn(
+                              "text-gray-900 hover:text-primary px-4 py-2 text-sm font-medium transition-colors",
+                            )}
+                            href={item.url as any}
+                            target={item.target}
+                          >
+                            {item.icon && (
+                              <Icon
+                                name={item.icon}
+                                className="size-4 shrink-0 mr-2"
+                              />
+                            )}
+                            {item.title}
+                          </Link>
+                        </NavigationMenuItem>
+                      );
+                    })}
+                  </NavigationMenuList>
+                </NavigationMenu>
               </div>
+
+              {/* Right side buttons */}
               <div className="shrink-0 flex gap-3 items-center">
                 <LocaleToggle />
                 <SignToggle />

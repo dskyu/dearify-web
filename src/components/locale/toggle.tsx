@@ -29,10 +29,12 @@ export default function ({ isIcon = false }: { isIcon?: boolean }) {
 
   return (
     <Select value={locale} onValueChange={handleSwitchLanguage}>
-      <SelectTrigger className="flex items-center gap-2 border-none bg-transparent text-black dark:text-white outline-hidden hover:bg-transparent focus:ring-0 focus:ring-offset-0">
-        <MdLanguage className="text-xl" />
+      <SelectTrigger className="flex items-center gap-2 border-none bg-transparent text-gray-900 outline-hidden hover:bg-transparent focus:ring-0 focus:ring-offset-0 shadow-none">
+        <MdLanguage className="text-xl text-gray-900/60 font-light" />
         {!isIcon && (
-          <span className="hidden md:block">{localeNames[locale]}</span>
+          <span className="hidden md:block text-gray-900/60">
+            {localeNames[locale]}
+          </span>
         )}
       </SelectTrigger>
       <SelectContent
