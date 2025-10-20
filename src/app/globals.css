@@ -31,6 +31,13 @@
   }
 }
 
+/* Ensure ReactCompareImage handle is vertically centered within container */
+.rc-slider-handle,
+.__rc-image-compare__handle {
+  top: 50% !important;
+  transform: translateY(-50%);
+}
+
 input,
 select,
 textarea {

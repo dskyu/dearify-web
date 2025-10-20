@@ -10,10 +10,8 @@ declare module "react-compare-image" {
     sliderLineWidth?: number;
     aspectRatio?: "taller" | "wider";
     hover?: boolean;
-    skeleton?: {
-      width: number;
-      height: number;
-    };
+    skeleton?: {};
+    handle?: React.ReactNode;
   }
 
   export default class ReactCompareImage extends Component<ReactCompareImageProps> {}
