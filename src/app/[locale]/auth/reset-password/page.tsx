@@ -4,7 +4,15 @@ import React, { useState, useEffect } from "react";
 import { Link } from "@/i18n/navigation";
 import { useTranslations } from "next-intl";
 import { useSearchParams } from "next/navigation";
-import { Eye, EyeOff, Lock, BarChart3, ArrowRight, CheckCircle, AlertCircle, Loader2 } from "lucide-react";
+import {
+  Eye,
+  EyeOff,
+  Lock,
+  ArrowRight,
+  CheckCircle,
+  AlertCircle,
+  Loader2,
+} from "lucide-react";
 
 const ResetPassword = () => {
   const t = useTranslations("reset_password");
@@ -135,7 +143,9 @@ const ResetPassword = () => {
       setIsSuccess(true);
     } catch (error) {
       console.error("Password reset error:", error);
-      setError(error instanceof Error ? error.message : "Failed to reset password");
+      setError(
+        error instanceof Error ? error.message : "Failed to reset password",
+      );
     } finally {
       setIsLoading(false);
     }
@@ -147,11 +157,20 @@ const ResetPassword = () => {
       <div className="min-h-screen bg-gradient-to-br from-gray-50 via-white to-gray-50 flex items-center justify-center px-4 sm:px-6 lg:px-8">
         <div className="max-w-md w-full space-y-8">
           <div className="text-center">
-            <Link href="/" className="inline-flex items-center space-x-3 mb-8 group">
-              <div className="w-10 h-10 bg-gradient-to-br from-indigo-500 to-purple-600 rounded-xl flex items-center justify-center shadow-lg group-hover:shadow-xl transition-all duration-300 transform group-hover:scale-110">
-                <BarChart3 className="w-5 h-5 text-white" />
+            <Link
+              href="/"
+              className="inline-flex items-center space-x-3 mb-8 group"
+            >
+              <div className="w-10 h-10 bg-gradient-to-br from-indigo-500 to-purple-600 rounded-xl flex items-center justify-center shadow-lg group-hover:shadow-xl transition-all duration-300 transform group-hover:scale-110 overflow-hidden">
+                <img
+                  src="/logo.png"
+                  alt="logo"
+                  className="w-full h-full object-cover"
+                />
               </div>
-              <span className="text-2xl font-bold text-gray-900">{tMetadata("name")}</span>
+              <span className="text-2xl font-bold text-gray-900">
+                {tMetadata("name")}
+              </span>
             </Link>
           </div>
 
@@ -161,7 +180,9 @@ const ResetPassword = () => {
                 <Loader2 className="w-8 h-8 text-blue-600 animate-spin" />
               </div>
 
-              <h2 className="text-2xl font-bold text-gray-900 mb-4">{t("validating_token")}</h2>
+              <h2 className="text-2xl font-bold text-gray-900 mb-4">
+                {t("validating_token")}
+              </h2>
             </div>
           </div>
         </div>
@@ -175,11 +196,20 @@ const ResetPassword = () => {
       <div className="min-h-screen bg-gradient-to-br from-gray-50 via-white to-gray-50 flex items-center justify-center px-4 sm:px-6 lg:px-8">
         <div className="max-w-md w-full space-y-8">
           <div className="text-center">
-            <Link href="/" className="inline-flex items-center space-x-3 mb-8 group">
-              <div className="w-10 h-10 bg-gradient-to-br from-indigo-500 to-purple-600 rounded-xl flex items-center justify-center shadow-lg group-hover:shadow-xl transition-all duration-300 transform group-hover:scale-110">
-                <BarChart3 className="w-5 h-5 text-white" />
+            <Link
+              href="/"
+              className="inline-flex items-center space-x-3 mb-8 group"
+            >
+              <div className="w-10 h-10 bg-gradient-to-br from-indigo-500 to-purple-600 rounded-xl flex items-center justify-center shadow-lg group-hover:shadow-xl transition-all duration-300 transform group-hover:scale-110 overflow-hidden">
+                <img
+                  src="/logo.png"
+                  alt="logo"
+                  className="w-full h-full object-cover"
+                />
               </div>
-              <span className="text-2xl font-bold text-gray-900">{tMetadata("name")}</span>
+              <span className="text-2xl font-bold text-gray-900">
+                {tMetadata("name")}
+              </span>
             </Link>
           </div>
 
@@ -189,8 +219,12 @@ const ResetPassword = () => {
                 <AlertCircle className="w-8 h-8 text-red-600" />
               </div>
 
-              <h2 className="text-2xl font-bold text-gray-900 mb-4">{t("invalid_link")}</h2>
-              <p className="text-gray-600 mb-6">{t("invalid_link_description")}</p>
+              <h2 className="text-2xl font-bold text-gray-900 mb-4">
+                {t("invalid_link")}
+              </h2>
+              <p className="text-gray-600 mb-6">
+                {t("invalid_link_description")}
+              </p>
 
               <Link
                 href="/auth/forgot-password"
@@ -212,11 +246,20 @@ const ResetPassword = () => {
       <div className="min-h-screen bg-gradient-to-br from-gray-50 via-white to-gray-50 flex items-center justify-center px-4 sm:px-6 lg:px-8">
         <div className="max-w-md w-full space-y-8">
           <div className="text-center">
-            <Link href="/" className="inline-flex items-center space-x-3 mb-8 group">
-              <div className="w-10 h-10 bg-gradient-to-br from-indigo-500 to-purple-600 rounded-xl flex items-center justify-center shadow-lg group-hover:shadow-xl transition-all duration-300 transform group-hover:scale-110">
-                <BarChart3 className="w-5 h-5 text-white" />
+            <Link
+              href="/"
+              className="inline-flex items-center space-x-3 mb-8 group"
+            >
+              <div className="w-10 h-10 bg-gradient-to-br from-indigo-500 to-purple-600 rounded-xl flex items-center justify-center shadow-lg group-hover:shadow-xl transition-all duration-300 transform group-hover:scale-110 overflow-hidden">
+                <img
+                  src="/logo.png"
+                  alt="logo"
+                  className="w-full h-full object-cover"
+                />
               </div>
-              <span className="text-2xl font-bold text-gray-900">{tMetadata("name")}</span>
+              <span className="text-2xl font-bold text-gray-900">
+                {tMetadata("name")}
+              </span>
             </Link>
           </div>
 
@@ -226,8 +269,12 @@ const ResetPassword = () => {
                 <AlertCircle className="w-8 h-8 text-orange-600" />
               </div>
 
-              <h2 className="text-2xl font-bold text-gray-900 mb-4">{t("token_expired")}</h2>
-              <p className="text-gray-600 mb-6">{t("token_expired_description")}</p>
+              <h2 className="text-2xl font-bold text-gray-900 mb-4">
+                {t("token_expired")}
+              </h2>
+              <p className="text-gray-600 mb-6">
+                {t("token_expired_description")}
+              </p>
 
               <Link
                 href="/auth/forgot-password"
@@ -249,11 +296,20 @@ const ResetPassword = () => {
       <div className="min-h-screen bg-gradient-to-br from-gray-50 via-white to-gray-50 flex items-center justify-center px-4 sm:px-6 lg:px-8">
         <div className="max-w-md w-full space-y-8">
           <div className="text-center">
-            <Link href="/" className="inline-flex items-center space-x-3 mb-8 group">
-              <div className="w-10 h-10 bg-gradient-to-br from-indigo-500 to-purple-600 rounded-xl flex items-center justify-center shadow-lg group-hover:shadow-xl transition-all duration-300 transform group-hover:scale-110">
-                <BarChart3 className="w-5 h-5 text-white" />
+            <Link
+              href="/"
+              className="inline-flex items-center space-x-3 mb-8 group"
+            >
+              <div className="w-10 h-10 bg-gradient-to-br from-indigo-500 to-purple-600 rounded-xl flex items-center justify-center shadow-lg group-hover:shadow-xl transition-all duration-300 transform group-hover:scale-110 overflow-hidden">
+                <img
+                  src="/logo.png"
+                  alt="logo"
+                  className="w-full h-full object-cover"
+                />
               </div>
-              <span className="text-2xl font-bold text-gray-900">{tMetadata("name")}</span>
+              <span className="text-2xl font-bold text-gray-900">
+                {tMetadata("name")}
+              </span>
             </Link>
           </div>
 
@@ -263,8 +319,12 @@ const ResetPassword = () => {
                 <AlertCircle className="w-8 h-8 text-red-600" />
               </div>
 
-              <h2 className="text-2xl font-bold text-gray-900 mb-4">{t("token_invalid")}</h2>
-              <p className="text-gray-600 mb-6">{t("token_invalid_description")}</p>
+              <h2 className="text-2xl font-bold text-gray-900 mb-4">
+                {t("token_invalid")}
+              </h2>
+              <p className="text-gray-600 mb-6">
+                {t("token_invalid_description")}
+              </p>
 
               <Link
                 href="/auth/forgot-password"
@@ -285,11 +345,20 @@ const ResetPassword = () => {
       <div className="min-h-screen bg-gradient-to-br from-gray-50 via-white to-gray-50 flex items-center justify-center px-4 sm:px-6 lg:px-8">
         <div className="max-w-md w-full space-y-8">
           <div className="text-center">
-            <Link href="/" className="inline-flex items-center space-x-3 mb-8 group">
-              <div className="w-10 h-10 bg-gradient-to-br from-indigo-500 to-purple-600 rounded-xl flex items-center justify-center shadow-lg group-hover:shadow-xl transition-all duration-300 transform group-hover:scale-110">
-                <BarChart3 className="w-5 h-5 text-white" />
+            <Link
+              href="/"
+              className="inline-flex items-center space-x-3 mb-8 group"
+            >
+              <div className="w-10 h-10 bg-gradient-to-br from-indigo-500 to-purple-600 rounded-xl flex items-center justify-center shadow-lg group-hover:shadow-xl transition-all duration-300 transform group-hover:scale-110 overflow-hidden">
+                <img
+                  src="/logo.png"
+                  alt="logo"
+                  className="w-full h-full object-cover"
+                />
               </div>
-              <span className="text-2xl font-bold text-gray-900">{tMetadata("name")}</span>
+              <span className="text-2xl font-bold text-gray-900">
+                {tMetadata("name")}
+              </span>
             </Link>
           </div>
 
@@ -299,8 +368,12 @@ const ResetPassword = () => {
                 <CheckCircle className="w-8 h-8 text-green-600" />
               </div>
 
-              <h2 className="text-2xl font-bold text-gray-900 mb-4">{t("password_updated")}</h2>
-              <p className="text-gray-600 mb-6">{t("password_updated_description")}</p>
+              <h2 className="text-2xl font-bold text-gray-900 mb-4">
+                {t("password_updated")}
+              </h2>
+              <p className="text-gray-600 mb-6">
+                {t("password_updated_description")}
+              </p>
 
               <Link
                 href="/auth/signin"
@@ -321,14 +394,25 @@ const ResetPassword = () => {
       <div className="max-w-md w-full space-y-8">
         {/* Header */}
         <div className="text-center">
-          <Link href="/" className="inline-flex items-center space-x-3 mb-8 group">
-            <div className="w-10 h-10 bg-gradient-to-br from-indigo-500 to-purple-600 rounded-xl flex items-center justify-center shadow-lg group-hover:shadow-xl transition-all duration-300 transform group-hover:scale-110">
-              <BarChart3 className="w-5 h-5 text-white" />
+          <Link
+            href="/"
+            className="inline-flex items-center space-x-3 mb-8 group"
+          >
+            <div className="w-10 h-10 bg-gradient-to-br from-indigo-500 to-purple-600 rounded-xl flex items-center justify-center shadow-lg group-hover:shadow-xl transition-all duration-300 transform group-hover:scale-110 overflow-hidden">
+              <img
+                src="/logo.png"
+                alt="logo"
+                className="w-full h-full object-cover"
+              />
             </div>
-            <span className="text-2xl font-bold text-gray-900">{tMetadata("name")}</span>
+            <span className="text-2xl font-bold text-gray-900">
+              {tMetadata("name")}
+            </span>
           </Link>
 
-          <h2 className="text-3xl font-bold text-gray-900 mb-2">{t("title")}</h2>
+          <h2 className="text-3xl font-bold text-gray-900 mb-2">
+            {t("title")}
+          </h2>
           <p className="text-gray-600 mb-4">{t("description")}</p>
 
           {/* User Email Display */}
@@ -356,7 +440,10 @@ const ResetPassword = () => {
 
             {/* Password Field */}
             <div>
-              <label htmlFor="password" className="block text-sm font-medium text-gray-700 mb-2">
+              <label
+                htmlFor="password"
+                className="block text-sm font-medium text-gray-700 mb-2"
+              >
                 {t("new_password_title")}
               </label>
               <div className="relative">
@@ -374,7 +461,11 @@ const ResetPassword = () => {
                   className="block w-full pl-10 pr-12 py-3 border border-gray-300 rounded-xl shadow-sm placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:border-indigo-500 transition-all duration-200"
                   placeholder={t("new_password_placeholder")}
                 />
-                <button type="button" className="absolute inset-y-0 right-0 pr-3 flex items-center" onClick={() => setShowPassword(!showPassword)}>
+                <button
+                  type="button"
+                  className="absolute inset-y-0 right-0 pr-3 flex items-center"
+                  onClick={() => setShowPassword(!showPassword)}
+                >
                   {showPassword ? (
                     <EyeOff className="h-5 w-5 text-gray-400 hover:text-gray-600 transition-colors" />
                   ) : (
@@ -386,7 +477,10 @@ const ResetPassword = () => {
 
             {/* Confirm Password Field */}
             <div>
-              <label htmlFor="confirmPassword" className="block text-sm font-medium text-gray-700 mb-2">
+              <label
+                htmlFor="confirmPassword"
+                className="block text-sm font-medium text-gray-700 mb-2"
+              >
                 {t("confirm_password_title")}
               </label>
               <div className="relative">
@@ -420,22 +514,32 @@ const ResetPassword = () => {
 
             {/* Password Requirements */}
             <div className="bg-gray-50 rounded-xl p-4">
-              <p className="text-sm font-medium text-gray-700 mb-2">{t("password_requirements_title")}</p>
+              <p className="text-sm font-medium text-gray-700 mb-2">
+                {t("password_requirements_title")}
+              </p>
               <ul className="text-sm text-gray-600 space-y-1">
                 <li className="flex items-center">
-                  <div className={`w-2 h-2 rounded-full mr-2 ${formData.password.length >= 8 ? "bg-green-500" : "bg-gray-300"}`}></div>
+                  <div
+                    className={`w-2 h-2 rounded-full mr-2 ${formData.password.length >= 8 ? "bg-green-500" : "bg-gray-300"}`}
+                  ></div>
                   {t("requirements.min_length")}
                 </li>
                 <li className="flex items-center">
-                  <div className={`w-2 h-2 rounded-full mr-2 ${/(?=.*[a-z])/.test(formData.password) ? "bg-green-500" : "bg-gray-300"}`}></div>
+                  <div
+                    className={`w-2 h-2 rounded-full mr-2 ${/(?=.*[a-z])/.test(formData.password) ? "bg-green-500" : "bg-gray-300"}`}
+                  ></div>
                   {t("requirements.lowercase")}
                 </li>
                 <li className="flex items-center">
-                  <div className={`w-2 h-2 rounded-full mr-2 ${/(?=.*[A-Z])/.test(formData.password) ? "bg-green-500" : "bg-gray-300"}`}></div>
+                  <div
+                    className={`w-2 h-2 rounded-full mr-2 ${/(?=.*[A-Z])/.test(formData.password) ? "bg-green-500" : "bg-gray-300"}`}
+                  ></div>
                   {t("requirements.uppercase")}
                 </li>
                 <li className="flex items-center">
-                  <div className={`w-2 h-2 rounded-full mr-2 ${/(?=.*\d)/.test(formData.password) ? "bg-green-500" : "bg-gray-300"}`}></div>
+                  <div
+                    className={`w-2 h-2 rounded-full mr-2 ${/(?=.*\d)/.test(formData.password) ? "bg-green-500" : "bg-gray-300"}`}
+                  ></div>
                   {t("requirements.number")}
                 </li>
               </ul>
@@ -444,7 +548,9 @@ const ResetPassword = () => {
             {/* Submit Button */}
             <button
               type="submit"
-              disabled={!formData.password || !formData.confirmPassword || isLoading}
+              disabled={
+                !formData.password || !formData.confirmPassword || isLoading
+              }
               className="group relative w-full flex justify-center py-3 px-4 border border-transparent text-sm font-medium rounded-xl text-white bg-gradient-to-r from-indigo-600 to-indigo-700 hover:from-indigo-700 hover:to-indigo-800 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500 disabled:opacity-50 disabled:cursor-not-allowed transition-all duration-300 transform hover:scale-105 shadow-lg hover:shadow-xl"
             >
               {isLoading ? (
@@ -464,7 +570,10 @@ const ResetPassword = () => {
 
         {/* Back to Login */}
         <div className="text-center">
-          <Link href="/auth/signin" className="text-sm font-medium text-gray-600 hover:text-gray-900 transition-colors">
+          <Link
+            href="/auth/signin"
+            className="text-sm font-medium text-gray-600 hover:text-gray-900 transition-colors"
+          >
             {t("remember_password")}
           </Link>
         </div>

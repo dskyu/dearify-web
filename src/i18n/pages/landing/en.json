@@ -84,12 +84,12 @@
   },
   "hero": {
     "title": "All-in-one AI Art Studio for Couples and Families",
-    "highlight_text": "We Read It for You.",
+    "highlight_text": "Create Art Together.",
     "description": "Dearify is an AI creation platform for intimate relationships — couples, spouses, and families. In minutes, co-create beautiful couple photos, custom love songs, and memory videos that turn everyday moments into lasting keepsakes.",
     "announcement": {
       "icon": "RiFlashlightFill",
       "label": "2025",
-      "title": "568,323+ headshots already created",
+      "title": "568,323+ artworks already created",
       "url": "/#pricing"
     },
     "tip": "🎁 50% off before 2025",
@@ -188,81 +188,81 @@
   },
   "benefit": {
     "name": "benefit",
-    "title": "Why Choose ReviewMind Over ChatGPT?",
-    "label": "AI-Powered vs Manual Analysis",
-    "description": "See how our specialized AI analysis compares to generic ChatGPT for app review insights",
+    "title": "Why Choose Dearify Over Other AI Tools?",
+    "label": "Specialized AI Art Studio vs Generic AI",
+    "description": "See how our specialized AI art creation compares to generic AI tools for couples and families",
     "items": [
       {
-        "title": "Data Collection",
+        "title": "Photo Processing",
         "children": [
           {
             "label": "included",
-            "description": "Automated collection from multiple platforms"
+            "description": "Automated face detection and enhancement"
           },
           {
             "label": "manual",
-            "description": "Manual copy-paste required"
+            "description": "Manual photo editing required"
           }
         ]
       },
       {
-        "title": "Review Volume",
+        "title": "Art Quality",
         "children": [
           {
             "label": "included",
-            "description": "Process millions of reviews instantly"
+            "description": "Professional-grade AI art generation"
           },
           {
             "label": "limited",
-            "description": "Limited by token/context window"
+            "description": "Basic image generation only"
           }
         ]
       },
       {
-        "title": "Real-time Analysis",
+        "title": "Personalization",
         "children": [
           {
             "label": "included",
-            "description": "Live updates and monitoring"
+            "description": "Custom styles for couples and families"
           },
           {
             "label": "not-available",
-            "description": "Static analysis only"
+            "description": "Generic templates only"
           }
         ]
       },
       {
-        "title": "Platform Coverage",
+        "title": "Multi-Media Creation",
         "children": [
           {
             "label": "included",
-            "description": "App Store, Google Play, Social Media"
+            "description": "Photos, Music, Videos all in one platform"
           },
           {
             "label": "manual",
-            "description": "Whatever you manually provide"
+            "description": "Separate tools for each media type"
           }
         ]
       },
       {
-        "title": "Sentiment Analysis",
+        "title": "Emotion Recognition",
         "children": [
           {
             "label": "included",
-            "description": "Advanced ML-powered sentiment detection"
+            "description": "Advanced AI-powered emotion detection"
           },
           {
             "label": "basic",
-            "description": "Basic sentiment understanding"
+            "description": "Basic emotion understanding"
           }
         ]
       },
       {
-        "title": "Competitive Analysis",
+        "title": "Style Customization",
         "children": [
           {
             "label": "included",
-            "description": "Built-in competitor comparison tools"
+            "description": "Built-in style templates for couples"
           },
           {
             "label": "not-available",
@@ -271,15 +271,15 @@
         ]
       },
       {
-        "title": "One-Click Report Generation",
+        "title": "One-Click Art Generation",
         "children": [
           {
             "label": "included",
-            "description": "Generate comprehensive reports instantly"
+            "description": "Generate beautiful artworks instantly"
           },
           {
             "label": "not-available",
-            "description": "Report generation not supported"
+            "description": "Art generation not supported"
           }
         ]
       }
@@ -318,8 +318,8 @@
   "testimonial": {
     "name": "testimonial",
     "label": "Love Stories",
-    "title": "What Couples Are Saying",
-    "description": "Real stories from real couples who created beautiful memories together",
+    "title": "What Customers Are Saying",
+    "description": "Real stories from real customers who created beautiful memories together",
     "icon": "GoThumbsup",
     "items": [
       {
@@ -406,7 +406,7 @@
     "name": "faq",
     "label": "FAQ",
     "title": "Frequently Asked Questions",
-    "description": "Everything you need to know about ReviewInsight",
+    "description": "Everything you need to know about Dearify",
     "items": [
       {
         "title": "What can we create with Dearify?",
@@ -436,11 +436,11 @@
   },
   "cta": {
     "name": "cta",
-    "title": "Ready to analyze any app instantly?",
-    "description": "Join thousands of companies already using ReviewInsight to gain competitive advantage",
+    "title": "Ready to Create Beautiful Memories Together?",
+    "description": "Transform your precious moments into stunning AI photos, personalized love songs, and heartwarming videos",
     "buttons": [
       {
-        "title": "Get Start Free",
+        "title": "Start Creating Free",
         "url": "/#pricing",
         "target": "_self",
         "icon": "GoArrowUpRight"

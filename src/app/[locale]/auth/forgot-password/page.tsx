@@ -2,7 +2,14 @@
 import React, { useState } from "react";
 import { Link } from "@/i18n/navigation";
 import { useTranslations } from "next-intl";
-import { Mail, BarChart3, ArrowRight, ArrowLeft, CheckCircle, Clock, AlertCircle } from "lucide-react";
+import {
+  Mail,
+  ArrowRight,
+  ArrowLeft,
+  CheckCircle,
+  Clock,
+  AlertCircle,
+} from "lucide-react";
 import { toast } from "sonner";
 import { useLocale } from "next-intl";
 
@@ -42,7 +49,8 @@ const ForgotPassword = () => {
       toast.success(t("forgot_password.success.title"));
     } catch (error) {
       console.error("Forgot password error:", error);
-      const errorMessage = error instanceof Error ? error.message : "Failed to send reset email";
+      const errorMessage =
+        error instanceof Error ? error.message : "Failed to send reset email";
       setError(errorMessage);
       toast.error(errorMessage);
     } finally {
@@ -75,7 +83,8 @@ const ForgotPassword = () => {
       toast.success("Reset email sent successfully");
     } catch (error) {
       console.error("Resend email error:", error);
-      const errorMessage = error instanceof Error ? error.message : "Failed to resend email";
+      const errorMessage =
+        error instanceof Error ? error.message : "Failed to resend email";
       toast.error(errorMessage);
     } finally {
       setIsLoading(false);
@@ -88,11 +97,20 @@ const ForgotPassword = () => {
         <div className="max-w-md w-full space-y-8">
           {/* Header */}
           <div className="text-center">
-            <Link href="/" className="inline-flex items-center space-x-3 mb-8 group">
-              <div className="w-10 h-10 bg-gradient-to-br from-indigo-500 to-purple-600 rounded-xl flex items-center justify-center shadow-lg group-hover:shadow-xl transition-all duration-300 transform group-hover:scale-110">
-                <BarChart3 className="w-5 h-5 text-white" />
+            <Link
+              href="/"
+              className="inline-flex items-center space-x-3 mb-8 group"
+            >
+              <div className="w-10 h-10 bg-gradient-to-br from-indigo-500 to-purple-600 rounded-xl flex items-center justify-center shadow-lg group-hover:shadow-xl transition-all duration-300 transform group-hover:scale-110 overflow-hidden">
+                <img
+                  src="/logo.png"
+                  alt="logo"
+                  className="w-full h-full object-cover"
+                />
               </div>
-              <span className="text-2xl font-bold text-gray-900">{t("metadata.name")}</span>
+              <span className="text-2xl font-bold text-gray-900">
+                {t("metadata.name")}
+              </span>
             </Link>
           </div>
 
@@ -103,22 +121,29 @@ const ForgotPassword = () => {
                 <CheckCircle className="w-8 h-8 text-green-600" />
               </div>
 
-              <h2 className="text-2xl font-bold text-gray-900 mb-4">{t("forgot_password.success.title")}</h2>
+              <h2 className="text-2xl font-bold text-gray-900 mb-4">
+                {t("forgot_password.success.title")}
+              </h2>
               <p className="text-gray-600 mb-6 leading-relaxed">
-                {t("forgot_password.success.description")} <span className="font-medium text-gray-900">{email}</span>
+                {t("forgot_password.success.description")}{" "}
+                <span className="font-medium text-gray-900">{email}</span>
               </p>
 
-              <div className="bg-blue-50 border border-blue-200 rounded-xl p-4 mb-6">
+              {/* Information Box - Centered and properly aligned */}
+              <div className="bg-blue-50 border border-blue-200 rounded-xl p-4 mb-6 max-w-sm mx-auto">
                 <div className="flex items-start space-x-3">
                   <Clock className="w-5 h-5 text-blue-600 mt-0.5 flex-shrink-0" />
-                  <div className="text-sm text-blue-800">
-                    <p className="font-medium mb-1">{t("forgot_password.success.expires_in")}</p>
+                  <div className="text-sm text-blue-800 text-left">
+                    <p className="font-medium mb-1">
+                      {t("forgot_password.success.expires_in")}
+                    </p>
                     <p>{t("forgot_password.success.check_spam")}</p>
                   </div>
                 </div>
               </div>
 
-              <div className="space-y-4">
+              {/* Action Buttons - Centered */}
+              <div className="space-y-4 max-w-sm mx-auto">
                 <button
                   onClick={handleResendEmail}
                   disabled={isLoading}
@@ -149,7 +174,10 @@ const ForgotPassword = () => {
           <div className="text-center">
             <p className="text-sm text-gray-600">
               {t("forgot_password.help.still_trouble")}{" "}
-              <a href="#" className="font-medium text-indigo-600 hover:text-indigo-500 transition-colors">
+              <a
+                href="#"
+                className="font-medium text-indigo-600 hover:text-indigo-500 transition-colors"
+              >
                 {t("forgot_password.help.contact_support")}
               </a>
             </p>
@@ -164,14 +192,25 @@ const ForgotPassword = () => {
       <div className="max-w-md w-full space-y-8">
         {/* Header */}
         <div className="text-center">
-          <Link href="/" className="inline-flex items-center space-x-3 mb-8 group">
-            <div className="w-10 h-10 bg-gradient-to-br from-indigo-500 to-purple-600 rounded-xl flex items-center justify-center shadow-lg group-hover:shadow-xl transition-all duration-300 transform group-hover:scale-110">
-              <BarChart3 className="w-5 h-5 text-white" />
+          <Link
+            href="/"
+            className="inline-flex items-center space-x-3 mb-8 group"
+          >
+            <div className="w-10 h-10 bg-gradient-to-br from-indigo-500 to-purple-600 rounded-xl flex items-center justify-center shadow-lg group-hover:shadow-xl transition-all duration-300 transform group-hover:scale-110 overflow-hidden">
+              <img
+                src="/logo.png"
+                alt="logo"
+                className="w-full h-full object-cover"
+              />
             </div>
-            <span className="text-2xl font-bold text-gray-900">{t("metadata.name")}</span>
+            <span className="text-2xl font-bold text-gray-900">
+              {t("metadata.name")}
+            </span>
           </Link>
 
-          <h2 className="text-3xl font-bold text-gray-900 mb-2">{t("forgot_password.title")}</h2>
+          <h2 className="text-3xl font-bold text-gray-900 mb-2">
+            {t("forgot_password.title")}
+          </h2>
           <p className="text-gray-600">{t("forgot_password.description")}</p>
         </div>
 
@@ -190,7 +229,10 @@ const ForgotPassword = () => {
 
             {/* Email Field */}
             <div>
-              <label htmlFor="email" className="block text-sm font-medium text-gray-700 mb-2">
+              <label
+                htmlFor="email"
+                className="block text-sm font-medium text-gray-700 mb-2"
+              >
                 {t("forgot_password.email_title")}
               </label>
               <div className="relative">
@@ -234,7 +276,10 @@ const ForgotPassword = () => {
 
         {/* Back to Login */}
         <div className="text-center">
-          <Link href="/auth/signin" className="inline-flex items-center text-sm font-medium text-gray-600 hover:text-gray-900 transition-colors">
+          <Link
+            href="/auth/signin"
+            className="inline-flex items-center text-sm font-medium text-gray-600 hover:text-gray-900 transition-colors"
+          >
             <ArrowLeft className="w-4 h-4 mr-2" />
             {t("forgot_password.back_to_sign_in")}
           </Link>

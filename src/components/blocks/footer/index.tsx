@@ -8,17 +8,31 @@ export default function Footer({ footer }: { footer: FooterType }) {
 
   return (
     <section id={footer.name} className="py-16">
-      <div className="max-w-7xl mx-auto px-8">
+      <div className="container mx-auto px-8">
         <footer>
-          <div className="flex flex-col items-center justify-between gap-10 text-center lg:flex-row lg:text-left">
-            <div className="flex w-full max-w-96 shrink flex-col items-center justify-between gap-6 lg:items-start">
+          <div className="flex flex-col items-start justify-start gap-10 text-center lg:flex-row lg:text-left mx-12">
+            <div className="flex w-full max-w-96 shrink flex-col items-center gap-6 lg:items-start">
               {footer.brand && (
-                <div>
+                <div className="w-full">
                   <div className="flex items-center justify-center gap-2 lg:justify-start">
-                    {footer.brand.logo && <img src={footer.brand.logo.src} alt={footer.brand.logo.alt || footer.brand.title} className="h-11" />}
-                    {footer.brand.title && <p className="text-3xl font-semibold">{footer.brand.title}</p>}
+                    {footer.brand.logo && (
+                      <img
+                        src={footer.brand.logo.src}
+                        alt={footer.brand.logo.alt || footer.brand.title}
+                        className="h-11"
+                      />
+                    )}
+                    {footer.brand.title && (
+                      <p className="text-3xl font-semibold">
+                        {footer.brand.title}
+                      </p>
+                    )}
                   </div>
-                  {footer.brand.description && <p className="mt-6 text-md text-muted-foreground">{footer.brand.description}</p>}
+                  {footer.brand.description && (
+                    <p className="mt-6 text-md text-muted-foreground leading-relaxed">
+                      {footer.brand.description}
+                    </p>
+                  )}
                 </div>
               )}
               {footer.social && (
@@ -26,21 +40,28 @@ export default function Footer({ footer }: { footer: FooterType }) {
                   {footer.social.items?.map((item, i) => (
                     <li key={i} className="font-medium hover:text-primary">
                       <a href={item.url} target={item.target}>
-                        {item.icon && <Icon name={item.icon} className="size-4" />}
+                        {item.icon && (
+                          <Icon name={item.icon} className="size-4" />
+                        )}
                       </a>
                     </li>
                   ))}
                 </ul>
               )}
             </div>
-            <div className="grid grid-cols-3 gap-6 lg:gap-20">
+            <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6 lg:gap-20 w-full">
               {footer.nav?.items?.map((item, i) => (
-                <div key={i}>
-                  <p className="mb-6 font-bold">{item.title}</p>
+                <div key={i} className="min-w-0">
+                  <p className="mb-6 font-bold text-left">{item.title}</p>
                   <ul className="space-y-4 text-sm text-muted-foreground">
                     {item.children?.map((iitem, ii) => (
                       <li key={ii} className="font-medium hover:text-primary">
-                        <a href={iitem.url} target={iitem.target}>
+                        <a
+                          href={iitem.url}
+                          target={iitem.target}
+                          className="block break-words hyphens-auto leading-relaxed"
+                          title={iitem.title}
+                        >
                           {iitem.title}
                         </a>
                       </li>

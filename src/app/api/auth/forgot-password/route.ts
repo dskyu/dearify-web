@@ -16,7 +16,10 @@ export async function POST(request: NextRequest) {
     // 检查邮箱格式
     const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
     if (!emailRegex.test(email)) {
-      return NextResponse.json({ error: "Invalid email format" }, { status: 400 });
+      return NextResponse.json(
+        { error: "Invalid email format" },
+        { status: 400 },
+      );
     }
 
     // 检查用户是否存在
@@ -25,7 +28,8 @@ export async function POST(request: NextRequest) {
       // 为了安全，即使用户不存在也返回成功
       return NextResponse.json({
         success: true,
-        message: "If an account with that email exists, a password reset link has been sent.",
+        message:
+          "If an account with that email exists, a password reset link has been sent.",
       });
     }
 
@@ -40,12 +44,13 @@ export async function POST(request: NextRequest) {
 
     // 发送重置邮件
     const userName = existingUser.nickname || email.split("@")[0];
-    const { html: emailHtml, subject } = await generateResetPasswordEmailTemplate(resetUrl, userName, locale);
+    const { html: emailHtml, subject } =
+      await generateResetPasswordEmailTemplate(resetUrl, userName, locale);
 
     const emailDomain = process.env.RESEND_EMAIL_DOMAIN;
 
     await resend.emails.send({
-      from: `ReviewInsight <noreply@${emailDomain}>`,
+      from: `Dearify <noreply@${emailDomain}>`,
       to: email,
       subject: subject,
       html: emailHtml,
@@ -53,10 +58,14 @@ export async function POST(request: NextRequest) {
 
     return NextResponse.json({
       success: true,
-      message: "If an account with that email exists, a password reset link has been sent.",
+      message:
+        "If an account with that email exists, a password reset link has been sent.",
     });
   } catch (error) {
     console.error("Error sending password reset email:", error);
-    return NextResponse.json({ error: "Failed to send password reset email" }, { status: 500 });
+    return NextResponse.json(
+      { error: "Failed to send password reset email" },
+      { status: 500 },
+    );
   }
 }

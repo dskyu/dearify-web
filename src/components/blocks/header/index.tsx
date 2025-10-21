@@ -61,9 +61,9 @@ function SmartNavigationMenuItem({
         </NavigationMenuTrigger>
         <NavigationMenuContent align={alignment}>
           <ul className="w-80 p-2 bg-white rounded-xl border border-gray-200 shadow-xl">
-            <NavigationMenuLink>
-              {item.children.map((iitem: any, ii: number) => (
-                <li key={ii}>
+            {item.children.map((iitem: any, ii: number) => (
+              <li key={ii}>
+                <NavigationMenuLink asChild>
                   <Link
                     className={cn(
                       "flex select-none gap-3 rounded-lg p-3 leading-none no-underline outline-hidden transition-colors hover:bg-gray-50 hover:text-gray-900 focus:bg-gray-50 focus:text-gray-900",
@@ -86,9 +86,9 @@ function SmartNavigationMenuItem({
                       </p>
                     </div>
                   </Link>
-                </li>
-              ))}
-            </NavigationMenuLink>
+                </NavigationMenuLink>
+              </li>
+            ))}
           </ul>
         </NavigationMenuContent>
       </NavigationMenuItem>

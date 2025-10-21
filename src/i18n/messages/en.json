@@ -21,7 +21,7 @@
   "sign_in": {
     "title": "Sign In",
     "welcome_back": "Welcome back",
-    "description": "Sign in to your account to continue analyzing app reviews",
+    "description": "Sign in to your account to continue creating beautiful AI art together",
     "email_title": "Email address",
     "email_placeholder": "Enter your email",
     "password_title": "Password",
@@ -36,7 +36,7 @@
   },
   "sign_up": {
     "title": "Create your account",
-    "description": "Start analyzing app reviews with AI in minutes",
+    "description": "Start creating beautiful AI art for couples and families in minutes",
     "fullname_title": "Full name",
     "fullname_placeholder": "John Doe",
     "email_title": "Email address",
@@ -284,7 +284,7 @@
   },
   "my_orders": {
     "title": "My Orders",
-    "description": "orders paid with ShipAny.",
+    "description": "orders for AI art creation services.",
     "no_orders": "No orders found",
     "tip": "",
     "activate_order": "Activate Order",
@@ -332,7 +332,7 @@
   },
   "blog": {
     "title": "Blog",
-    "description": "News, resources, and updates about ShipAny",
+    "description": "News, resources, and updates about Dearify AI Art Studio",
     "read_more_text": "Read More"
   },
   "my_invites": {
@@ -343,7 +343,7 @@
     "edit_invite_link": "Edit Invite Link",
     "copy_invite_link": "Copy Invite Link",
     "invite_code": "Invite Code",
-    "invite_tip": "Invite 1 friend to buy ShipAny, reward $50.",
+    "invite_tip": "Invite 1 friend to join Dearify, reward $50.",
     "invite_balance": "Invite Reward Balance",
     "total_invite_count": "Total Invite Count",
     "total_paid_count": "Total Paid Count",
@@ -351,7 +351,7 @@
     "update_invite_code": "Set Invite Code",
     "update_invite_code_tip": "Input your custom invite code",
     "update_invite_button": "Save",
-    "no_orders": "You can't invite others before you bought ShipAny",
+    "no_orders": "You can't invite others before you purchased a Dearify plan",
     "no_affiliates": "You're not allowed to invite others, please contact us to apply for permission.",
     "table": {
       "invite_time": "Invite Time",
@@ -369,32 +369,32 @@
     "submit": "Submit",
     "loading": "Submitting...",
     "contact_tip": "Other ways to contact us",
-    "rating_tip": "What do you think of ShipAny?",
+    "rating_tip": "What do you think of Dearify?",
     "placeholder": "Leave your feedback here..."
   },
   "sign_card": {
     "free_plan_badge": "Free forever plan available",
-    "title_line1": "Transform App Reviews Into",
-    "title_line2": "Business Intelligence",
-    "description": "Analyze any app's reviews instantly with AI-powered insights and interactive chat to discover hidden opportunities.",
+    "title_line1": "Transform Your Photos Into",
+    "title_line2": "Beautiful AI Artworks",
+    "description": "Create stunning couple photos, custom love songs, and memory videos with AI-powered creativity for couples and families.",
     "features": [
       {
-        "title": "AI-Powered Analysis",
-        "description": "Advanced machine learning algorithms analyze millions of reviews to extract meaningful insights and patterns."
+        "title": "AI-Powered Art Creation",
+        "description": "Advanced AI technology transforms your photos into stunning artworks, creating professional-quality couple photos and family portraits."
       },
       {
-        "title": "Interactive AI Chat",
-        "description": "Ask questions and dig deeper into insights, have conversations to explore data comprehensively."
+        "title": "Personalized Music & Videos",
+        "description": "Create custom love songs and heartwarming videos that capture your most precious moments together."
       },
       {
-        "title": "Pain Point Detection",
-        "description": "Automatically identify user frustrations, feature requests, and improvement opportunities from review sentiment."
+        "title": "Multiple Creation Styles",
+        "description": "Choose from various artistic styles and themes perfect for weddings, anniversaries, family moments, and travel memories."
       }
     ],
     "benefits": [
       "No credit card required",
-      "50M+ reviews analyzed",
-      "Real-time insights"
+      "10,000+ couples served",
+      "Professional quality results"
     ]
   },
   "email": {
@@ -450,15 +450,15 @@
     }
   },
   "summary": {
-    "title": "Generate Enhanced Report",
-    "description": "This will generate a comprehensive analysis report of your reviews. Please confirm to continue.",
+    "title": "Generate Enhanced Artwork",
+    "description": "This will generate a comprehensive AI artwork creation with advanced features. Please confirm to continue.",
     "subscription_required": "Subscription Required",
-    "subscription_required_desc": "Enhanced report generation requires an active subscription. Please upgrade your plan to access this feature.",
+    "subscription_required_desc": "Enhanced artwork generation requires an active subscription. Please upgrade your plan to access this feature.",
     "subscription_credits_available": "Subscription Credits Available",
-    "subscription_credits_desc": "This operation will consume subscription credits from your active plan.",
+    "subscription_credits_desc": "This artwork creation will consume subscription credits from your active plan.",
     "cancel": "Cancel",
-    "generate": "Generate",
-    "generating": "Generating...",
+    "generate": "Create Artwork",
+    "generating": "Creating...",
     "upgrade": "Upgrade"
   },
   "cookieConsent": {
