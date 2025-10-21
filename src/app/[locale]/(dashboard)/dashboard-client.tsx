@@ -18,12 +18,28 @@ import {
   Trash,
   Star,
   MessageSquare,
+  ImageIcon,
+  Music4,
+  Film,
+  Sparkles,
+  History,
+  Heart,
+  Baby,
+  Users,
+  Palette,
 } from "lucide-react";
 import { useTranslations } from "next-intl";
 import { useParams, usePathname, useSearchParams } from "next/navigation";
 import { localeNames } from "@/i18n/locale";
 import { signOut } from "next-auth/react";
-import { Dialog, DialogContent, DialogDescription, DialogFooter, DialogHeader, DialogTitle } from "@/components/ui/dialog";
+import {
+  Dialog,
+  DialogContent,
+  DialogDescription,
+  DialogFooter,
+  DialogHeader,
+  DialogTitle,
+} from "@/components/ui/dialog";
 import { Button } from "@/components/ui/button";
 import { useAppContext } from "@/contexts/app";
 import { useRouter } from "@/i18n/navigation";
@@ -34,8 +50,13 @@ import { SUPPORTED_COUNTRIES } from "@/types/language";
 import { toast } from "sonner";
 import InsufficientCreditsModal from "@/components/billing/insufficient-credits-modal";
 import Feedback from "@/components/feedback";
-import { useCurrentUrl, useSearchParam, useAllSearchParams } from "@/hooks/use-current-url";
+import {
+  useCurrentUrl,
+  useSearchParam,
+  useAllSearchParams,
+} from "@/hooks/use-current-url";
 import { getCurrentFullUrl, getSearchParam } from "@/lib/url";
+import { stylesConfig } from "@/lib/styles-config";
 
 interface SidebarCategory {
   category: string;
@@ -47,6 +68,7 @@ interface SidebarItem {
   label: string;
   icon: React.ReactNode | string;
   href: string;
+  sidebar?: boolean;
   extra?: any;
 }
 
@@ -62,7 +84,12 @@ const DashboardClient = ({ children }: DashboardClientProps) => {
   const pathname = usePathname();
   const searchParams = useSearchParams();
 
-  const { user: userInfo, setUser, setShowFeedback, setShowSignModal } = useAppContext();
+  const {
+    user: userInfo,
+    setUser,
+    setShowFeedback,
+    setShowSignModal,
+  } = useAppContext();
   const [isSidebarCollapsed, setIsSidebarCollapsed] = useState(false);
   const [activeSection, setActiveSection] = useState("dashboard");
   const [isUserMenuOpen, setIsUserMenuOpen] = useState(false);
@@ -74,11 +101,17 @@ const DashboardClient = ({ children }: DashboardClientProps) => {
   const languageMenuRef = useRef<HTMLDivElement>(null);
   const [recentSessions, setRecentSessions] = useState<ChatSessionRecord[]>([]);
   const [isDeleteDialogOpen, setIsDeleteDialogOpen] = useState(false);
-  const [sessionToDelete, setSessionToDelete] = useState<ChatSessionRecord | null>(null);
+  const [sessionToDelete, setSessionToDelete] =
+    useState<ChatSessionRecord | null>(null);
   const [isDeletingSession, setIsDeletingSession] = useState(false);
-  const [deletingSessionIds, setDeletingSessionIds] = useState<Set<string>>(new Set());
-  const [addingSessionIds, setAddingSessionIds] = useState<Set<string>>(new Set());
-  const [isInsufficientCreditsModalOpen, setIsInsufficientCreditsModalOpen] = useState(false);
+  const [deletingSessionIds, setDeletingSessionIds] = useState<Set<string>>(
+    new Set(),
+  );
+  const [addingSessionIds, setAddingSessionIds] = useState<Set<string>>(
+    new Set(),
+  );
+  const [isInsufficientCreditsModalOpen, setIsInsufficientCreditsModalOpen] =
+    useState(false);
 
   const toggleSidebar = () => {
     setIsSidebarCollapsed(!isSidebarCollapsed);
@@ -86,30 +119,44 @@ const DashboardClient = ({ children }: DashboardClientProps) => {
 
   const renderStars = (rating: number) => {
     return Array.from({ length: 5 }, (_, i) => (
-      <Star key={i} className={`w-3 h-3 ${i < Math.floor(rating) ? "text-yellow-400 fill-current" : "text-gray-300"}`} />
+      <Star
+        key={i}
+        className={`w-3 h-3 ${i < Math.floor(rating) ? "text-yellow-400 fill-current" : "text-gray-300"}`}
+      />
     ));
   };
 
   const mainItems: SidebarCategory[] = [
     {
-      category: "Main",
+      category: "Art Studio",
       items: [
-        // { id: "rank", label: "Rank", href: "/dashboard/rank", icon: <BarChart3 className="w-5 h-5" /> },
-        { id: "analysis", label: "Analysis", href: "/dashboard", icon: <Home className="w-5 h-5" /> },
-        // { id: "comparison", label: "Comparison", href: "/dashboard/comparison", icon: <BarChart3 className="w-5 h-5" /> },
+        {
+          id: "photo-creation",
+          label: "Photo Creation",
+          href: "/dashboard/photo-creation",
+          icon: <ImageIcon className="w-5 h-5" />,
+        },
+        {
+          id: "music-creation",
+          label: "Music Creation",
+          href: "/dashboard/music-creation",
+          icon: <Music4 className="w-5 h-5" />,
+        },
+        {
+          id: "video-creation",
+          label: "Video Creation",
+          href: "/dashboard/video-creation",
+          icon: <Film className="w-5 h-5" />,
+        },
       ],
     },
-  ];
-
-  const sessionsItems: SidebarCategory[] = [
     {
-      category: "Sessions",
-      items: recentSessions.map((session) => ({
-        id: session.uuid,
-        label: `${session.name || ""}`,
-        icon: session.icon,
-        href: `/dashboard/chat/${session.uuid}`,
-        extra: session.details,
+      category: "Styles",
+      items: stylesConfig.map((category) => ({
+        id: category.id,
+        label: category.name,
+        href: `/dashboard/styles/${category.slug}`,
+        icon: <category.icon className="w-5 h-5" />,
       })),
     },
   ];
@@ -118,23 +165,51 @@ const DashboardClient = ({ children }: DashboardClientProps) => {
     {
       category: "Settings",
       items: [
-        { id: "profile", label: "Profile", href: "/dashboard/profile", icon: <User className="w-5 h-5" /> },
-        { id: "billing", label: "Billing", href: "/dashboard/billing", icon: <CreditCard className="w-5 h-5" /> },
-        { id: "security", label: "Security", href: "/dashboard/security", icon: <Shield className="w-5 h-5" /> },
-        { id: "feedback", label: "Feedback", href: "#", icon: <MessageSquare className="w-5 h-5" /> },
+        {
+          id: "history",
+          label: "History",
+          href: "/dashboard/history",
+          icon: <History className="w-5 h-5" />,
+          sidebar: true,
+        },
+        {
+          id: "profile",
+          label: "Profile",
+          href: "/dashboard/profile",
+          icon: <User className="w-5 h-5" />,
+          sidebar: false,
+        },
+        {
+          id: "billing",
+          label: "Billing",
+          href: "/dashboard/billing",
+          icon: <CreditCard className="w-5 h-5" />,
+          sidebar: true,
+        },
+        {
+          id: "security",
+          label: "Security",
+          href: "/dashboard/security",
+          icon: <Shield className="w-5 h-5" />,
+          sidebar: false,
+        },
+        {
+          id: "feedback",
+          label: "Feedback",
+          href: "#",
+          icon: <MessageSquare className="w-5 h-5" />,
+          sidebar: true,
+        },
       ],
     },
   ];
 
-  const sidebarItems = [...mainItems, ...sessionsItems, ...settingsItems];
+  const sidebarItems = [...mainItems, ...settingsItems];
 
   // Set active section based on current pathname
   useEffect(() => {
     const allItems = sidebarItems.flatMap((cat) => cat.items);
     const currentItem = allItems.find((item) => {
-      if (item.id === "analysis") {
-        return pathname.endsWith("/dashboard") || pathname.endsWith("/dashboard/");
-      }
       return pathname.includes(item.href);
     });
     if (currentItem) {
@@ -145,10 +220,16 @@ const DashboardClient = ({ children }: DashboardClientProps) => {
   // Close user menu when clicking outside
   useEffect(() => {
     const handleClickOutside = (event: MouseEvent) => {
-      if (userMenuRef.current && !userMenuRef.current.contains(event.target as Node)) {
+      if (
+        userMenuRef.current &&
+        !userMenuRef.current.contains(event.target as Node)
+      ) {
         setIsUserMenuOpen(false);
       }
-      if (languageMenuRef.current && !languageMenuRef.current.contains(event.target as Node)) {
+      if (
+        languageMenuRef.current &&
+        !languageMenuRef.current.contains(event.target as Node)
+      ) {
         setIsLanguageMenuOpen(false);
       }
     };
@@ -204,25 +285,6 @@ const DashboardClient = ({ children }: DashboardClientProps) => {
     }
   };
 
-  // Fetch recent sessions
-  const fetchRecentSessions = async () => {
-    try {
-      const response = await fetch("/api/chat/session?limit=20", {
-        method: "GET",
-        headers: {
-          "Content-Type": "application/json",
-        },
-      });
-
-      if (response.ok) {
-        const data = await response.json();
-        setRecentSessions(data.data || []);
-      }
-    } catch (error) {
-      console.error("Error fetching recent sessions:", error);
-    }
-  };
-
   // Delete session
   const handleDeleteSession = (sessionUuid: string) => {
     const session = recentSessions.find((s) => s.uuid === sessionUuid);
@@ -269,17 +331,22 @@ const DashboardClient = ({ children }: DashboardClientProps) => {
       // Add session to deleting state for animation
       setDeletingSessionIds((prev) => new Set(prev).add(sessionToDelete.uuid));
 
-      const response = await fetch(`/api/chat/session/${sessionToDelete.uuid}`, {
-        method: "DELETE",
-        headers: {
-          "Content-Type": "application/json",
+      const response = await fetch(
+        `/api/chat/session/${sessionToDelete.uuid}`,
+        {
+          method: "DELETE",
+          headers: {
+            "Content-Type": "application/json",
+          },
         },
-      });
+      );
 
       if (response.ok) {
         // Wait for animation to complete before removing from state
         setTimeout(() => {
-          setRecentSessions((prev) => prev.filter((session) => session.uuid !== sessionToDelete.uuid));
+          setRecentSessions((prev) =>
+            prev.filter((session) => session.uuid !== sessionToDelete.uuid),
+          );
           setDeletingSessionIds((prev) => {
             const newSet = new Set(prev);
             newSet.delete(sessionToDelete.uuid);
@@ -324,7 +391,6 @@ const DashboardClient = ({ children }: DashboardClientProps) => {
   useEffect(() => {
     if (userInfo) {
       fetchUserCredits();
-      fetchRecentSessions();
     }
   }, [userInfo]);
 
@@ -338,11 +404,17 @@ const DashboardClient = ({ children }: DashboardClientProps) => {
     };
 
     // Add event listener
-    window.addEventListener("session-created", handleSessionCreated as EventListener);
+    window.addEventListener(
+      "session-created",
+      handleSessionCreated as EventListener,
+    );
 
     // Cleanup
     return () => {
-      window.removeEventListener("session-created", handleSessionCreated as EventListener);
+      window.removeEventListener(
+        "session-created",
+        handleSessionCreated as EventListener,
+      );
     };
   }, []);
 
@@ -374,7 +446,10 @@ const DashboardClient = ({ children }: DashboardClientProps) => {
 
     // Cleanup
     return () => {
-      window.removeEventListener("insufficient-credits", handleInsufficientCredits);
+      window.removeEventListener(
+        "insufficient-credits",
+        handleInsufficientCredits,
+      );
     };
   }, []);
 
@@ -385,11 +460,17 @@ const DashboardClient = ({ children }: DashboardClientProps) => {
     };
 
     // Add event listener
-    window.addEventListener("show-insufficient-credits-modal", handleShowInsufficientCreditsModal);
+    window.addEventListener(
+      "show-insufficient-credits-modal",
+      handleShowInsufficientCreditsModal,
+    );
 
     // Cleanup
     return () => {
-      window.removeEventListener("show-insufficient-credits-modal", handleShowInsufficientCreditsModal);
+      window.removeEventListener(
+        "show-insufficient-credits-modal",
+        handleShowInsufficientCreditsModal,
+      );
     };
   }, []);
 
@@ -406,15 +487,28 @@ const DashboardClient = ({ children }: DashboardClientProps) => {
               {!isSidebarCollapsed ? (
                 <div className="flex items-center space-x-3">
                   <div className="w-8 h-8 bg-gradient-to-br from-indigo-500 to-purple-600 rounded-lg flex items-center justify-center">
-                    <img src="/logo.png" alt="logo" className="w-full h-full object-cover" />
+                    <img
+                      src="/logo.png"
+                      alt="logo"
+                      className="w-full h-full object-cover"
+                    />
                   </div>
-                  <span className="text-lg font-semibold text-gray-900">{t("metadata.name")}</span>
+                  <span className="text-lg font-semibold text-gray-900">
+                    {t("metadata.name")}
+                  </span>
                 </div>
               ) : (
                 <div className="w-8 h-8 "></div>
               )}
-              <button onClick={toggleSidebar} className="p-1.5 hover:bg-gray-100 rounded-lg transition-colors">
-                {isSidebarCollapsed ? <ChevronRight className="w-4 h-4 text-gray-600" /> : <ChevronLeft className="w-4 h-4 text-gray-600" />}
+              <button
+                onClick={toggleSidebar}
+                className="p-1.5 hover:bg-gray-100 rounded-lg transition-colors"
+              >
+                {isSidebarCollapsed ? (
+                  <ChevronRight className="w-4 h-4 text-gray-600" />
+                ) : (
+                  <ChevronLeft className="w-4 h-4 text-gray-600" />
+                )}
               </button>
             </div>
           </div>
@@ -426,7 +520,9 @@ const DashboardClient = ({ children }: DashboardClientProps) => {
             <div key={categoryIndex} className="mb-6">
               {!isSidebarCollapsed && (
                 <div className="px-4 mb-2">
-                  <h3 className="text-xs font-medium text-gray-500 uppercase tracking-wider">{category.category}</h3>
+                  <h3 className="text-xs font-medium text-gray-500 uppercase tracking-wider">
+                    {category.category}
+                  </h3>
                 </div>
               )}
               <div className="space-y-1 px-2">
@@ -438,80 +534,14 @@ const DashboardClient = ({ children }: DashboardClientProps) => {
                       router.push(item.href);
                     }}
                     className={`w-full flex items-center space-x-3 px-3 py-2.5 rounded-lg transition-all duration-200 ${
-                      activeSection === item.id ? "bg-blue-50 text-blue-700 border-r-2 border-blue-700" : "text-gray-700 hover:bg-gray-50"
+                      activeSection === item.id
+                        ? "bg-blue-50 text-blue-700 border-r-2 border-blue-700"
+                        : "text-gray-700 hover:bg-gray-50"
                     }`}
                   >
                     <div className="flex-shrink-0">{item.icon}</div>
-                    {!isSidebarCollapsed && <span className="font-medium">{item.label}</span>}
-                  </button>
-                ))}
-              </div>
-            </div>
-          ))}
-
-          {/* Sessions Section */}
-          {sessionsItems.map((category, categoryIndex) => (
-            <div key={categoryIndex} className="mb-6">
-              {!isSidebarCollapsed && (
-                <div className="px-4 mb-2">
-                  <h3 className="text-xs font-medium text-gray-500 uppercase tracking-wider">{category.category}</h3>
-                </div>
-              )}
-              <div className="space-y-1 px-2 overflow-hidden">
-                {category.items.map((item) => (
-                  <button
-                    key={item.id}
-                    onClick={() => {
-                      setActiveSection(item.id);
-                      router.push(item.href);
-                    }}
-                    className={`w-full flex items-center px-3 py-3 rounded-lg transition-all duration-300 ${
-                      activeSection === item.id ? "bg-blue-50 text-blue-700 border-r-2 border-blue-700" : "text-gray-700 hover:bg-gray-50"
-                    } ${deletingSessionIds.has(item.id) ? "transform translate-x-full opacity-0 scale-95" : ""} ${
-                      addingSessionIds.has(item.id)
-                        ? "transform translate-x-0 opacity-100 scale-100 animate-pulse bg-green-50 border-l-2 border-green-500"
-                        : "transform translate-x-0 opacity-100 scale-100"
-                    }`}
-                    title={item.label}
-                  >
-                    {isSidebarCollapsed ? (
-                      <div className="flex-shrink-0">
-                        {typeof item.icon === "string" ? <img src={item.icon} alt={item.label} className="w-5 h-5 rounded-md object-cover" /> : item.icon}
-                      </div>
-                    ) : (
-                      <div className="group flex items-center w-full">
-                        <div className="flex-shrink-0">
-                          {typeof item.icon === "string" ? <img src={item.icon} alt={item.label} className="w-8 h-8 rounded-md object-cover" /> : item.icon}
-                        </div>
-                        <div className="flex-1 min-w-0 ml-3">
-                          <div className="font-medium text-sm text-start truncate" title={item.label}>
-                            {item.label}
-                          </div>
-                          {item.extra && (
-                            <div className="text-xs text-gray-500 truncate flex items-center space-x-1">
-                              {item.extra.channel === "apple" ? (
-                                <SiAppstore className="w-3 h-3 text-blue-500" />
-                              ) : (
-                                <BsGooglePlay className="w-3 h-3 text-green-500" />
-                              )}
-
-                              <span>{SUPPORTED_COUNTRIES.find((c) => c.code === item.extra.country)?.flag}</span>
-                              <span className="ms-1 flex items-center space-x-0.5">{renderStars(item.extra.score)}</span>
-                              <span className="text-gray-500">{item.extra.score}</span>
-                            </div>
-                          )}
-                        </div>
-                        <div
-                          className="ml-2 opacity-0 group-hover:opacity-100 transition-opacity duration-150 text-gray-400 hover:text-red-500 flex-shrink-0 cursor-pointer"
-                          title="Remove"
-                          onClick={(e) => {
-                            e.stopPropagation();
-                            handleDeleteSession(item.id);
-                          }}
-                        >
-                          <Trash className="w-4 h-4" />
-                        </div>
-                      </div>
+                    {!isSidebarCollapsed && (
+                      <span className="font-medium">{item.label}</span>
                     )}
                   </button>
                 ))}
@@ -526,29 +556,37 @@ const DashboardClient = ({ children }: DashboardClientProps) => {
             <div key={categoryIndex} className="mb-4">
               {!isSidebarCollapsed && (
                 <div className="px-4 mb-2">
-                  <h3 className="text-xs font-medium text-gray-500 uppercase tracking-wider">{category.category}</h3>
+                  <h3 className="text-xs font-medium text-gray-500 uppercase tracking-wider">
+                    {category.category}
+                  </h3>
                 </div>
               )}
               <div className="space-y-1 px-2">
-                {category.items.map((item) => (
-                  <button
-                    key={item.id}
-                    onClick={() => {
-                      if (item.id === "feedback") {
-                        setShowFeedback(true);
-                      } else {
-                        setActiveSection(item.id);
-                        router.push(item.href);
-                      }
-                    }}
-                    className={`w-full flex items-center space-x-3 px-3 py-2.5 rounded-lg transition-all duration-200 ${
-                      activeSection === item.id ? "bg-blue-50 text-blue-700 border-r-2 border-blue-700" : "text-gray-700 hover:bg-gray-50"
-                    }`}
-                  >
-                    <div className="flex-shrink-0">{item.icon}</div>
-                    {!isSidebarCollapsed && <span className="font-medium">{item.label}</span>}
-                  </button>
-                ))}
+                {category.items
+                  .filter((item) => item.sidebar === true)
+                  .map((item) => (
+                    <button
+                      key={item.id}
+                      onClick={() => {
+                        if (item.id === "feedback") {
+                          setShowFeedback(true);
+                        } else {
+                          setActiveSection(item.id);
+                          router.push(item.href);
+                        }
+                      }}
+                      className={`w-full flex items-center space-x-3 px-3 py-2.5 rounded-lg transition-all duration-200 ${
+                        activeSection === item.id
+                          ? "bg-blue-50 text-blue-700 border-r-2 border-blue-700"
+                          : "text-gray-700 hover:bg-gray-50"
+                      }`}
+                    >
+                      <div className="flex-shrink-0">{item.icon}</div>
+                      {!isSidebarCollapsed && (
+                        <span className="font-medium">{item.label}</span>
+                      )}
+                    </button>
+                  ))}
               </div>
             </div>
           ))}
@@ -557,32 +595,47 @@ const DashboardClient = ({ children }: DashboardClientProps) => {
         {/* User Profile Section */}
         {!isSidebarCollapsed && userInfo && (
           <div className="p-4 border-t border-gray-200">
-            {userInfo.subscription_status !== "active" && userInfo.subscription_status !== "" && (
-              <div className="bg-gradient-to-r from-purple-50 to-blue-50 rounded-xl p-4 mb-4">
-                <div className="flex items-center space-x-2 mb-2">
-                  <Crown className="w-4 h-4 text-purple-600" />
-                  <span className="text-sm font-medium text-gray-900">Upgrade</span>
+            {userInfo.subscription_status !== "active" &&
+              userInfo.subscription_status !== "" && (
+                <div className="bg-gradient-to-r from-purple-50 to-blue-50 rounded-xl p-4 mb-4">
+                  <div className="flex items-center space-x-2 mb-2">
+                    <Crown className="w-4 h-4 text-purple-600" />
+                    <span className="text-sm font-medium text-gray-900">
+                      Upgrade
+                    </span>
+                  </div>
+                  <p className="text-xs text-gray-600 mb-3">
+                    Upgrade to Pro to access all features
+                  </p>
+                  <button
+                    className="w-full bg-purple-600 hover:bg-purple-700 text-white text-sm font-medium py-2 rounded-lg transition-colors"
+                    onClick={() => router.push("/pricing")}
+                  >
+                    Upgrade
+                  </button>
                 </div>
-                <p className="text-xs text-gray-600 mb-3">Upgrade to Pro to access all features</p>
-                <button
-                  className="w-full bg-purple-600 hover:bg-purple-700 text-white text-sm font-medium py-2 rounded-lg transition-colors"
-                  onClick={() => router.push("/pricing")}
-                >
-                  Upgrade
-                </button>
-              </div>
-            )}
+              )}
             <div className="flex items-center space-x-3">
               {userInfo?.avatar_url ? (
-                <img src={userInfo.avatar_url} alt={userInfo.nickname || "User"} className="w-8 h-8 rounded-full object-cover" />
+                <img
+                  src={userInfo.avatar_url}
+                  alt={userInfo.nickname || "User"}
+                  className="w-8 h-8 rounded-full object-cover"
+                />
               ) : (
                 <div className="w-8 h-8 bg-gradient-to-br from-blue-400 to-blue-600 rounded-full flex items-center justify-center">
                   <User className="w-4 h-4 text-white" />
                 </div>
               )}
               <div className="flex-1 min-w-0">
-                <p className="text-sm font-medium text-gray-900 truncate">{userInfo?.nickname || userInfo?.email?.split("@")[0] || "User"}</p>
-                <p className="text-xs text-gray-500 truncate">{userInfo?.email}</p>
+                <p className="text-sm font-medium text-gray-900 truncate">
+                  {userInfo?.nickname ||
+                    userInfo?.email?.split("@")[0] ||
+                    "User"}
+                </p>
+                <p className="text-xs text-gray-500 truncate">
+                  {userInfo?.email}
+                </p>
               </div>
             </div>
           </div>
@@ -590,7 +643,9 @@ const DashboardClient = ({ children }: DashboardClientProps) => {
       </div>
 
       {/* Main Content */}
-      <div className={`flex-1 flex flex-col ${isSidebarCollapsed ? "ml-16" : "ml-80"}`}>
+      <div
+        className={`flex-1 flex flex-col ${isSidebarCollapsed ? "ml-16" : "ml-80"}`}
+      >
         {/* Top Header */}
         <header
           className="bg-white border-b border-gray-200 px-6 py-1.5 fixed top-0 right-0 left-0 z-30"
@@ -603,20 +658,30 @@ const DashboardClient = ({ children }: DashboardClientProps) => {
               {activeSection !== "dashboard" && (
                 <>
                   <span>›</span>
-                  <span className="text-gray-900 font-medium">{sidebarItems.flatMap((cat) => cat.items).find((item) => item.id === activeSection)?.label}</span>
+                  <span className="text-gray-900 font-medium">
+                    {
+                      sidebarItems
+                        .flatMap((cat) => cat.items)
+                        .find((item) => item.id === activeSection)?.label
+                    }
+                  </span>
                 </>
               )}
             </div>
 
             <div className="flex items-center space-x-4">
-              {/* <div className="relative" ref={languageMenuRef}>
+              <div className="relative" ref={languageMenuRef}>
                 <button
                   onClick={() => setIsLanguageMenuOpen(!isLanguageMenuOpen)}
                   className="flex items-center space-x-2 p-2 hover:bg-gray-100 rounded-lg transition-colors"
                 >
                   <Globe className="w-4 h-4 text-gray-600" />
-                  <span className="text-sm font-medium text-gray-700 hidden sm:block">{localeNames[locale]}</span>
-                  <ChevronDown className={`w-3 h-3 text-gray-500 transition-transform ${isLanguageMenuOpen ? "rotate-180" : ""}`} />
+                  <span className="text-sm font-medium text-gray-700 hidden sm:block">
+                    {localeNames[locale]}
+                  </span>
+                  <ChevronDown
+                    className={`w-3 h-3 text-gray-500 transition-transform ${isLanguageMenuOpen ? "rotate-180" : ""}`}
+                  />
                 </button>
 
                 {isLanguageMenuOpen && (
@@ -626,7 +691,9 @@ const DashboardClient = ({ children }: DashboardClientProps) => {
                         key={key}
                         onClick={() => handleSwitchLanguage(key)}
                         className={`w-full flex items-center space-x-2 px-3 py-2 text-sm transition-colors ${
-                          locale === key ? "bg-blue-50 text-blue-700" : "text-gray-700 hover:bg-gray-50"
+                          locale === key
+                            ? "bg-blue-50 text-blue-700"
+                            : "text-gray-700 hover:bg-gray-50"
                         }`}
                       >
                         <span>{localeNames[key]}</span>
@@ -635,7 +702,7 @@ const DashboardClient = ({ children }: DashboardClientProps) => {
                     ))}
                   </div>
                 )}
-              </div> */}
+              </div>
 
               {/* User Information */}
               <div className="relative" ref={userMenuRef}>
@@ -644,17 +711,29 @@ const DashboardClient = ({ children }: DashboardClientProps) => {
                   onClick={() => setIsUserMenuOpen(!isUserMenuOpen)}
                 >
                   {userInfo?.avatar_url ? (
-                    <img src={userInfo.avatar_url} alt={userInfo.nickname || "User"} className="w-8 h-8 rounded-full object-cover" />
+                    <img
+                      src={userInfo.avatar_url}
+                      alt={userInfo.nickname || "User"}
+                      className="w-8 h-8 rounded-full object-cover"
+                    />
                   ) : (
                     <div className="w-8 h-8 bg-gradient-to-br from-blue-400 to-blue-600 rounded-full flex items-center justify-center">
                       <User className="w-4 h-4 text-white" />
                     </div>
                   )}
                   <div className="hidden md:block text-left">
-                    <p className="text-sm font-medium text-gray-900">{userInfo?.nickname || userInfo?.email?.split("@")[0] || ""}</p>
+                    <p className="text-sm font-medium text-gray-900">
+                      {userInfo?.nickname ||
+                        userInfo?.email?.split("@")[0] ||
+                        ""}
+                    </p>
                     <div className="flex items-center space-x-2">
                       <CreditCard className="w-3 h-3 text-gray-500" />
-                      <span className="text-xs text-gray-500">{userCredits ? `${userCredits.left_credits} credits` : "Loading..."}</span>
+                      <span className="text-xs text-gray-500">
+                        {userCredits
+                          ? `${userCredits.left_credits} credits`
+                          : "Loading..."}
+                      </span>
                       <button
                         onClick={(e) => {
                           e.stopPropagation();
@@ -663,11 +742,15 @@ const DashboardClient = ({ children }: DashboardClientProps) => {
                         className="p-0.5 hover:bg-gray-200 rounded transition-colors"
                         title="Refresh credits"
                       >
-                        <RefreshCw className={`w-3 h-3 text-gray-500 ${isRefreshingCredits ? "animate-spin" : ""}`} />
+                        <RefreshCw
+                          className={`w-3 h-3 text-gray-500 ${isRefreshingCredits ? "animate-spin" : ""}`}
+                        />
                       </button>
                     </div>
                   </div>
-                  <ChevronDown className={`w-4 h-4 text-gray-500 transition-transform ${isUserMenuOpen ? "rotate-180" : ""}`} />
+                  <ChevronDown
+                    className={`w-4 h-4 text-gray-500 transition-transform ${isUserMenuOpen ? "rotate-180" : ""}`}
+                  />
                 </div>
 
                 {/* User Dropdown Menu */}
@@ -676,15 +759,25 @@ const DashboardClient = ({ children }: DashboardClientProps) => {
                     <div className="px-4 py-3 border-b border-gray-100">
                       <div className="flex items-center space-x-3">
                         {userInfo?.avatar_url ? (
-                          <img src={userInfo.avatar_url} alt={userInfo.nickname || "User"} className="w-8 h-8 rounded-full object-cover" />
+                          <img
+                            src={userInfo.avatar_url}
+                            alt={userInfo.nickname || "User"}
+                            className="w-8 h-8 rounded-full object-cover"
+                          />
                         ) : (
                           <div className="w-8 h-8 bg-gradient-to-br from-blue-400 to-blue-600 rounded-full flex items-center justify-center">
                             <User className="w-4 h-4 text-white" />
                           </div>
                         )}
                         <div>
-                          <p className="text-sm font-medium text-gray-900">{userInfo?.nickname || userInfo?.email?.split("@")[0] || "User"}</p>
-                          <p className="text-xs text-gray-500">{userInfo?.email}</p>
+                          <p className="text-sm font-medium text-gray-900">
+                            {userInfo?.nickname ||
+                              userInfo?.email?.split("@")[0] ||
+                              "User"}
+                          </p>
+                          <p className="text-xs text-gray-500">
+                            {userInfo?.email}
+                          </p>
                         </div>
                       </div>
                     </div>
@@ -733,14 +826,22 @@ const DashboardClient = ({ children }: DashboardClientProps) => {
       </div>
 
       {/* Sign Out Dialog */}
-      <Dialog open={isSignOutDialogOpen} onOpenChange={() => setIsSignOutDialogOpen(false)}>
+      <Dialog
+        open={isSignOutDialogOpen}
+        onOpenChange={() => setIsSignOutDialogOpen(false)}
+      >
         <DialogContent className="sm:max-w-[425px]">
           <DialogHeader>
             <DialogTitle>Sign Out</DialogTitle>
-            <DialogDescription>Are you sure you want to sign out?</DialogDescription>
+            <DialogDescription>
+              Are you sure you want to sign out?
+            </DialogDescription>
           </DialogHeader>
           <DialogFooter className="gap-2">
-            <Button variant="outline" onClick={() => setIsSignOutDialogOpen(false)}>
+            <Button
+              variant="outline"
+              onClick={() => setIsSignOutDialogOpen(false)}
+            >
               Cancel
             </Button>
             <Button variant="destructive" onClick={confirmSignOut}>
@@ -751,17 +852,32 @@ const DashboardClient = ({ children }: DashboardClientProps) => {
       </Dialog>
 
       {/* Delete Session Dialog */}
-      <Dialog open={isDeleteDialogOpen} onOpenChange={() => setIsDeleteDialogOpen(false)}>
+      <Dialog
+        open={isDeleteDialogOpen}
+        onOpenChange={() => setIsDeleteDialogOpen(false)}
+      >
         <DialogContent className="sm:max-w-[425px]">
           <DialogHeader>
             <DialogTitle>Delete Session</DialogTitle>
-            <DialogDescription>Are you sure you want to delete "{sessionToDelete?.name || "this session"}"? This action cannot be undone.</DialogDescription>
+            <DialogDescription>
+              Are you sure you want to delete "
+              {sessionToDelete?.name || "this session"}"? This action cannot be
+              undone.
+            </DialogDescription>
           </DialogHeader>
           <DialogFooter className="gap-2">
-            <Button variant="outline" onClick={() => setIsDeleteDialogOpen(false)} disabled={isDeletingSession}>
+            <Button
+              variant="outline"
+              onClick={() => setIsDeleteDialogOpen(false)}
+              disabled={isDeletingSession}
+            >
               Cancel
             </Button>
-            <Button variant="destructive" onClick={confirmDeleteSession} disabled={isDeletingSession}>
+            <Button
+              variant="destructive"
+              onClick={confirmDeleteSession}
+              disabled={isDeletingSession}
+            >
               {isDeletingSession ? "Deleting..." : "Delete"}
             </Button>
           </DialogFooter>
