@@ -1,6 +1,6 @@
 import { NextRequest } from "next/server";
 import { respData, respErr } from "@/lib/resp";
-import { chatSessionCreate, chatSessionGetUserSessions } from "@/models/chat";
+
 import { getUserUuid } from "@/services/user";
 
 export async function POST(req: NextRequest) {
@@ -17,21 +17,8 @@ export async function POST(req: NextRequest) {
       return respErr("icon, name and details are required");
     }
 
-    const sessionInfo = await chatSessionCreate({
-      user_uuid: user_uuid,
-      type: type,
-      icon: icon,
-      name: name,
-      details: details,
-    });
-
-    // 验证会话属于当前用户
-    if (sessionInfo.user_uuid !== user_uuid) {
-      return respErr("Unauthorized");
-    }
-
     return respData({
-      session_uuid: sessionInfo.uuid,
+      session_uuid: "",
     });
   } catch (error) {
     console.error("Get chat session error:", error);
@@ -52,7 +39,7 @@ export async function GET(req: NextRequest) {
     const limit = parseInt(searchParams.get("limit") || "10");
 
     // 获取用户的聊天会话列表
-    const sessions = await chatSessionGetUserSessions(user_uuid, limit);
+    const sessions = await [];
 
     return respData(sessions);
   } catch (error) {
