@@ -1,4 +1,8 @@
-import { findUserByInviteCode, findUserByUuid, updateUserInviteCode } from "@/models/user";
+import {
+  findUserByInviteCode,
+  findUserByUuid,
+  updateUserInviteCode,
+} from "@/models/user";
 import { respData, respErr } from "@/lib/resp";
 
 import { getUserUuid } from "@/services/user";

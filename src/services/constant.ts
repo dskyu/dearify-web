@@ -17,3 +17,5 @@ export const AffiliateRewardAmount = {
   Invited: 0,
   Paied: 5000, // $50
 };
+
+export const PROJECT_NAME = process.env.NEXT_PUBLIC_PROJECT_NAME || "None";

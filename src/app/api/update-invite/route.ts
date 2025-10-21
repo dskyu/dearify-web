@@ -1,5 +1,13 @@
-import { AffiliateRewardAmount, AffiliateRewardPercent, AffiliateStatus } from "@/services/constant";
-import { findUserByInviteCode, findUserByUuid, updateUserInvitedBy } from "@/models/user";
+import {
+  AffiliateRewardAmount,
+  AffiliateRewardPercent,
+  AffiliateStatus,
+} from "@/services/constant";
+import {
+  findUserByInviteCode,
+  findUserByUuid,
+  updateUserInvitedBy,
+} from "@/models/user";
 import { respData, respErr } from "@/lib/resp";
 
 import { getIsoTimestr } from "@/lib/time";

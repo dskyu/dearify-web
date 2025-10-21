@@ -2,6 +2,7 @@ import { NextRequest, NextResponse } from "next/server";
 import resend from "@/lib/resend";
 import { generateVerificationEmailTemplate } from "@/lib/email-templates";
 import { createVerificationCode } from "@/services/verification";
+import { PROJECT_NAME } from "@/services/constant";
 
 export async function POST(request: NextRequest) {
   try {
@@ -15,7 +16,10 @@ export async function POST(request: NextRequest) {
     // 检查邮箱格式
     const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
     if (!emailRegex.test(email)) {
-      return NextResponse.json({ error: "Invalid email format" }, { status: 400 });
+      return NextResponse.json(
+        { error: "Invalid email format" },
+        { status: 400 },
+      );
     }
 
     // 生成新的验证码
@@ -23,12 +27,17 @@ export async function POST(request: NextRequest) {
 
     // 发送验证邮件
     const userName = nickname || email.split("@")[0];
-    const { html: emailHtml, subject } = await generateVerificationEmailTemplate(verificationCode, userName, locale);
+    const { html: emailHtml, subject } =
+      await generateVerificationEmailTemplate(
+        verificationCode,
+        userName,
+        locale,
+      );
 
     const emailDomain = process.env.RESEND_EMAIL_DOMAIN;
 
     await resend.emails.send({
-      from: `ReviewInsight <noreply@${emailDomain}>`,
+      from: `${PROJECT_NAME} <noreply@${emailDomain}>`,
       to: email,
       subject: subject,
       html: emailHtml,
@@ -40,6 +49,9 @@ export async function POST(request: NextRequest) {
     });
   } catch (error) {
     console.error("Error resending verification code:", error);
-    return NextResponse.json({ error: "Failed to resend verification code" }, { status: 500 });
+    return NextResponse.json(
+      { error: "Failed to resend verification code" },
+      { status: 500 },
+    );
   }
 }
