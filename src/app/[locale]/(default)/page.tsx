@@ -11,7 +11,11 @@ import Showcase from "@/components/blocks/showcase";
 import Testimonial from "@/components/blocks/testimonial";
 import { getLandingPage, getPricingPage } from "@/services/page";
 
-export async function generateMetadata({ params }: { params: Promise<{ locale: string }> }) {
+export async function generateMetadata({
+  params,
+}: {
+  params: Promise<{ locale: string }>;
+}) {
   const { locale } = await params;
   let canonicalUrl = `${process.env.NEXT_PUBLIC_WEB_URL}`;
 
@@ -26,7 +30,11 @@ export async function generateMetadata({ params }: { params: Promise<{ locale: s
   };
 }
 
-export default async function LandingPage({ params }: { params: Promise<{ locale: string }> }) {
+export default async function LandingPage({
+  params,
+}: {
+  params: Promise<{ locale: string }>;
+}) {
   const { locale } = await params;
   const page = await getLandingPage(locale);
 
@@ -42,13 +50,12 @@ export default async function LandingPage({ params }: { params: Promise<{ locale
   return (
     <>
       {page.hero && <Hero hero={page.hero} />}
-      {page.benefit && <Feature2 section={page.benefit} />}
-      {page.showcase && <Showcase section={page.showcase} />}
+      {page.gallery && <Feature section={page.gallery} />}
       {page.introduce && <Feature1 section={page.introduce} />}
       {page.usage && <Feature3 section={page.usage} />}
       {page.feature && <Feature section={page.feature} />}
-      {pricing && <Pricing pricing={pricing} />}
       {page.testimonial && <Testimonial section={page.testimonial} />}
+      {pricing && <Pricing pricing={pricing} />}
       {page.faq && <FAQ section={page.faq} />}
       {page.cta && <CTA section={page.cta} />}
     </>

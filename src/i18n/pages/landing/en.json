@@ -98,49 +98,90 @@
     "show_badge": false
   },
 
+  "gallery": {
+    "name": "gallery",
+    "label": "Gallery",
+    "title": "Explore Stunning AI-Created Memories",
+    "description": "Browse incredible AI-generated artworks and memories created by couples, families, and friends. Discover examples of wedding portraits, family adventures, romantic moments, and creative scenes—all designed with Dearify's state-of-the-art technology.",
+    "items": [
+      {
+        "image": { "src": "/imgs/features/1.png" },
+        "title": "Romantic Wedding Portrait"
+      },
+      {
+        "image": { "src": "/imgs/features/2.png" },
+        "title": "Family Travel Adventure"
+      },
+      {
+        "image": { "src": "/imgs/features/3.png" },
+        "title": "Magic in the City"
+      },
+      {
+        "image": { "src": "/imgs/features/4.png" },
+        "title": "Anniversary Celebration"
+      },
+      {
+        "image": { "src": "/imgs/features/5.png" },
+        "title": "Beachside Love Story"
+      },
+      {
+        "image": { "src": "/imgs/features/6.png" },
+        "title": "Cozy Family Moment"
+      },
+      {
+        "image": { "src": "/imgs/features/7.png" },
+        "title": "Dreamy Couple's Night"
+      },
+      {
+        "image": { "src": "/imgs/features/8.png" },
+        "title": "Adventure with Friends"
+      }
+    ]
+  },
+
   "introduce": {
     "name": "introduce",
-    "title": "Comprehensive review analysis with AI chat",
+    "title": "Three Ways to Express Your Love",
     "label": "Introduce",
-    "description": "Our AI analyzes reviews from app stores, then lets you chat to dig deeper into insights",
+    "description": "From stunning couple photos to personalized love songs and heartwarming videos, create lasting memories that celebrate your unique bond.",
     "image": {
       "src": "/imgs/features/1.png"
     },
     "items": [
       {
-        "title": "AI-Powered Analysis",
-        "description": "Advanced machine learning algorithms analyze millions of reviews to extract meaningful insights and patterns.",
-        "icon": "RiBrainLine",
-        "label": "indigo"
+        "title": "AI Art Creation",
+        "description": "Transform your photos into stunning artworks. Create wedding photos, travel memories, and couple portraits with professional quality.",
+        "icon": "RiImage2Line",
+        "label": "pink"
       },
       {
-        "title": "AI Chat Interface",
-        "description": "Have multi-turn conversations with AI to dig deeper into insights, ask follow-up questions, and explore data.",
-        "icon": "RiMessage3Line",
-        "label": "emerald"
+        "title": "Music Creation",
+        "description": "Compose personalized love songs and meaningful music. Express your feelings through custom melodies and lyrics.",
+        "icon": "RiMusic2Line",
+        "label": "purple"
       },
       {
-        "title": "Pain Point Detection",
-        "description": "Automatically identify user frustrations, feature requests, and improvement opportunities from review sentiment.",
-        "icon": "RiFocus2Line",
-        "label": "red"
+        "title": "Video Creation",
+        "description": "Create heartwarming videos that capture your most precious moments. From proposals to family interactions.",
+        "icon": "RiVideoLine",
+        "label": "blue"
       },
       {
-        "title": "Competitive Intelligence",
-        "description": "Discover what users love and hate about competitor apps to inform your strategic decisions.",
-        "icon": "RiEyeLine",
-        "label": "orange"
+        "title": "Wedding & Engagement",
+        "description": "Perfect for couples celebrating their special moments with beautiful wedding photos and romantic videos.",
+        "icon": "RiHeart2Line",
+        "label": "pink"
       },
       {
-        "title": "Trend Monitoring",
-        "description": "Track review sentiment over time and identify emerging issues before they impact your ratings.",
-        "icon": "RiArrowRightUpLine",
-        "label": "emerald"
+        "title": "Family Moments",
+        "description": "Capture precious family interactions and create lasting memories with kids and loved ones.",
+        "icon": "RiTeamLine",
+        "label": "purple"
       },
       {
-        "title": "Multi-Platform Coverage",
-        "description": "Analyze reviews from App Store, Google Play, Twitter, Instagram, TikTok, and other social platforms.",
-        "icon": "RiGlobalLine",
+        "title": "Travel Memories",
+        "description": "Document your adventures together with stunning travel photos and memorable video moments.",
+        "icon": "RiEarthLine",
         "label": "blue"
       }
     ]
@@ -246,14 +287,14 @@
   },
   "usage": {
     "name": "usage",
-    "title": "How ReviewInsight Works",
+    "title": "3 easy steps to get your studio-quality portfolio",
     "description": "Get actionable insights from any app in just four simple steps",
     "image_position": "left",
     "text_align": "center",
     "items": [
       {
         "label": "01",
-        "title": "Search Any App",
+        "title": "Select your outfits and backgrounds",
         "description": "Simply enter any app name - from Instagram to Uber, we'll find and analyze it instantly."
       },
       {
@@ -276,75 +317,87 @@
   "showcase": {},
   "testimonial": {
     "name": "testimonial",
-    "label": "Testimonial",
-    "title": "What people are saying",
-    "description": "Real feedback from real users on social media",
+    "label": "Love Stories",
+    "title": "What Couples Are Saying",
+    "description": "Real stories from real couples who created beautiful memories together",
     "icon": "GoThumbsup",
     "items": [
       {
-        "title": "Sarah Chen",
-        "username": "sarah_chen",
-        "description": "Just used ReviewInsight to analyze our competitor's app reviews. The AI chat feature is incredible - I could ask follow-up questions and dig deeper into user pain points. Our product roadmap is now completely data-driven! 🚀",
+        "title": "Sarah & Michael",
+        "username": "sarah_michael_love",
+        "description": "Our wedding photos turned out absolutely stunning! The AI captured every emotion perfectly - from our first look to the dance floor. These aren't just photos, they're our love story in pictures. Thank you Dearify! 💕",
         "time": "2h",
         "likes": 127,
         "retweets": 34,
         "replies": 12,
         "verified": true,
+        "mediaType": "image",
+        "category": "wedding",
         "icon": "https://images.pexels.com/photos/774909/pexels-photo-774909.jpeg?auto=compress&cs=tinysrgb&w=100&h=100&fit=crop&crop=face"
       },
       {
-        "title": "Michael Rodriguez",
-        "username": "mikeceo",
-        "description": "ReviewInsight's multi-platform analysis revealed gaps in the market we never knew existed. The AI literally chatted with me for 30 minutes, helping me understand user sentiment across App Store, Google Play, and social media. Game changer for startups! 💡",
+        "title": "Emma & David",
+        "username": "emma_david_anniversary",
+        "description": "Our anniversary photoshoot was absolutely magical! The AI captured our love story in the most beautiful way. These photos will be treasured forever! 💕📸",
         "time": "4h",
         "likes": 89,
         "retweets": 23,
         "replies": 8,
         "verified": false,
+        "mediaType": "image",
+        "category": "anniversary",
         "icon": "https://images.pexels.com/photos/1222271/pexels-photo-1222271.jpeg?auto=compress&cs=tinysrgb&w=100&h=100&fit=crop&crop=face"
       },
       {
-        "title": "Lisa Thompson",
-        "username": "lisatech",
-        "description": "The conversational AI in ReviewInsight is next level. Instead of static reports, I can ask \"What do users hate most about our checkout process?\" and get instant, detailed answers. Our app rating went from 3.2 to 4.6 in 3 months! 📈",
+        "title": "Lisa & Tom",
+        "username": "lisa_tom_family",
+        "description": "Our family video montage is pure magic! It captured all our precious moments with the kids - from birthday parties to bedtime stories. The AI made our chaotic family life look like a beautiful movie! 👨‍👩‍👧‍👦✨",
         "time": "6h",
         "likes": 203,
         "retweets": 67,
         "replies": 19,
         "verified": true,
+        "mediaType": "video",
+        "category": "family",
         "icon": "https://images.pexels.com/photos/1239291/pexels-photo-1239291.jpeg?auto=compress&cs=tinysrgb&w=100&h=100&fit=crop&crop=face"
       },
       {
-        "title": "David Kim",
-        "username": "davidkimux",
-        "description": "As a UX designer, ReviewInsight has become my secret weapon. The pain point analysis helped us redesign our onboarding flow, reducing drop-off by 40%. The AI chat makes it so easy to explore user feedback patterns! 🎨",
+        "title": "Alex & Jessica",
+        "username": "alex_jessica_travel",
+        "description": "Our honeymoon photos in Santorini look like they were taken by a professional photographer! The AI transformed our selfies into magazine-worthy shots. These memories will last forever! 🌅💕",
         "time": "8h",
         "likes": 156,
         "retweets": 41,
         "replies": 15,
         "verified": true,
+        "mediaType": "image",
+        "category": "travel",
         "icon": "https://images.pexels.com/photos/1043471/pexels-photo-1043471.jpeg?auto=compress&cs=tinysrgb&w=100&h=100&fit=crop&crop=face"
       },
       {
-        "title": "Emma Wilson",
-        "username": "emmawilson_pm",
-        "description": "ReviewInsight's competitive analysis is insane! We discovered our main competitor's users were complaining about a feature we were about to build the same way. Saved us months of development time and helped us build it better! 💪",
+        "title": "Rachel & Mark",
+        "username": "rachel_mark_proposal",
+        "description": "The proposal video Dearify created is our most treasured possession! It shows our entire love story leading up to that magical moment. Every time we watch it, we fall in love all over again! 💍🎬",
         "time": "12h",
         "likes": 94,
         "retweets": 28,
         "replies": 11,
         "verified": false,
+        "mediaType": "video",
+        "category": "wedding",
         "icon": "https://images.pexels.com/photos/1181686/pexels-photo-1181686.jpeg?auto=compress&cs=tinysrgb&w=100&h=100&fit=crop&crop=face"
       },
       {
-        "title": "Alex Johnson",
-        "username": "alexjohnsondev",
-        "description": "The real-time sentiment tracking in ReviewInsight caught a critical bug before it tanked our ratings. The AI immediately flagged unusual negative sentiment patterns and we fixed the issue within hours. This tool pays for itself! 🛡️",
+        "title": "Maria & James",
+        "username": "maria_james_couple",
+        "description": "Our couple photoshoot was incredible! The AI made us look like we're straight out of a romantic movie. These photos perfectly capture our love and will be our favorites forever! 💕📸",
         "time": "1d",
         "likes": 178,
         "retweets": 52,
         "replies": 23,
         "verified": true,
+        "mediaType": "image",
+        "category": "anniversary",
         "icon": "https://images.pexels.com/photos/1681010/pexels-photo-1681010.jpeg?auto=compress&cs=tinysrgb&w=100&h=100&fit=crop&crop=face"
       }
     ]

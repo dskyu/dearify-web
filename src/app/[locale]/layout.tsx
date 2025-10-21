@@ -1,11 +1,20 @@
-import { getMessages, getTranslations, setRequestLocale } from "next-intl/server";
+import {
+  getMessages,
+  getTranslations,
+  setRequestLocale,
+} from "next-intl/server";
 import { AppContextProvider } from "@/contexts/app";
 import { Metadata } from "next";
 import { NextAuthSessionProvider } from "@/auth/session";
 import { NextIntlClientProvider } from "next-intl";
 import { ThemeProvider } from "@/providers/theme";
+import CookieConsent from "@/components/CookieConsent";
 
-export async function generateMetadata({ params }: { params: Promise<{ locale: string }> }): Promise<Metadata> {
+export async function generateMetadata({
+  params,
+}: {
+  params: Promise<{ locale: string }>;
+}): Promise<Metadata> {
   const { locale } = await params;
   setRequestLocale(locale);
 
@@ -39,6 +48,7 @@ export default async function LocaleLayout({
         <AppContextProvider>
           <ThemeProvider attribute="class" disableTransitionOnChange>
             {children}
+            <CookieConsent />
           </ThemeProvider>
         </AppContextProvider>
       </NextAuthSessionProvider>

@@ -455,5 +455,27 @@
     "generate": "生成",
     "generating": "生成中...",
     "upgrade": "升级"
+  },
+  "cookieConsent": {
+    "title": "我们使用 Cookie",
+    "description": "我们使用 Cookie 来增强您的浏览体验、提供个性化内容并分析我们的流量。点击「接受全部」即表示您同意我们使用 Cookie。",
+    "acceptAll": "接受全部",
+    "acceptNecessary": "仅接受必要",
+    "managePreferences": "管理偏好设置",
+    "savePreferences": "保存偏好设置",
+    "cancel": "取消",
+    "cookieSettings": "Cookie 设置",
+    "necessary": {
+      "title": "必要 Cookie",
+      "description": "网站正常运行所必需的。这些无法禁用。"
+    },
+    "analytics": {
+      "title": "分析 Cookie",
+      "description": "通过匿名收集和报告信息，帮助我们了解访客如何与我们的网站互动。"
+    },
+    "marketing": {
+      "title": "营销 Cookie",
+      "description": "用于跨网站跟踪访客，以显示相关且吸引人的广告。"
+    }
   }
 }

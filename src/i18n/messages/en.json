@@ -2,7 +2,7 @@
   "loading": "Loading...",
   "metadata": {
     "name": "Dearify",
-    "title": "Dearify — AI Art Studio for Couples | Create Photos, Songs & Videos Together",
+    "title": "AI Art Studio for Couples | Create Photos, Songs & Videos Together - Dearify",
     "description": "Create couple photos, custom love songs, and anniversary videos together. Dearify is an all-in-one AI art studio for couples, spouses, and families.",
     "keywords": "couple photo generator, love song maker, anniversary video creator"
   },
@@ -460,5 +460,27 @@
     "generate": "Generate",
     "generating": "Generating...",
     "upgrade": "Upgrade"
+  },
+  "cookieConsent": {
+    "title": "We use cookies",
+    "description": "We use cookies to enhance your browsing experience, serve personalized content, and analyze our traffic. By clicking 'Accept All', you consent to our use of cookies.",
+    "acceptAll": "Accept All",
+    "acceptNecessary": "Accept Necessary Only",
+    "managePreferences": "Manage Preferences",
+    "savePreferences": "Save Preferences",
+    "cancel": "Cancel",
+    "cookieSettings": "Cookie Settings",
+    "necessary": {
+      "title": "Necessary Cookies",
+      "description": "Essential for the website to function properly. These cannot be disabled."
+    },
+    "analytics": {
+      "title": "Analytics Cookies",
+      "description": "Help us understand how visitors interact with our website by collecting and reporting information anonymously."
+    },
+    "marketing": {
+      "title": "Marketing Cookies",
+      "description": "Used to track visitors across websites to display relevant and engaging advertisements."
+    }
   }
 }

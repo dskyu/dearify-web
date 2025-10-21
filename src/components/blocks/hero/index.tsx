@@ -128,7 +128,7 @@ export default function Hero({ hero }: { hero: HeroType }) {
     <>
       <HeroBg />
       <section className="py-16 lg:py-24">
-        <div className="container py-16">
+        <div className="container pt-16">
           <div className="grid lg:grid-cols-12 gap-8 lg:gap-12 items-center mx-12">
             {/* Left Column - Text Content */}
             <div className="lg:col-span-7 flex flex-col justify-between h-full">
@@ -152,7 +152,7 @@ export default function Hero({ hero }: { hero: HeroType }) {
                 {/* Main Title */}
                 <h1 className="text-4xl sm:text-4xl md:text-4xl lg:text-5xl xl:text-5xl 2xl:text-6xl font-bold leading-none text-center lg:text-left whitespace-nowrap">
                   <span className="bg-gradient-to-r from-purple-600 to-black bg-clip-text text-transparent">
-                    The best AI Art Studio
+                    The Best AI Art Studio
                   </span>
                   <br />
                   <span className="bg-gradient-to-r from-purple-600 to-black bg-clip-text text-transparent">

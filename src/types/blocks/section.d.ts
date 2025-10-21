@@ -19,6 +19,8 @@ export interface SectionItem {
   retweets?: number;
   replies?: number;
   verified?: boolean;
+  mediaType?: "image" | "music" | "video";
+  category?: "wedding" | "family" | "travel" | "anniversary";
 }
 
 export interface Section {
