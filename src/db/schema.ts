@@ -206,9 +206,10 @@ export const userAssets = mysqlTable(
     negative_prompt: varchar("negative_prompt", { length: 255 }),
     result_url: varchar("result_url", { length: 255 }),
     result_detail: json("result_detail"),
-    ref_asset_id: varchar("ref_asset_id", { length: 255 }),
     provider: varchar("provider", { length: 50 }).notNull().default(""),
+    provider_job_id: varchar("provider_job_id", { length: 255 }),
     created_at: datetime("created_at").default(sql`CURRENT_TIMESTAMP`),
+    finished_at: datetime("finished_at"),
   },
   (table) => [
     index("user_assets_user_idx").on(table.user_uuid),

@@ -1,6 +1,6 @@
 "use client";
 
-import React, { useState, useCallback } from "react";
+import React, { useState, useCallback, useMemo } from "react";
 import {
   ImageIcon,
   Sparkles,
@@ -23,6 +23,8 @@ import {
   Type,
   Info,
   Upload,
+  Search,
+  X,
 } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import {
@@ -32,12 +34,11 @@ import {
   CardHeader,
   CardTitle,
 } from "@/components/ui/card";
-import { Badge } from "@/components/ui/badge";
-import { Slider } from "@/components/ui/slider";
-import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import { Switch } from "@/components/ui/switch";
 import { Label } from "@/components/ui/label";
 import { Textarea } from "@/components/ui/textarea";
+import { Input } from "@/components/ui/input";
+import { Badge } from "@/components/ui/badge";
 import {
   Dialog,
   DialogContent,
@@ -54,20 +55,8 @@ import {
 } from "@/components/ui/select";
 import { cn } from "@/lib/utils";
 import { useRouter } from "@/i18n/navigation";
-import DragDropUpload from "@/components/ui/drag-drop-upload";
 import RealTimePreview from "@/components/ui/real-time-preview";
-
-interface ImageStyle {
-  id: string;
-  name: string;
-  description: string;
-  thumbnail: string;
-  category: string;
-  isFree?: boolean;
-  isPopular?: boolean;
-  credits: number;
-  estimatedTime: string;
-}
+import { TemplateItem, templatesConfig } from "@/lib/templates";
 
 interface GenerationSettings {
   style: string;
@@ -85,159 +74,100 @@ const ImageGenerationPage = () => {
   const MAX_REFERENCE_PHOTOS = 3;
   const [isGenerating, setIsGenerating] = useState(false);
   const [generatedImage, setGeneratedImage] = useState<string | null>(null);
+  const [currentAssetUuid, setCurrentAssetUuid] = useState<string | null>(null);
+  const [generationStatus, setGenerationStatus] = useState<string>("idle");
   const [selectedStyle, setSelectedStyle] = useState<string>("free-style");
   const [isTemplateDialogOpen, setIsTemplateDialogOpen] = useState(false);
   const [textPrompt, setTextPrompt] = useState("");
   const [isEnhancingPrompt, setIsEnhancingPrompt] = useState(false);
+  const [templateSearchText, setTemplateSearchText] = useState("");
+  const [selectedTag, setSelectedTag] = useState<string>("all");
   const [settings, setSettings] = useState<GenerationSettings>({
     style: "free-style",
     aspectRatio: "1:1",
     enhanceQuality: false,
     watermark: false,
-    model: "nano-banana",
+    model: "stable-diffusion",
   });
 
   const models = [
     {
-      id: "nano-banana",
-      name: "Nano Banana",
-      icon: "🍌",
-      credits: 5,
-      description:
-        "Google's advanced image editing model, unmatched character consistency.",
-    },
-    {
-      id: "seedream",
-      name: "Seedream 4.0",
-      icon: "🌊",
-      credits: 4,
-      description:
-        "Precise control over multiple images with stunning quality.",
-    },
-    {
-      id: "qwen",
-      name: "Qwen",
-      icon: "🔮",
+      id: "stable-diffusion",
+      name: "Stable Diffusion",
+      icon: "🎨",
       credits: 3,
-      description: "Great at reading and creating clear text inside images.",
+      description: "High-quality image generation",
     },
     {
-      id: "gpt-image-1",
-      name: "GPT Image 1 Low",
+      id: "flux-schnell",
+      name: "Flux Schnell",
+      icon: "⚡",
+      credits: 3,
+      description: "High-quality, fast image generation",
+    },
+    {
+      id: "flux-dev",
+      name: "Flux Dev",
+      icon: "🔧",
+      credits: 8,
+      description: "Advanced image generation with more control",
+    },
+    {
+      id: "dall-e-3",
+      name: "DALL-E 3",
       icon: "🤖",
-      credits: 4,
-      description: "Advanced AI model with high-quality output.",
+      credits: 8,
+      description: "OpenAI's advanced image generation model",
     },
   ];
 
-  const imageStyles: ImageStyle[] = [
-    {
-      id: "free-style",
-      name: "Free Style",
-      description: "No specific template, let AI create freely",
-      thumbnail: "https://picsum.photos/300/300?random=0",
-      category: "General",
-      isPopular: true,
-      credits: 3,
-      estimatedTime: "25s",
-    },
-    {
-      id: "realistic-portrait",
-      name: "Realistic Portrait",
-      description: "Professional headshots and portraits with natural lighting",
-      thumbnail: "https://picsum.photos/300/300?random=1",
-      category: "Portrait",
-      isPopular: true,
-      credits: 5,
-      estimatedTime: "30s",
-    },
-    {
-      id: "anime-style",
-      name: "Anime Style",
-      description: "Transform photos into Japanese anime artwork",
-      thumbnail: "https://picsum.photos/300/300?random=2",
-      category: "Art Style",
-      isFree: true,
-      credits: 3,
-      estimatedTime: "45s",
-    },
-    {
-      id: "oil-painting",
-      name: "Oil Painting",
-      description: "Classical oil painting effects with rich textures",
-      thumbnail: "https://picsum.photos/300/300?random=3",
-      category: "Art Style",
-      credits: 4,
-      estimatedTime: "60s",
-    },
-    {
-      id: "watercolor",
-      name: "Watercolor",
-      description: "Soft watercolor painting with flowing colors",
-      thumbnail: "https://picsum.photos/300/300?random=4",
-      category: "Art Style",
-      credits: 4,
-      estimatedTime: "50s",
-    },
-    {
-      id: "digital-art",
-      name: "Digital Art",
-      description: "Modern digital artwork with vibrant colors",
-      thumbnail: "https://picsum.photos/300/300?random=5",
-      category: "Art Style",
-      credits: 5,
-      estimatedTime: "40s",
-    },
-    {
-      id: "sketch",
-      name: "Photo to Sketch",
-      description: "Convert photos into pencil sketch drawings",
-      thumbnail: "https://picsum.photos/300/300?random=6",
-      category: "Transform",
-      isFree: true,
-      credits: 2,
-      estimatedTime: "25s",
-    },
-    {
-      id: "cartoon",
-      name: "Photo to Cartoon",
-      description: "Transform photos into cartoon illustrations",
-      thumbnail: "https://picsum.photos/300/300?random=7",
-      category: "Transform",
-      credits: 3,
-      estimatedTime: "35s",
-    },
-    {
-      id: "pixar-style",
-      name: "Pixar Style",
-      description: "3D animated style like Pixar movies",
-      thumbnail: "https://picsum.photos/300/300?random=8",
-      category: "3D Style",
-      isPopular: true,
-      credits: 6,
-      estimatedTime: "90s",
-    },
+  const templates: TemplateItem[] = [
+    ...templatesConfig.filter((t) => t.type === "image"),
   ];
 
-  const categories = [
-    { name: "All", count: imageStyles.length },
-    {
-      name: "Art Style",
-      count: imageStyles.filter((e) => e.category === "Art Style").length,
-    },
-    {
-      name: "Transform",
-      count: imageStyles.filter((e) => e.category === "Transform").length,
-    },
-    {
-      name: "Portrait",
-      count: imageStyles.filter((e) => e.category === "Portrait").length,
-    },
-    {
-      name: "3D Style",
-      count: imageStyles.filter((e) => e.category === "3D Style").length,
-    },
-  ];
+  // Helper function to get template with fallback to free-style
+  const getTemplate = (slug: string): TemplateItem => {
+    const foundTemplate = templates.find((t) => t.slug === slug);
+    if (foundTemplate) {
+      return foundTemplate;
+    }
+
+    const freeStyleTemplate = templates.find((t) => t.slug === "free-style");
+    return freeStyleTemplate!;
+  };
+
+  // Extract all unique tags from templates
+  const allTags = useMemo(() => {
+    const tagSet = new Set<string>();
+    templates.forEach((template) => {
+      template.tags.forEach((tag) => tagSet.add(tag));
+    });
+    return Array.from(tagSet).sort();
+  }, [templates]);
+
+  // Filter templates based on search text and selected tag
+  const filteredTemplates = useMemo(() => {
+    return templates.filter((template) => {
+      // Text search filter
+      const matchesSearch =
+        !templateSearchText ||
+        template.slug
+          .toLowerCase()
+          .includes(templateSearchText.toLowerCase()) ||
+        template.image_settings?.prompt
+          ?.toLowerCase()
+          .includes(templateSearchText.toLowerCase()) ||
+        template.tags.some((tag) =>
+          tag.toLowerCase().includes(templateSearchText.toLowerCase()),
+        );
+
+      // Tag filter
+      const matchesTag =
+        selectedTag === "all" || template.tags.includes(selectedTag);
+
+      return matchesSearch && matchesTag;
+    });
+  }, [templates, templateSearchText, selectedTag]);
 
   const handleFileSelect = useCallback(
     (file: File) => {
@@ -265,12 +195,106 @@ const ImageGenerationPage = () => {
     if (!textPrompt && selectedFiles.length === 0) return;
 
     setIsGenerating(true);
-    // Simulate generation process
-    setTimeout(() => {
-      setGeneratedImage("https://picsum.photos/800/800?random=999");
+    setGeneratedImage(null);
+    setGenerationStatus("starting");
+
+    try {
+      // Prepare reference images URLs
+      const referenceImageUrls =
+        previewUrls.length > 0 ? previewUrls : undefined;
+
+      // Call the async API
+      const response = await fetch("/api/ai/generate-image-async", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify({
+          prompt: textPrompt,
+          model: settings.model,
+          aspectRatio: settings.aspectRatio,
+          enhanceQuality: settings.enhanceQuality,
+          watermark: settings.watermark,
+          referenceImage: referenceImageUrls?.[0], // Use first reference image
+          style: selectedStyle,
+        }),
+      });
+
+      if (!response.ok) {
+        const errorData = await response.json();
+        throw new Error(errorData.error || "Failed to start image generation");
+      }
+
+      const result = await response.json();
+
+      if (result.success && result.assetUuid) {
+        setCurrentAssetUuid(result.assetUuid);
+        setGenerationStatus("processing");
+        // Start polling for status updates
+        pollGenerationStatus(result.assetUuid);
+      } else {
+        throw new Error("No asset UUID returned from API");
+      }
+    } catch (error) {
+      console.error("Generation failed:", error);
+      setGenerationStatus("failed");
+      alert(
+        `Generation failed: ${error instanceof Error ? error.message : "Unknown error"}`,
+      );
+    } finally {
       setIsGenerating(false);
-    }, 3000);
+    }
   };
+
+  // Poll generation status
+  const pollGenerationStatus = useCallback(async (assetUuid: string) => {
+    const pollInterval = 2000; // Poll every 2 seconds
+    const maxPollTime = 300000; // Max 5 minutes
+    const startTime = Date.now();
+
+    const poll = async () => {
+      try {
+        const response = await fetch(`/api/ai/asset-status/${assetUuid}`);
+
+        if (!response.ok) {
+          throw new Error("Failed to check generation status");
+        }
+
+        const result = await response.json();
+
+        if (result.success) {
+          if (result.status === "completed" && result.resultUrl) {
+            setGeneratedImage(result.resultUrl);
+            setGenerationStatus("completed");
+            setIsGenerating(false);
+            return;
+          } else if (result.status === "failed") {
+            setGenerationStatus("failed");
+            setIsGenerating(false);
+            alert(`Generation failed: ${result.error || "Unknown error"}`);
+            return;
+          } else if (result.status === "processing") {
+            // Continue polling
+            if (Date.now() - startTime < maxPollTime) {
+              setTimeout(poll, pollInterval);
+            } else {
+              setGenerationStatus("timeout");
+              setIsGenerating(false);
+              alert("Generation timeout. Please try again.");
+            }
+          }
+        }
+      } catch (error) {
+        console.error("Polling error:", error);
+        setGenerationStatus("error");
+        setIsGenerating(false);
+        alert("Failed to check generation status. Please refresh the page.");
+      }
+    };
+
+    // Start polling
+    setTimeout(poll, pollInterval);
+  }, []);
 
   const handleDownload = () => {
     if (generatedImage) {
@@ -317,87 +341,137 @@ const ImageGenerationPage = () => {
                     variant="outline"
                     className="w-full h-16 justify-start gap-3 p-3"
                   >
-                    {imageStyles.find((s) => s.id === selectedStyle) ? (
-                      <>
-                        <img
-                          src={
-                            imageStyles.find((s) => s.id === selectedStyle)
-                              ?.thumbnail
-                          }
-                          alt={
-                            imageStyles.find((s) => s.id === selectedStyle)
-                              ?.name
-                          }
-                          className="w-10 h-10 rounded object-cover flex-shrink-0"
-                        />
-                        <div className="flex flex-col items-start text-left">
-                          <span className="text-sm font-medium">
-                            {
-                              imageStyles.find((s) => s.id === selectedStyle)
-                                ?.name
-                            }
-                          </span>
-                          <span className="text-xs text-gray-500">
-                            {
-                              imageStyles.find((s) => s.id === selectedStyle)
-                                ?.description
-                            }
-                          </span>
-                        </div>
-                      </>
-                    ) : (
-                      <>
-                        <div className="w-10 h-10 rounded bg-gray-100 flex items-center justify-center flex-shrink-0">
-                          <Palette className="w-5 h-5 text-gray-400" />
-                        </div>
-                        <div className="flex flex-col items-start text-left">
-                          <span className="text-sm text-gray-500">
-                            Select a template
-                          </span>
-                          <span className="text-xs text-gray-400">
-                            Choose a style for your photo
-                          </span>
-                        </div>
-                      </>
-                    )}
+                    {(() => {
+                      const template = getTemplate(selectedStyle);
+                      return (
+                        <>
+                          <img
+                            src={template.cover}
+                            alt={template.slug}
+                            className="w-10 h-10 rounded object-cover flex-shrink-0"
+                          />
+                          <div className="flex flex-col items-start text-left">
+                            <span className="text-sm font-medium">
+                              {template.slug
+                                .replace(/-/g, " ")
+                                .replace(/\b\w/g, (l) => l.toUpperCase())}
+                            </span>
+                            <span className="text-xs text-gray-500">
+                              {template.image_settings?.prompt ||
+                                "AI-generated image"}
+                            </span>
+                          </div>
+                        </>
+                      );
+                    })()}
                   </Button>
                 </DialogTrigger>
                 <DialogContent className="max-w-4xl max-h-[80vh] overflow-y-auto">
                   <DialogHeader>
                     <DialogTitle>Choose Template</DialogTitle>
                   </DialogHeader>
-                  <div className="grid grid-cols-3 gap-4 p-4">
-                    {imageStyles.map((style) => (
-                      <div
-                        key={style.id}
-                        className="flex flex-col items-center cursor-pointer hover:bg-gray-50 rounded-lg p-4 transition-colors"
-                        onClick={() => {
-                          setSelectedStyle(style.id);
-                          setIsTemplateDialogOpen(false);
-                        }}
+
+                  {/* Search and Filter Controls */}
+                  <div className="space-y-4 p-4 border-b">
+                    {/* Search Input */}
+                    <div className="relative">
+                      <Search className="absolute left-3 top-1/2 transform -translate-y-1/2 text-gray-400 h-4 w-4" />
+                      <Input
+                        placeholder="Search templates..."
+                        value={templateSearchText}
+                        onChange={(e) => setTemplateSearchText(e.target.value)}
+                        className="pl-10"
+                      />
+                      {templateSearchText && (
+                        <Button
+                          variant="ghost"
+                          size="sm"
+                          className="absolute right-2 top-1/2 transform -translate-y-1/2 h-6 w-6 p-0"
+                          onClick={() => setTemplateSearchText("")}
+                        >
+                          <X className="h-3 w-3" />
+                        </Button>
+                      )}
+                    </div>
+
+                    {/* Tag Filter */}
+                    <div className="flex flex-wrap gap-2">
+                      <Badge
+                        variant={selectedTag === "all" ? "default" : "outline"}
+                        className="cursor-pointer"
+                        onClick={() => setSelectedTag("all")}
                       >
-                        <div className="relative">
-                          <img
-                            src={style.thumbnail}
-                            alt={style.name}
-                            className={cn(
-                              "w-36 h-36 rounded-lg object-cover",
-                              selectedStyle === style.id
-                                ? "ring-2 ring-blue-500 ring-offset-2"
-                                : "",
-                            )}
-                          />
+                        All
+                      </Badge>
+                      {allTags.map((tag) => (
+                        <Badge
+                          key={tag}
+                          variant={selectedTag === tag ? "default" : "outline"}
+                          className="cursor-pointer"
+                          onClick={() => setSelectedTag(tag)}
+                        >
+                          {tag}
+                        </Badge>
+                      ))}
+                    </div>
+                  </div>
+
+                  <div className="grid grid-cols-3 gap-4 p-4">
+                    {filteredTemplates.length > 0 ? (
+                      filteredTemplates.map((template) => (
+                        <div
+                          key={template.slug}
+                          className="flex flex-col items-center cursor-pointer hover:bg-gray-50 rounded-lg p-4 transition-colors"
+                          onClick={() => {
+                            setSelectedStyle(template.slug);
+                            setIsTemplateDialogOpen(false);
+                          }}
+                        >
+                          <div className="relative">
+                            <img
+                              src={template.cover}
+                              alt={template.slug}
+                              className={cn(
+                                "w-36 h-36 rounded-lg object-cover",
+                                selectedStyle === template.slug
+                                  ? "ring-2 ring-blue-500 ring-offset-2"
+                                  : "",
+                              )}
+                            />
+                          </div>
+                          <div className="text-center mt-3">
+                            <span className="text-sm font-medium block">
+                              {template.slug
+                                .replace(/-/g, " ")
+                                .replace(/\b\w/g, (l) => l.toUpperCase())}
+                            </span>
+                            <span className="text-xs text-gray-500 mt-1 block">
+                              {template.image_settings?.prompt ||
+                                "AI-generated image"}
+                            </span>
+                          </div>
                         </div>
-                        <div className="text-center mt-3">
-                          <span className="text-sm font-medium block">
-                            {style.name}
-                          </span>
-                          <span className="text-xs text-gray-500 mt-1 block">
-                            {style.description}
-                          </span>
-                        </div>
+                      ))
+                    ) : (
+                      <div className="col-span-3 flex flex-col items-center justify-center py-12 text-center">
+                        <Search className="h-12 w-12 text-gray-400 mb-4" />
+                        <h3 className="text-lg font-medium text-gray-900 mb-2">
+                          No templates found
+                        </h3>
+                        <p className="text-gray-500 mb-4">
+                          Try adjusting your search or filter criteria
+                        </p>
+                        <Button
+                          variant="outline"
+                          onClick={() => {
+                            setTemplateSearchText("");
+                            setSelectedTag("all");
+                          }}
+                        >
+                          Clear filters
+                        </Button>
                       </div>
-                    ))}
+                    )}
                   </div>
                 </DialogContent>
               </Dialog>
@@ -622,15 +696,22 @@ const ImageGenerationPage = () => {
           <Button
             onClick={handleGenerate}
             disabled={
-              (!textPrompt && selectedFiles.length === 0) || isGenerating
+              (!textPrompt && selectedFiles.length === 0) ||
+              isGenerating ||
+              generationStatus === "processing" ||
+              generationStatus === "starting"
             }
             className="w-full h-14 bg-primary hover:from-purple-600 hover:to-pink-600 rounded-full text-md font-bold mt-5"
             size="lg"
           >
-            {isGenerating ? (
+            {isGenerating ||
+            generationStatus === "processing" ||
+            generationStatus === "starting" ? (
               <>
                 <div className="animate-spin rounded-full h-4 w-4 border-b-2 border-white mr-2"></div>
-                Generating...
+                {generationStatus === "starting"
+                  ? "Starting..."
+                  : "Generating..."}
               </>
             ) : (
               <>
@@ -652,16 +733,20 @@ const ImageGenerationPage = () => {
 
         {/* Right Panel - Preview & Results */}
         <div className="flex-1 flex flex-col justify-end">
-          {isGenerating ? (
+          {isGenerating || generationStatus === "processing" ? (
             /* Loading State */
             <Card>
               <CardHeader>
                 <CardTitle className="flex items-center gap-2">
                   <div className="animate-spin rounded-full h-5 w-5 border-b-2 border-purple-600"></div>
-                  Generating Your Photo
+                  {generationStatus === "starting"
+                    ? "Starting Generation..."
+                    : "Generating Your Photo"}
                 </CardTitle>
                 <CardDescription>
-                  AI is creating your masterpiece, please wait...
+                  {generationStatus === "starting"
+                    ? "Preparing your request..."
+                    : "AI is creating your masterpiece, please wait..."}
                 </CardDescription>
               </CardHeader>
               <CardContent>
@@ -669,11 +754,57 @@ const ImageGenerationPage = () => {
                   <div className="text-center">
                     <div className="animate-spin rounded-full h-16 w-16 border-b-2 border-purple-600 mx-auto mb-4"></div>
                     <p className="text-lg font-medium text-gray-700 mb-2">
-                      Generating...
+                      {generationStatus === "starting"
+                        ? "Starting..."
+                        : "Generating..."}
                     </p>
                     <p className="text-sm text-gray-500">
-                      This may take a few moments
+                      {generationStatus === "starting"
+                        ? "Setting up your generation task"
+                        : "This may take a few moments"}
                     </p>
+                    {currentAssetUuid && (
+                      <p className="text-xs text-gray-400 mt-2">
+                        Task ID: {currentAssetUuid.slice(0, 8)}...
+                      </p>
+                    )}
+                  </div>
+                </div>
+              </CardContent>
+            </Card>
+          ) : generationStatus === "failed" ? (
+            /* Failed State */
+            <Card>
+              <CardHeader>
+                <CardTitle className="flex items-center gap-2 text-red-600">
+                  <X className="h-5 w-5" />
+                  Generation Failed
+                </CardTitle>
+                <CardDescription>
+                  Something went wrong during generation
+                </CardDescription>
+              </CardHeader>
+              <CardContent>
+                <div className="flex items-center justify-center h-64">
+                  <div className="text-center">
+                    <div className="rounded-full h-16 w-16 bg-red-100 flex items-center justify-center mx-auto mb-4">
+                      <X className="h-8 w-8 text-red-600" />
+                    </div>
+                    <p className="text-lg font-medium text-gray-700 mb-2">
+                      Generation Failed
+                    </p>
+                    <p className="text-sm text-gray-500 mb-4">
+                      Please try again with different settings
+                    </p>
+                    <Button
+                      onClick={() => {
+                        setGenerationStatus("idle");
+                        setCurrentAssetUuid(null);
+                      }}
+                      variant="outline"
+                    >
+                      Try Again
+                    </Button>
                   </div>
                 </div>
               </CardContent>
@@ -729,8 +860,8 @@ const ImageGenerationPage = () => {
                   Template Preview
                 </CardTitle>
                 <CardDescription>
-                  {imageStyles.find((s) => s.id === selectedStyle)
-                    ?.description || "Select a template to see preview"}
+                  {getTemplate(selectedStyle).image_settings?.prompt ||
+                    "Select a template to see preview"}
                 </CardDescription>
               </CardHeader>
               <CardContent>
@@ -738,26 +869,19 @@ const ImageGenerationPage = () => {
                   {/* Template Preview */}
                   <div className="relative aspect-square bg-gray-100 rounded-lg overflow-hidden ">
                     <img
-                      src={
-                        imageStyles.find((s) => s.id === selectedStyle)
-                          ?.thumbnail ||
-                        "https://picsum.photos/400/400?random=0"
-                      }
-                      alt={
-                        imageStyles.find((s) => s.id === selectedStyle)?.name ||
-                        "Template preview"
-                      }
+                      src={getTemplate(selectedStyle).cover}
+                      alt={getTemplate(selectedStyle).slug}
                       className="w-full h-full object-cover"
                     />
                     <div className="absolute inset-0 bg-gradient-to-t from-black/50 to-transparent" />
                     <div className="absolute bottom-4 left-4 text-white">
                       <h3 className="text-lg font-semibold">
-                        {imageStyles.find((s) => s.id === selectedStyle)
-                          ?.name || "Free Style"}
+                        {getTemplate(selectedStyle)
+                          .slug.replace(/-/g, " ")
+                          .replace(/\b\w/g, (l) => l.toUpperCase())}
                       </h3>
                       <p className="text-sm opacity-90">
-                        {imageStyles.find((s) => s.id === selectedStyle)
-                          ?.description ||
+                        {getTemplate(selectedStyle).image_settings?.prompt ||
                           "No specific template, let AI create freely"}
                       </p>
                     </div>
