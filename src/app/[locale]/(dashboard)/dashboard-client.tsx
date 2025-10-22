@@ -82,14 +82,8 @@ const DashboardClient = ({ children }: DashboardClientProps) => {
   const locale = params.locale as string;
   const router = useRouter();
   const pathname = usePathname();
-  const searchParams = useSearchParams();
 
-  const {
-    user: userInfo,
-    setUser,
-    setShowFeedback,
-    setShowSignModal,
-  } = useAppContext();
+  const { user: userInfo, setShowFeedback } = useAppContext();
   const [isSidebarCollapsed, setIsSidebarCollapsed] = useState(false);
   const [activeSection, setActiveSection] = useState("dashboard");
   const [isUserMenuOpen, setIsUserMenuOpen] = useState(false);
@@ -99,31 +93,12 @@ const DashboardClient = ({ children }: DashboardClientProps) => {
   const [isRefreshingCredits, setIsRefreshingCredits] = useState(false);
   const userMenuRef = useRef<HTMLDivElement>(null);
   const languageMenuRef = useRef<HTMLDivElement>(null);
-  const [recentSessions, setRecentSessions] = useState<ChatSessionRecord[]>([]);
-  const [isDeleteDialogOpen, setIsDeleteDialogOpen] = useState(false);
-  const [sessionToDelete, setSessionToDelete] =
-    useState<ChatSessionRecord | null>(null);
-  const [isDeletingSession, setIsDeletingSession] = useState(false);
-  const [deletingSessionIds, setDeletingSessionIds] = useState<Set<string>>(
-    new Set(),
-  );
-  const [addingSessionIds, setAddingSessionIds] = useState<Set<string>>(
-    new Set(),
-  );
+
   const [isInsufficientCreditsModalOpen, setIsInsufficientCreditsModalOpen] =
     useState(false);
 
   const toggleSidebar = () => {
     setIsSidebarCollapsed(!isSidebarCollapsed);
-  };
-
-  const renderStars = (rating: number) => {
-    return Array.from({ length: 5 }, (_, i) => (
-      <Star
-        key={i}
-        className={`w-3 h-3 ${i < Math.floor(rating) ? "text-yellow-400 fill-current" : "text-gray-300"}`}
-      />
-    ));
   };
 
   const mainItems: SidebarCategory[] = [
@@ -151,7 +126,7 @@ const DashboardClient = ({ children }: DashboardClientProps) => {
       ],
     },
     {
-      category: "Styles",
+      category: "Categories",
       items: stylesConfig.map((category) => ({
         id: category.id,
         label: category.name,
@@ -285,138 +260,12 @@ const DashboardClient = ({ children }: DashboardClientProps) => {
     }
   };
 
-  // Delete session
-  const handleDeleteSession = (sessionUuid: string) => {
-    const session = recentSessions.find((s) => s.uuid === sessionUuid);
-    if (session) {
-      setSessionToDelete(session);
-      setIsDeleteDialogOpen(true);
-    }
-  };
-
-  // Add session with animation
-  const handleAddSession = (session: ChatSessionRecord) => {
-    // Add session to adding state for animation
-    setAddingSessionIds((prev) => new Set(prev).add(session.uuid));
-
-    // Add session to the beginning of the list, avoiding duplicates
-    setRecentSessions((prev) => {
-      const existingIndex = prev.findIndex((s) => s.uuid === session.uuid);
-      if (existingIndex >= 0) {
-        // If session already exists, move it to the beginning
-        const newSessions = [...prev];
-        const [existingSession] = newSessions.splice(existingIndex, 1);
-        return [existingSession, ...newSessions];
-      } else {
-        // Add new session to the beginning
-        return [session, ...prev];
-      }
-    });
-
-    // Remove from adding state after animation completes
-    setTimeout(() => {
-      setAddingSessionIds((prev) => {
-        const newSet = new Set(prev);
-        newSet.delete(session.uuid);
-        return newSet;
-      });
-    }, 300); // Match the CSS transition duration
-  };
-
-  const confirmDeleteSession = async () => {
-    if (!sessionToDelete) return;
-
-    try {
-      setIsDeletingSession(true);
-      // Add session to deleting state for animation
-      setDeletingSessionIds((prev) => new Set(prev).add(sessionToDelete.uuid));
-
-      const response = await fetch(
-        `/api/chat/session/${sessionToDelete.uuid}`,
-        {
-          method: "DELETE",
-          headers: {
-            "Content-Type": "application/json",
-          },
-        },
-      );
-
-      if (response.ok) {
-        // Wait for animation to complete before removing from state
-        setTimeout(() => {
-          setRecentSessions((prev) =>
-            prev.filter((session) => session.uuid !== sessionToDelete.uuid),
-          );
-          setDeletingSessionIds((prev) => {
-            const newSet = new Set(prev);
-            newSet.delete(sessionToDelete.uuid);
-            return newSet;
-          });
-        }, 300); // Match the CSS transition duration
-
-        // If the deleted session is currently active, redirect to dashboard
-        if (activeSection === sessionToDelete.uuid) {
-          setActiveSection("dashboard");
-          router.push("/dashboard");
-        }
-
-        toast.success("Session deleted successfully");
-      } else {
-        const errorData = await response.json();
-        toast.error(errorData.error || "Failed to delete session");
-        // Remove from deleting state if failed
-        setDeletingSessionIds((prev) => {
-          const newSet = new Set(prev);
-          newSet.delete(sessionToDelete.uuid);
-          return newSet;
-        });
-      }
-    } catch (error) {
-      console.error("Error deleting session:", error);
-      toast.error("Failed to delete session");
-      // Remove from deleting state if failed
-      setDeletingSessionIds((prev) => {
-        const newSet = new Set(prev);
-        newSet.delete(sessionToDelete.uuid);
-        return newSet;
-      });
-    } finally {
-      setIsDeletingSession(false);
-      setIsDeleteDialogOpen(false);
-      setSessionToDelete(null);
-    }
-  };
-
   // Fetch credits on component mount
   useEffect(() => {
     if (userInfo) {
       fetchUserCredits();
     }
   }, [userInfo]);
-
-  // Listen for session creation events
-  useEffect(() => {
-    const handleSessionCreated = (event: CustomEvent) => {
-      const session = event.detail;
-      if (session && session.uuid) {
-        handleAddSession(session);
-      }
-    };
-
-    // Add event listener
-    window.addEventListener(
-      "session-created",
-      handleSessionCreated as EventListener,
-    );
-
-    // Cleanup
-    return () => {
-      window.removeEventListener(
-        "session-created",
-        handleSessionCreated as EventListener,
-      );
-    };
-  }, []);
 
   // Listen for credits update events
   useEffect(() => {
@@ -846,39 +695,6 @@ const DashboardClient = ({ children }: DashboardClientProps) => {
             </Button>
             <Button variant="destructive" onClick={confirmSignOut}>
               Sign Out
-            </Button>
-          </DialogFooter>
-        </DialogContent>
-      </Dialog>
-
-      {/* Delete Session Dialog */}
-      <Dialog
-        open={isDeleteDialogOpen}
-        onOpenChange={() => setIsDeleteDialogOpen(false)}
-      >
-        <DialogContent className="sm:max-w-[425px]">
-          <DialogHeader>
-            <DialogTitle>Delete Session</DialogTitle>
-            <DialogDescription>
-              Are you sure you want to delete "
-              {sessionToDelete?.name || "this session"}"? This action cannot be
-              undone.
-            </DialogDescription>
-          </DialogHeader>
-          <DialogFooter className="gap-2">
-            <Button
-              variant="outline"
-              onClick={() => setIsDeleteDialogOpen(false)}
-              disabled={isDeletingSession}
-            >
-              Cancel
-            </Button>
-            <Button
-              variant="destructive"
-              onClick={confirmDeleteSession}
-              disabled={isDeletingSession}
-            >
-              {isDeletingSession ? "Deleting..." : "Delete"}
             </Button>
           </DialogFooter>
         </DialogContent>

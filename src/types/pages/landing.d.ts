@@ -3,6 +3,7 @@ import { Hero } from "@/types/blocks/hero";
 import { Section } from "@/types/blocks/section";
 import { Footer } from "@/types/blocks/footer";
 import { Pricing } from "@/types/blocks/pricing";
+import { TemplateItem } from "@/types/blocks/templates";
 
 export interface LandingPage {
   header?: Header;
@@ -26,6 +27,6 @@ export interface PricingPage {
   pricing?: Pricing;
 }
 
-export interface ShowcasePage {
-  showcase?: Section;
+export interface TemplatesPage {
+  templates?: TemplateItem[];
 }

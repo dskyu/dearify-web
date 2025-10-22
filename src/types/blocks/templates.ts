@@ -25,6 +25,9 @@ export interface TemplateVideoSettings {
 
 export interface TemplateItem {
   slug: string;
+  name?: string;
+  title?: string;
+  description?: string;
   cover: string;
   type: "image" | "audio" | "video";
   samples: string[];

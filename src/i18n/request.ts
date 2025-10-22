@@ -16,7 +16,8 @@ export default getRequestConfig(async ({ requestLocale }) => {
   }
 
   try {
-    const messages = (await import(`./messages/${locale.toLowerCase()}.json`)).default;
+    const messages = (await import(`./messages/${locale.toLowerCase()}.json`))
+      .default;
     return {
       locale: locale,
       messages: messages,

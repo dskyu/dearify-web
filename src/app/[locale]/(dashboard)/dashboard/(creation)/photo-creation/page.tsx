@@ -10,11 +10,18 @@ import {
   Share2,
   Settings,
   Eye,
+  Crown,
+  AlertCircle,
   Type,
   Upload,
   Search,
   X,
 } from "lucide-react";
+import {
+  Tooltip,
+  TooltipContent,
+  TooltipTrigger,
+} from "@/components/ui/tooltip";
 import { Button } from "@/components/ui/button";
 import {
   Card,
@@ -35,17 +42,12 @@ import {
   DialogTitle,
   DialogTrigger,
 } from "@/components/ui/dialog";
-import {
-  Select,
-  SelectContent,
-  SelectItem,
-  SelectTrigger,
-  SelectValue,
-} from "@/components/ui/select";
+
 import { cn } from "@/lib/utils";
 import { useRouter } from "@/i18n/navigation";
-import { TemplateItem, templatesConfig } from "@/lib/templates";
+import { TemplateItem, templatesConfig } from "@/types/blocks/templates";
 import { toast } from "sonner";
+import { useTranslations } from "next-intl";
 
 interface GenerationSettings {
   style: string;
@@ -78,20 +80,41 @@ const ImageGenerationPage = () => {
     model: "nano-banana",
   });
 
-  const models = [
-    {
-      id: "nano-banana",
-      name: "Nano Banana",
-      icon: "🍌",
-      credits: 5,
-      description:
-        "Google's advanced image editing model, unmatched character consistency",
-    },
-  ];
+  // Merge i18n content using useTranslations("templates")
+  const tTemplates = useTranslations("templates");
 
-  const templates: TemplateItem[] = [
-    ...templatesConfig.filter((t) => t.type === "image"),
-  ];
+  const templates: TemplateItem[] = useMemo(() => {
+    let items: any[] = [];
+    try {
+      // next-intl provides t.raw for non-string
+      // @ts-ignore
+      const rawItems = tTemplates.raw ? tTemplates.raw("items") : undefined;
+      if (Array.isArray(rawItems)) items = rawItems;
+    } catch {}
+
+    const transMap = new Map<
+      string,
+      { name?: string; title?: string; description?: string }
+    >();
+    if (Array.isArray(items)) {
+      for (const item of items) {
+        if (item?.slug) {
+          transMap.set(item.slug, {
+            name: item.name,
+            title: item.title,
+            description: item.description,
+          });
+        }
+      }
+    }
+
+    return templatesConfig
+      .filter((t) => t.type === "image")
+      .map((t) => {
+        const tr = transMap.get(t.slug);
+        return tr ? { ...t, ...tr } : t;
+      });
+  }, [tTemplates]);
 
   // Helper function to get template with fallback to free-style
   const getTemplate = (slug: string): TemplateItem => {
@@ -360,13 +383,10 @@ const ImageGenerationPage = () => {
                           />
                           <div className="flex flex-col items-start text-left">
                             <span className="text-sm font-medium">
-                              {template.slug
-                                .replace(/-/g, " ")
-                                .replace(/\b\w/g, (l) => l.toUpperCase())}
+                              {template.title || template.slug}
                             </span>
-                            <span className="text-xs text-gray-500">
-                              {template.image_settings?.prompt ||
-                                "AI-generated image"}
+                            <span className="text-xs text-gray-500 truncate max-w-[20rem] block whitespace-nowrap overflow-hidden">
+                              {template.description || ""}
                             </span>
                           </div>
                         </>
@@ -568,76 +588,6 @@ const ImageGenerationPage = () => {
               </CardTitle>
             </CardHeader>
             <CardContent className="space-y-4">
-              {/* Model Selection */}
-              <div className="space-y-2">
-                <Label className="text-sm font-medium">Model</Label>
-                <Select
-                  value={settings.model}
-                  onValueChange={(value) =>
-                    setSettings((prev) => ({ ...prev, model: value }))
-                  }
-                >
-                  <SelectTrigger className="h-12 w-full">
-                    <SelectValue placeholder="Select a model">
-                      {models.find((m) => m.id === settings.model) && (
-                        <div className="flex items-center gap-2">
-                          <span className="text-lg">
-                            {models.find((m) => m.id === settings.model)?.icon}
-                          </span>
-                          <span className="font-medium text-sm">
-                            {models.find((m) => m.id === settings.model)?.name}
-                          </span>
-                          <span className="text-xs text-green-600 ml-2">
-                            🍃
-                          </span>
-                          <span className="text-xs text-gray-500">
-                            {
-                              models.find((m) => m.id === settings.model)
-                                ?.credits
-                            }
-                          </span>
-                        </div>
-                      )}
-                    </SelectValue>
-                  </SelectTrigger>
-                  <SelectContent>
-                    {models.map((model) => (
-                      <SelectItem
-                        key={model.id}
-                        value={model.id}
-                        className={cn(
-                          // If this model is selected, always add hover/active styles
-                          settings.model === model.id &&
-                            "bg-muted hover:bg-muted/80 dark:bg-muted dark:hover:bg-muted/80", // shadcn default
-                        )}
-                      >
-                        <div className="flex items-center gap-3 w-full py-2">
-                          <span className="text-lg">{model.icon}</span>
-                          <div className="flex flex-col flex-1">
-                            <div className="flex items-center">
-                              <span className="font-medium text-sm">
-                                {model.name}
-                              </span>
-                              <div className="flex items-center gap-1 ml-4">
-                                <span className="text-xs text-green-600">
-                                  🍃
-                                </span>
-                                <span className="text-xs text-gray-500">
-                                  {model.credits}
-                                </span>
-                              </div>
-                            </div>
-                            <span className="text-xs text-gray-500 mt-1">
-                              {model.description}
-                            </span>
-                          </div>
-                        </div>
-                      </SelectItem>
-                    ))}
-                  </SelectContent>
-                </Select>
-              </div>
-
               {/* Aspect Ratio */}
               <div className="space-y-2">
                 <Label className="text-sm font-medium">Aspect Ratio</Label>
@@ -667,35 +617,64 @@ const ImageGenerationPage = () => {
                 <div className="flex items-center justify-between">
                   <Label
                     htmlFor="enhance-quality"
-                    className="text-sm font-medium"
+                    className="text-sm font-medium flex items-center gap-1"
                   >
                     Enhance Quality
+                    <Tooltip>
+                      <TooltipTrigger asChild>
+                        <span className="inline-flex cursor-help text-muted-foreground">
+                          <AlertCircle className="h-3.5 w-3.5" />
+                        </span>
+                      </TooltipTrigger>
+                      <TooltipContent>
+                        Enhance image resolution and details (Pro or higher)
+                      </TooltipContent>
+                    </Tooltip>
                   </Label>
-                  <Switch
-                    id="enhance-quality"
-                    checked={settings.enhanceQuality}
-                    onCheckedChange={(checked) =>
-                      setSettings((prev) => ({
-                        ...prev,
-                        enhanceQuality: checked,
-                      }))
-                    }
-                  />
+                  <div className="flex items-center gap-2">
+                    <Crown className="h-4 w-4 text-amber-500" />
+                    <Switch
+                      id="enhance-quality"
+                      checked={settings.enhanceQuality}
+                      onCheckedChange={(checked) =>
+                        setSettings((prev) => ({
+                          ...prev,
+                          enhanceQuality: checked,
+                        }))
+                      }
+                    />
+                  </div>
                 </div>
                 <div className="flex items-center justify-between">
-                  <Label htmlFor="watermark" className="text-sm font-medium">
+                  <Label
+                    htmlFor="watermark"
+                    className="text-sm font-medium flex items-center gap-1"
+                  >
                     No Watermark
+                    <Tooltip>
+                      <TooltipTrigger asChild>
+                        <span className="inline-flex cursor-help text-muted-foreground">
+                          <AlertCircle className="h-3.5 w-3.5" />
+                        </span>
+                      </TooltipTrigger>
+                      <TooltipContent>
+                        Generate images without watermark (Pro or higher)
+                      </TooltipContent>
+                    </Tooltip>
                   </Label>
-                  <Switch
-                    id="watermark"
-                    checked={settings.watermark}
-                    onCheckedChange={(checked) =>
-                      setSettings((prev) => ({
-                        ...prev,
-                        watermark: checked,
-                      }))
-                    }
-                  />
+                  <div className="flex items-center gap-2">
+                    <Crown className="h-4 w-4 text-amber-500" />
+                    <Switch
+                      id="watermark"
+                      checked={settings.watermark}
+                      onCheckedChange={(checked) =>
+                        setSettings((prev) => ({
+                          ...prev,
+                          watermark: checked,
+                        }))
+                      }
+                    />
+                  </div>
                 </div>
               </div>
             </CardContent>
@@ -728,9 +707,7 @@ const ImageGenerationPage = () => {
                 {(textPrompt || selectedFiles.length > 0) && (
                   <>
                     <span className="text-xs px-2 py-1 flex items-center gap-1">
-                      🍃{" "}
-                      {models.find((m) => m.id === settings.model)?.credits ||
-                        0}
+                      🍃 5
                     </span>
                   </>
                 )}
@@ -830,22 +807,24 @@ const ImageGenerationPage = () => {
                 </CardDescription>
               </CardHeader>
               <CardContent>
-                <div className="relative w-full max-w-full bg-gray-100 rounded-lg overflow-hidden flex items-center justify-center">
-                  <img
-                    src={generatedImage}
-                    alt="Generated image"
-                    className="max-w-full max-h-96 object-contain"
-                    style={{ display: "block" }}
-                  />
-                  <div className="absolute top-2 right-2 flex gap-1">
-                    <Button
-                      size="sm"
-                      variant="secondary"
-                      onClick={handleDownload}
-                      className="h-8 w-8 p-0"
-                    >
-                      <Download className="h-4 w-4" />
-                    </Button>
+                <div className="relative w-full rounded-lg overflow-hidden flex items-center justify-center h-80 md:h-[70vh]">
+                  <div className="relative inline-block">
+                    <img
+                      src={generatedImage}
+                      alt="Generated image"
+                      className="max-w-full max-h-full object-contain"
+                      style={{ display: "block" }}
+                    />
+                    <div className="absolute top-2 right-2 flex gap-1">
+                      <Button
+                        size="sm"
+                        variant="secondary"
+                        onClick={handleDownload}
+                        className="h-8 w-8 p-0"
+                      >
+                        <Download className="h-4 w-4" />
+                      </Button>
+                    </div>
                   </div>
                 </div>
               </CardContent>
@@ -853,14 +832,12 @@ const ImageGenerationPage = () => {
           ) : (
             /* Pre-generation State - Template Description & Preview */
             <Card>
-              <CardHeader>
-                <CardTitle className="flex items-center gap-2">
-                  <Eye className="h-5 w-5" />
+              <CardHeader className="flex flex-col items-center justify-center text-center">
+                <CardTitle className="flex items-center gap-2 justify-center">
                   Template Preview
                 </CardTitle>
                 <CardDescription>
-                  {getTemplate(selectedStyle).image_settings?.prompt ||
-                    "Select a template to see preview"}
+                  Select a template to see preview.
                 </CardDescription>
               </CardHeader>
               <CardContent>
