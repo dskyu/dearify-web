@@ -19,12 +19,16 @@ export interface GenerationResult {
   error?: string;
   metadata?: {
     model: string;
-    duration?: number;
-    credits?: number;
     predictionId?: string;
   };
 }
 
+export interface RunResult {
+  success: boolean;
+  data?: any;
+  error?: string;
+  metadata?: any;
+}
 export interface PredictionStatus {
   id: string;
   status: "starting" | "processing" | "succeeded" | "failed" | "canceled";
@@ -187,6 +191,24 @@ export class ReplicateClient {
       return false;
     }
   }
+
+  async imageUpscale(image: string): Promise<RunResult> {
+    try {
+      const output = await this.client.run("recraft-ai/recraft-crisp-upscale", {
+        input: { image },
+      });
+      return {
+        success: true,
+        data: output,
+      };
+    } catch (error) {
+      console.error("Image upscale error:", error);
+      return {
+        success: false,
+        error: error instanceof Error ? error.message : "Unknown error",
+      };
+    }
+  }
 }
 
 // Create a singleton instance
@@ -209,3 +231,6 @@ export const waitForPrediction = (
 
 export const cancelPrediction = (predictionId: string) =>
   replicateClient.cancelPrediction(predictionId);
+
+export const imageUpscale = (image: string) =>
+  replicateClient.imageUpscale(image);

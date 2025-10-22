@@ -11,9 +11,9 @@ const GenerateImageAsyncSchema = z.object({
   referenceImages: z.array(z.string().url()).optional(),
   aspectRatio: z.string().optional(),
   enhanceQuality: z.boolean().optional(),
-  watermark: z.boolean().optional(),
+  noWatermark: z.boolean().optional(),
   style: z.string().optional(),
-  outputFormat: z.enum(["png", "jpg"]).default("jpg"),
+  outputFormat: z.enum(["jpg", "png"]).default("jpg"),
 });
 
 export async function POST(request: NextRequest) {
@@ -30,8 +30,19 @@ export async function POST(request: NextRequest) {
     const body = await request.json();
     const validatedData = GenerateImageAsyncSchema.parse(body);
 
-    const { prompt, model, referenceImages, aspectRatio, outputFormat } =
-      validatedData;
+    let {
+      prompt,
+      model,
+      referenceImages,
+      aspectRatio,
+      outputFormat,
+      noWatermark,
+      enhanceQuality,
+    } = validatedData;
+
+    if (noWatermark === false) {
+      prompt += "\n 在图片的右下角加上 Dearify.ai 的水印";
+    }
 
     // Always use Replicate as the provider
     const provider = "replicate";
@@ -45,6 +56,8 @@ export async function POST(request: NextRequest) {
         referenceImages,
         aspectRatio,
         outputFormat,
+        noWatermark,
+        enhanceQuality,
       },
       setupUrls: referenceImages,
       prompt,

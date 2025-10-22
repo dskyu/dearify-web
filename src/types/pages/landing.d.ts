@@ -28,5 +28,5 @@ export interface PricingPage {
 }
 
 export interface TemplatesPage {
-  templates?: TemplateItem[];
+  items?: TemplateItem[];
 }

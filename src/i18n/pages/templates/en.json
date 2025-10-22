@@ -1,221 +1,60 @@
 {
   "items": [
     {
-      "slug": "proposal-reel-60-90s",
-      "name": "Proposal Reel",
-      "title": "We're Getting Married · 60–90s (Proposal Reel)",
-      "type": "video",
-      "description": "A 60–90 second vertical proposal/trailer video reel generated from your own 10–20 photos and 3 short video clips, complete with auto subtitles and beat-synced captions. Perfect for sharing on social media or live display, letting you easily relive your romantic moment. Wedding proposal video generator.",
-      "instructions": [
-        "Upload 10–20 photos and 3 video clips (3–5 seconds each; ensure quality and variety).",
-        "Fill in event details: anniversary date, proposal location, and 3 vow keywords.",
-        "Select style: Clean Studio / Warm Film / Elegant Gold.",
-        "(Optional) Invite your partner to co-edit each person's habits/nicknames.",
-        "Preview and refine the key subtitle moments, then export in 9:16, 1080p (60–90s)."
-      ],
-      "fields": [
-        {
-          "name": "Target Hairstyle",
-          "placeholder": "e.g. Long Hair, Short Hair, etc.",
-          "required": true
-        },
-        {
-          "name": "Hair Color",
-          "placeholder": "e.g. Brown, Black, etc.",
-          "required": false
-        }
-      ]
-    },
-    {
-      "slug": "first-dance-folk",
-      "name": "First Dance Folk",
-      "title": "First Dance · Gentle Folk (Custom Love Song)",
-      "type": "audio",
-      "description": "A personalized 2–3 minute wedding or proposal song generated from your love story (lyrics, melody, and vocals), delivered as high-quality WAV/MP3 and lyric text. Make your first dance memorable with a unique audio keepsake. Custom wedding song audio generator.",
-      "instructions": [
-        "Provide 5 story highlights, both your nicknames, and preferred tempo (slow/medium).",
-        "Select style: Indie Folk / Piano Ballad / City Pop (solo or duet).",
-        "(Optional) Upload a 10–20 second voice message for emotional reference (no celebrity voice cloning).",
-        "Preview lyrics and song structure, confirm to generate vocals and mix.",
-        "Export WAV/MP3 and lyrics (includes 15s/30s social media snippets)."
-      ]
+      "slug": "free-style",
+      "name": "Free Style · Creative Portrait",
+      "title": "Free Style – Realistic Couple Portrait",
+      "type": "image",
+      "description": "Create a unique, realistic portrait of a couple in your favorite style. Professional rendering with vibrant detail, perfect for sharing, gifting, or printing as a keepsake."
     },
     {
       "slug": "wedding-studio-classic-white",
-      "name": "Wedding Studio · Classic White",
-      "title": "Studio Wedding · Classic White (Portraits)",
+      "name": "Wedding Studio · Classic White Portraits",
+      "title": "Studio Wedding – Classic White Portrait Collection",
       "type": "image",
-      "description": "Classic studio-style wedding portraits generated with consistent lighting and natural skin tones. Receive 6–12 high-resolution photos in 4K, ideal for print and sharing. Studio wedding portrait image generator.",
-      "instructions": [
-        "Each uploads 5–8 clear front/half-body photos (unobstructed, even lighting).",
-        "Choose posing and background: High Key White / Soft Focus Film / Classic Black & White.",
-        "Select natural skin touch-up and blemish reduction levels.",
-        "(Optional) Set a unified style profile for use in future sets.",
-        "Generate and choose 6–12 photos, then export in 4K (printable)."
-      ]
-    },
-    {
-      "slug": "our-year-recap-90s",
-      "name": "Our Year Recap",
-      "title": "Our Year · 90s (Annual Recap Film)",
-      "type": "video",
-      "description": "Automatically create a monthly recap video film, sequenced from your favorite photos. Export in landscape 16:9 1080p—a perfect way to celebrate anniversaries and milestones. Family or couple annual recap video generator.",
-      "instructions": [
-        "Upload 30–50 photos (organized by month or event in folders is recommended).",
-        "Optionally, upload 2–3 video clips (3–5 seconds each) as transitions.",
-        "Select style: Film 400 / Minimal Clean / Scrapbook.",
-        "Enter three highlight events and important dates from the year (for captions).",
-        "Preview and adjust order/titles, export in 16:9 1080p (about 90s)."
-      ]
-    },
-    {
-      "slug": "anniversary-piano-theme",
-      "name": "Anniversary Piano",
-      "title": "Anniversary · Piano Adagio (Theme Song)",
-      "type": "audio",
-      "description": "A custom 90–120s piano or ambient anniversary theme song, including a looped version and 15/30s segment for your video. The perfect audio accompaniment for celebrating your love journey. Personalized anniversary theme audio music generator.",
-      "instructions": [
-        "Enter three yearly highlights and 3–5 key growth words.",
-        "Select style: Piano / Ambient Pad / Soft Strings.",
-        "Specify use case (video/ambient track); the system will auto-match dynamics.",
-        "Preview the motif and harmonic direction, confirm to render the full song.",
-        "Export WAV/MP3 (includes 15s/30s loop versions)."
-      ]
+      "description": "Capture timeless elegance with a classic studio-style wedding portrait session. Receive a suite of polished, high-resolution photos with consistent lighting and natural tones—perfect for printing, framing, and sharing your love story in style."
     },
     {
       "slug": "neon-night-portrait",
-      "name": "Neon Night Portrait",
-      "title": "Anniversary Portrait · Neon Night (Portrait)",
+      "name": "Neon Night Portrait · Modern Urban",
+      "title": "Anniversary Portrait – Neon Night Style",
       "type": "image",
-      "description": "City night neon-style portrait photos with unified color tone and enhanced skin for a unique modern look. Receive 6–10 high-resolution photos in 2K/4K. Neon effect couple or anniversary photo image generator.",
-      "instructions": [
-        "Each uploads 3–5 nighttime or indoor photos (clearly visible).",
-        "Select hue: Neo Tokyo / Cyber Neon / City Glow.",
-        "Enable skin brightening and noise suppression (night-friendly).",
-        "(Optional) Add date and location captions.",
-        "Generate and export 6–10 photos in 2K/4K."
-      ]
+      "description": "Step into the electric glow of the city—vivid neon portraits with unified tones, enhanced skin, and unique nighttime flair. Receive stunning 2K/4K images, perfect for couples seeking a memorable, modern anniversary photo session."
     },
     {
-      "slug": "bridge-the-miles-45s",
-      "name": "Bridge the Miles",
-      "title": "Bridge the Miles · 45–60s (Long Distance Split Reel)",
+      "slug": "our-year-recap-90s",
+      "name": "Our Year Recap · Anniversary Video",
+      "title": "Our Year – 90s Annual Recap Film",
       "type": "video",
-      "description": "A split-screen narrative video for long-distance couples, featuring map transitions and story highlights. Export vertical 9:16 1080p videos, 45–60 seconds runtime. Long-distance love story video generator.",
-      "instructions": [
-        "Each uploads 3–4 daily short videos (2–3 seconds) and 2 city landmark photos.",
-        "Enter both cities and time differences (for captions/map).",
-        "Select style: Clean Minimal / Pastel / Postcard.",
-        "(Optional) Add a countdown or date of next meeting.",
-        "Preview with beat sync, export in 9:16 1080p."
-      ]
+      "description": "Transform a year’s worth of memories into a vibrant 90-second recap film, automatically sequenced from your highlights. Perfect for couples and families to cherish milestones, anniversaries, and the beauty of everyday living—shareable in full HD."
     },
     {
-      "slug": "voice-to-song-mini",
-      "name": "Voice-to-Song Mini",
-      "title": "Voice to Love Song · 60–75s (Mini Song)",
-      "type": "audio",
-      "description": "Turn two voice messages and special keywords into a 60–75s short love song, including a 15s ringtone-ready hook. Makes for a unique personalized audio gift. Love message to song audio generator.",
-      "instructions": [
-        "Upload 10–20 second voice message each (Mandarin/English).",
-        "Enter theme keywords (missing you/promise/countdown, etc).",
-        "Select style: Lo-fi / City Pop / Light EDM.",
-        "Confirm lyrics summary and hook melody to generate full song.",
-        "Export MP3 (includes 15s hook version)."
-      ]
-    },
-    {
-      "slug": "virtual-together-portrait",
-      "name": "Virtual Together",
-      "title": "Across Cities · Virtual Portrait (Group Photo)",
-      "type": "image",
-      "description": "Realistic composite group portraits, bringing friends or couples together in the same scene—even from different cities. Receive 8–12 high-res 4K photos with balanced lighting and perspective. Group or family composite image generator.",
-      "instructions": [
-        "Each uploads 6–10 clear headshots/half-body photos (unobstructed, various angles).",
-        "Choose a scene: café / subway platform / seaside sunset.",
-        "System automatically arranges light and shadow. Preview and fine-tune positions/expressions.",
-        "(Optional) Embed date and city corner badges.",
-        "Generate and export 8–12 photos in 4K."
-      ]
-    },
-    {
-      "slug": "weekend-trip-reel-30-45s",
-      "name": "Weekend Trip Reel",
-      "title": "Weekend Trip · 30–45s (Travel Reel)",
+      "slug": "proposal-reel-60-90s",
+      "name": "Proposal Reel · Vertical Video",
+      "title": "We're Getting Married – Proposal Reel (60–90s Vertical)",
       "type": "video",
-      "description": "Generate a lively travel highlight video—map, transit, arrival, and highlight montage all in one vertical 9:16 1080p video (30–45s). Great for sharing your travel adventures. Travel reel video generator.",
-      "instructions": [
-        "Upload 15–25 travel photos and 2–3 transition videos (2–3 seconds each).",
-        "Select style: Warm Film / Hand-written Title / Polaroid Frame.",
-        "Enter city name and 3 landmarks (for captions/transitions).",
-        "Preview beat timing and sequence, export in 9:16 1080p (30–45s).",
-        "(Optional) Auto-generate cover and thumbnail."
-      ]
+      "description": "Effortlessly relive your most romantic moment with a personalized 60–90 second vertical proposal video, crafted from your favorite photos and clips. Professionally edited with beat-synced titles and automatic subtitles, perfect for social media, parties, or sharing with loved ones. Keep the excitement and memory of your engagement beautifully alive."
     },
     {
-      "slug": "urban-electronica-loop",
-      "name": "Urban Electronica",
-      "title": "City Walk · Urban Electronica (Loop BGM)",
+      "slug": "anniversary-piano-theme",
+      "name": "Anniversary Piano · Personalized Theme",
+      "title": "Anniversary – Piano Adagio (Personal Theme Song)",
       "type": "audio",
-      "description": "Generate a 60–90s loopable urban electronica audio music for city walks, based on city and walking tempo, plus a 10s logo sting. Great for video background or personal enjoyment. Urban electronic music audio generator.",
-      "instructions": [
-        "Enter city name, walking tempo (BPM 90–110), and three landmarks.",
-        "Select style: House/Lounge / Chillhop / Light Future Bass.",
-        "Preview groove and melody, confirm loop points and fadeout.",
-        "Export MP3 (60–90s) and 10s logo sting."
-      ]
+      "description": "Mark your anniversary with a custom piano or ambient theme song, tailored to your story and mood. Enjoy both a full-length and a looped segment—ideal for memories, background audio for videos, or sharing your journey through beautiful music."
     },
     {
-      "slug": "travel-diary-film-400",
-      "name": "Travel Diary · Film 400",
-      "title": "Travel Diary · Film 400 (Photos)",
+      "slug": "romantic-outdoor-sunset",
+      "name": "Romantic Outdoor Sunset · Portrait",
+      "title": "Romantic Outdoor – Sunset Portrait",
       "type": "image",
-      "description": "Travel film photo set in Film 400 style, with uniform grain and nostalgic color tones. Get 12–18 high-resolution 2K/4K photos for print or sharing. Film-style travel photo image generator.",
-      "instructions": [
-        "Upload 10–20 travel photos (well-exposed, clear subjects).",
-        "Select film style: Kodak-like / Fuji-like / Pastel Film (avoid trademarks).",
-        "(Optional) Set light leak/frame/date stamp intensity.",
-        "Generate and export 12–18 photos in 2K/4K (printable)."
-      ]
+      "description": "A romantic outdoor portrait of a couple at sunset, softly lit with natural colors and a scenic background. Perfect for capturing your love in a stunning, cinematic moment."
     },
     {
-      "slug": "baby-day-mini-45s",
-      "name": "Baby Day Mini",
-      "title": "Baby's Little Day · 45s (Parent-Child Moments)",
-      "type": "video",
-      "description": "A soft, documentary-style 45s vertical video reel using baby's daily photos and short clips, with timestamp captions and smooth transitions. Capture and treasure everyday growth. Baby family highlight reel video generator.",
-      "instructions": [
-        "Upload 10–15 baby photos and 2 short clips (3–5 seconds).",
-        "Select style: Soft Pastel / Paper Scrapbook / Gentle Light.",
-        "Enter baby's nickname, birth date, and 3 milestone events from the day.",
-        "Preview and adjust ordering/subtitles, export 9:16 1080p (~45s)."
-      ]
-    },
-    {
-      "slug": "custom-lullaby",
-      "name": "Custom Lullaby",
-      "title": "Lullaby · Gentle Piano (Custom)",
+      "slug": "first-dance-folk",
+      "name": "First Dance Folk · Custom Love Song",
+      "title": "First Dance – Gentle Folk (Bespoke Love Song)",
       "type": "audio",
-      "description": "A unique 60–90s custom lullaby audio for your baby, generated with gentle piano or music box tones and safe volume limits. Includes a short looped version for sleep time. Personalized baby lullaby music generator.",
-      "instructions": [
-        "Enter baby's nickname, birthdate, and 20–40 character parental message.",
-        "Choose instrumentation: Piano / Music Box / Soft Pad.",
-        "Preview melody and speed (BPM 60–80), confirm to render.",
-        "Export WAV/MP3 (includes 30s gentle loop version)."
-      ]
-    },
-    {
-      "slug": "newborn-studio-soft",
-      "name": "Newborn Studio Soft",
-      "title": "Newborn · Soft Studio (Portraits)",
-      "type": "image",
-      "description": "Cream-toned, soft-focus newborn portrait photos with a focus on safe and adorable poses. Get 8–12 high-quality images in 4K, perfect for prints or albums. Newborn baby studio photo image generator.",
-      "instructions": [
-        "Upload 6–10 clear newborn photos (ensure safe posing and head support).",
-        "Choose background and prop intensity: Creamy Soft / Natural Skin / Minimal Prop.",
-        "Enable light skin retouching (gentle red/peeling fix).",
-        "Generate and select 8–12, export in 4K ready to print."
-      ]
+      "description": "Celebrate your special day with a one-of-a-kind wedding or proposal song, thoughtfully generated from your unique love story—including lyrics, melody, and vocals. Delivered in professional audio quality, this personalized track ensures an unforgettable first dance and a meaningful keepsake for years to come."
     }
   ]
 }
