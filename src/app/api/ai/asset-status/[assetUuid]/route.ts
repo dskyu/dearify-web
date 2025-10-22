@@ -46,7 +46,7 @@ export async function GET(request: NextRequest, { params }: RouteParams) {
             // Update asset with successful result
             await updateUserAsset(assetUuid, {
               status: "completed",
-              resultUrl: prediction.output?.[0] || prediction.output,
+              resultUrl: prediction.output,
               resultDetail: {
                 predictionId: prediction.id,
                 output: prediction.output,
@@ -59,7 +59,7 @@ export async function GET(request: NextRequest, { params }: RouteParams) {
             return NextResponse.json({
               success: true,
               status: "completed",
-              resultUrl: prediction.output?.[0] || prediction.output,
+              resultUrl: prediction.output,
               resultDetail: {
                 predictionId: prediction.id,
                 output: prediction.output,

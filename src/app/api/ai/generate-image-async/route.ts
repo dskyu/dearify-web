@@ -7,22 +7,13 @@ import { ProviderFactory } from "@/aisdk/providers";
 // Request validation schema
 const GenerateImageAsyncSchema = z.object({
   prompt: z.string().min(1, "Prompt is required"),
-  model: z
-    .enum(["stable-diffusion", "flux-schnell", "flux-dev", "dall-e-3"])
-    .default("stable-diffusion"),
-  width: z.number().min(64).max(2048).default(1024),
-  height: z.number().min(64).max(2048).default(1024),
-  numOutputs: z.number().min(1).max(4).default(1),
-  guidanceScale: z.number().min(1).max(20).default(7.5),
-  numInferenceSteps: z.number().min(1).max(100).default(50),
-  seed: z.number().optional(),
-  referenceImage: z.string().url().optional(),
-  negativePrompt: z.string().optional(),
-  scheduler: z.string().optional(),
+  model: z.enum(["nano-banana"]).default("nano-banana"),
+  referenceImages: z.array(z.string().url()).optional(),
   aspectRatio: z.string().optional(),
   enhanceQuality: z.boolean().optional(),
   watermark: z.boolean().optional(),
   style: z.string().optional(),
+  outputFormat: z.enum(["png", "jpg"]).default("jpg"),
 });
 
 export async function POST(request: NextRequest) {
@@ -39,23 +30,8 @@ export async function POST(request: NextRequest) {
     const body = await request.json();
     const validatedData = GenerateImageAsyncSchema.parse(body);
 
-    const {
-      prompt,
-      model,
-      width,
-      height,
-      numOutputs,
-      guidanceScale,
-      numInferenceSteps,
-      seed,
-      referenceImage,
-      negativePrompt,
-      scheduler,
-      aspectRatio,
-      enhanceQuality,
-      watermark,
-      style,
-    } = validatedData;
+    const { prompt, model, referenceImages, aspectRatio, outputFormat } =
+      validatedData;
 
     // Always use Replicate as the provider
     const provider = "replicate";
@@ -66,23 +42,12 @@ export async function POST(request: NextRequest) {
       type: "image",
       setupOptions: {
         model,
-        width,
-        height,
-        numOutputs,
-        guidanceScale,
-        numInferenceSteps,
-        seed,
-        referenceImage,
-        negativePrompt,
-        scheduler,
+        referenceImages,
         aspectRatio,
-        enhanceQuality,
-        watermark,
-        style,
+        outputFormat,
       },
-      setupUrls: referenceImage ? [referenceImage] : undefined,
+      setupUrls: referenceImages,
       prompt,
-      negativePrompt,
       provider,
     });
 
@@ -93,19 +58,9 @@ export async function POST(request: NextRequest) {
 
       const options = {
         prompt,
-        width,
-        height,
-        numOutputs,
-        guidanceScale,
-        numInferenceSteps,
-        ...(seed && { seed }),
-        ...(referenceImage && { referenceImage }),
-        ...(negativePrompt && { negativePrompt }),
-        ...(scheduler && { scheduler }),
-        ...(aspectRatio && { aspectRatio }),
-        ...(enhanceQuality !== undefined && { enhanceQuality }),
-        ...(watermark !== undefined && { watermark }),
-        ...(style && { style }),
+        image_input: referenceImages,
+        aspect_ratio: aspectRatio,
+        output_format: outputFormat,
       };
 
       // Start the prediction using the appropriate provider
@@ -131,17 +86,14 @@ export async function POST(request: NextRequest) {
       // Update asset with provider job ID
       await updateUserAsset(userAsset.asset_uuid, {
         status: "processing",
-        resultDetail: {
-          providerJobId:
-            result.metadata?.predictionId || result.metadata?.jobId,
-        },
+        providerJobId: result.data.id,
       });
 
       return NextResponse.json({
         success: true,
         assetUuid: userAsset.asset_uuid,
         status: "processing",
-        predictionId: result.metadata?.predictionId || result.metadata?.jobId,
+        predictionId: result.data.id,
         message: "Image generation started",
       });
     } catch (error) {

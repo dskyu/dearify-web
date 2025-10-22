@@ -6,17 +6,11 @@ export interface ReplicateConfig {
   timeout?: number;
 }
 
-export interface ImageGenerationOptions {
+export interface GenerationOptions {
   prompt: string;
-  width?: number;
-  height?: number;
-  numOutputs?: number;
-  guidanceScale?: number;
-  numInferenceSteps?: number;
-  seed?: number;
-  referenceImage?: string;
-  negativePrompt?: string;
-  scheduler?: string;
+  image_input?: string[];
+  aspect_ratio?: string;
+  output_format?: "png" | "jpg";
 }
 
 export interface GenerationResult {
@@ -44,29 +38,11 @@ export interface PredictionStatus {
 
 // Predefined image generation models
 export const IMAGE_MODELS = {
-  "stable-diffusion": {
-    id: "stability-ai/stable-diffusion",
-    name: "Stable Diffusion",
-    description: "High-quality image generation",
-    credits: 3,
-  },
-  "flux-schnell": {
-    id: "black-forest-labs/flux-schnell:latest",
-    name: "Flux Schnell",
-    description: "High-quality, fast image generation",
-    credits: 3,
-  },
-  "flux-dev": {
-    id: "black-forest-labs/flux-dev:latest",
-    name: "Flux Dev",
-    description: "Advanced image generation with more control",
-    credits: 8,
-  },
-  "dall-e-3": {
-    id: "openai/dall-e-3:latest",
-    name: "DALL-E 3",
-    description: "OpenAI's advanced image generation model",
-    credits: 8,
+  "nano-banana": {
+    id: "google/nano-banana",
+    name: "Nano Banana",
+    description:
+      "Google's advanced image editing model, unmatched character consistency",
   },
 } as const;
 
@@ -97,27 +73,22 @@ export class ReplicateClient {
    */
   async generateImage(
     modelId: keyof typeof IMAGE_MODELS,
-    options: ImageGenerationOptions,
+    options: GenerationOptions,
   ): Promise<GenerationResult> {
+    let model: any;
+    let input: any;
+
     try {
-      const model = IMAGE_MODELS[modelId];
+      model = IMAGE_MODELS[modelId];
       if (!model) {
         throw new Error(`Model ${modelId} not found`);
       }
 
-      const input = {
+      input = {
         prompt: options.prompt,
-        width: options.width || 1024,
-        height: options.height || 1024,
-        num_outputs: options.numOutputs || 1,
-        guidance_scale: options.guidanceScale || 7.5,
-        num_inference_steps: options.numInferenceSteps || 50,
-        ...(options.seed && { seed: options.seed }),
-        ...(options.referenceImage && { image: options.referenceImage }),
-        ...(options.negativePrompt && {
-          negative_prompt: options.negativePrompt,
-        }),
-        ...(options.scheduler && { scheduler: options.scheduler }),
+        image_input: options.image_input,
+        aspect_ratio: options.aspect_ratio,
+        output_format: options.output_format,
       };
 
       const prediction = await this.client.predictions.create({
@@ -125,17 +96,24 @@ export class ReplicateClient {
         input,
       });
 
+      console.log("Prediction:", prediction);
+
       return {
         success: true,
         data: prediction,
         metadata: {
           model: modelId,
-          credits: model.credits,
           predictionId: prediction.id,
         },
       };
     } catch (error) {
       console.error("Image generation error:", error);
+      if (model) {
+        console.error("Model ID used:", model.id);
+      }
+      if (input) {
+        console.error("Input parameters:", input);
+      }
       return {
         success: false,
         error: error instanceof Error ? error.message : "Unknown error",
@@ -170,7 +148,7 @@ export class ReplicateClient {
    */
   async waitForPrediction(
     predictionId: string,
-    maxWaitTime: number = 300000, // 5 minutes
+    maxWaitTime: number = 60000, // 1 minute
     pollInterval: number = 2000, // 2 seconds
   ): Promise<PredictionStatus | null> {
     const startTime = Date.now();
@@ -209,23 +187,6 @@ export class ReplicateClient {
       return false;
     }
   }
-
-  /**
-   * Get model information
-   */
-  getModelInfo(modelId: keyof typeof IMAGE_MODELS) {
-    return IMAGE_MODELS[modelId] || null;
-  }
-
-  /**
-   * List all available image models
-   */
-  listModels() {
-    return Object.entries(IMAGE_MODELS).map(([modelId, model]) => ({
-      modelId,
-      ...model,
-    }));
-  }
 }
 
 // Create a singleton instance
@@ -234,7 +195,7 @@ export const replicateClient = new ReplicateClient();
 // Export convenience functions
 export const generateImage = (
   modelId: keyof typeof IMAGE_MODELS,
-  options: ImageGenerationOptions,
+  options: GenerationOptions,
 ) => replicateClient.generateImage(modelId, options);
 
 export const getPrediction = (predictionId: string) =>
@@ -248,8 +209,3 @@ export const waitForPrediction = (
 
 export const cancelPrediction = (predictionId: string) =>
   replicateClient.cancelPrediction(predictionId);
-
-export const getModelInfo = (modelId: keyof typeof IMAGE_MODELS) =>
-  replicateClient.getModelInfo(modelId);
-
-export const listModels = () => replicateClient.listModels();

@@ -3,10 +3,20 @@
 import { signIn, useSession } from "next-auth/react";
 import { useRouter, useSearchParams, useParams } from "next/navigation";
 import { useState, useEffect } from "react";
-import { Eye, EyeOff, Mail, Lock, User, BarChart3, ArrowRight, AlertCircle } from "lucide-react";
+import {
+  Eye,
+  EyeOff,
+  Mail,
+  Lock,
+  User,
+  BarChart3,
+  ArrowRight,
+  AlertCircle,
+} from "lucide-react";
 import { Link } from "@/i18n/navigation";
 import { useTranslations } from "next-intl";
 import SignCard from "@/components/sign/card";
+import { toast } from "sonner";
 
 // SignupForm Component
 interface SignupFormProps {
@@ -104,7 +114,11 @@ const SignupForm: React.FC<SignupFormProps> = ({ onSignupSuccess, locale }) => {
       onSignupSuccess(formData.email, formData.nickname, formData.password);
     } catch (error) {
       console.error("Signup error:", error);
-      setError(error instanceof Error ? error.message : "Failed to send verification code");
+      setError(
+        error instanceof Error
+          ? error.message
+          : "Failed to send verification code",
+      );
     } finally {
       setIsLoading(false);
     }
@@ -132,7 +146,10 @@ const SignupForm: React.FC<SignupFormProps> = ({ onSignupSuccess, locale }) => {
         <div className="space-y-4">
           {/* Name Field */}
           <div>
-            <label htmlFor="nickname" className="block text-sm font-medium text-gray-700 mb-2">
+            <label
+              htmlFor="nickname"
+              className="block text-sm font-medium text-gray-700 mb-2"
+            >
               {t("sign_up.fullname_title")}
             </label>
             <div className="relative">
@@ -154,7 +171,10 @@ const SignupForm: React.FC<SignupFormProps> = ({ onSignupSuccess, locale }) => {
 
           {/* Email Field */}
           <div>
-            <label htmlFor="email" className="block text-sm font-medium text-gray-700 mb-2">
+            <label
+              htmlFor="email"
+              className="block text-sm font-medium text-gray-700 mb-2"
+            >
               {t("sign_up.email_title")}
             </label>
             <div className="relative">
@@ -177,7 +197,10 @@ const SignupForm: React.FC<SignupFormProps> = ({ onSignupSuccess, locale }) => {
 
           {/* Password Field */}
           <div>
-            <label htmlFor="password" className="block text-sm font-medium text-gray-700 mb-2">
+            <label
+              htmlFor="password"
+              className="block text-sm font-medium text-gray-700 mb-2"
+            >
               {t("sign_up.password_title")}
             </label>
             <div className="relative">
@@ -195,7 +218,11 @@ const SignupForm: React.FC<SignupFormProps> = ({ onSignupSuccess, locale }) => {
                 className="block w-full pl-10 pr-12 py-3 border border-gray-300 rounded-xl shadow-sm placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:border-indigo-500 transition-all duration-200"
                 placeholder={t("sign_up.password_placeholder")}
               />
-              <button type="button" className="absolute inset-y-0 right-0 pr-3 flex items-center" onClick={() => setShowPassword(!showPassword)}>
+              <button
+                type="button"
+                className="absolute inset-y-0 right-0 pr-3 flex items-center"
+                onClick={() => setShowPassword(!showPassword)}
+              >
                 {showPassword ? (
                   <EyeOff className="h-5 w-5 text-gray-400 hover:text-gray-600 transition-colors" />
                 ) : (
@@ -207,7 +234,10 @@ const SignupForm: React.FC<SignupFormProps> = ({ onSignupSuccess, locale }) => {
 
           {/* Confirm Password Field */}
           <div>
-            <label htmlFor="confirmPassword" className="block text-sm font-medium text-gray-700 mb-2">
+            <label
+              htmlFor="confirmPassword"
+              className="block text-sm font-medium text-gray-700 mb-2"
+            >
               {t("sign_up.confirm_password_title")}
             </label>
             <div className="relative">
@@ -225,7 +255,11 @@ const SignupForm: React.FC<SignupFormProps> = ({ onSignupSuccess, locale }) => {
                 className="block w-full pl-10 pr-12 py-3 border border-gray-300 rounded-xl shadow-sm placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:border-indigo-500 transition-all duration-200"
                 placeholder={t("sign_up.confirm_password_placeholder")}
               />
-              <button type="button" className="absolute inset-y-0 right-0 pr-3 flex items-center" onClick={() => setShowConfirmPassword(!showConfirmPassword)}>
+              <button
+                type="button"
+                className="absolute inset-y-0 right-0 pr-3 flex items-center"
+                onClick={() => setShowConfirmPassword(!showConfirmPassword)}
+              >
                 {showConfirmPassword ? (
                   <EyeOff className="h-5 w-5 text-gray-400 hover:text-gray-600 transition-colors" />
                 ) : (
@@ -238,22 +272,32 @@ const SignupForm: React.FC<SignupFormProps> = ({ onSignupSuccess, locale }) => {
 
         {/* Password Requirements */}
         <div className="bg-gray-50 rounded-xl p-4">
-          <p className="text-sm font-medium text-gray-700 mb-2">{t("sign_up.password_requirements_title")}</p>
+          <p className="text-sm font-medium text-gray-700 mb-2">
+            {t("sign_up.password_requirements_title")}
+          </p>
           <ul className="text-sm text-gray-600 space-y-1">
             <li className="flex items-center">
-              <div className={`w-2 h-2 rounded-full mr-2 ${formData.password.length >= 8 ? "bg-green-500" : "bg-gray-300"}`}></div>
+              <div
+                className={`w-2 h-2 rounded-full mr-2 ${formData.password.length >= 8 ? "bg-green-500" : "bg-gray-300"}`}
+              ></div>
               {t("sign_up.requirements.min_length")}
             </li>
             <li className="flex items-center">
-              <div className={`w-2 h-2 rounded-full mr-2 ${/(?=.*[a-z])/.test(formData.password) ? "bg-green-500" : "bg-gray-300"}`}></div>
+              <div
+                className={`w-2 h-2 rounded-full mr-2 ${/(?=.*[a-z])/.test(formData.password) ? "bg-green-500" : "bg-gray-300"}`}
+              ></div>
               {t("sign_up.requirements.lowercase")}
             </li>
             <li className="flex items-center">
-              <div className={`w-2 h-2 rounded-full mr-2 ${/(?=.*[A-Z])/.test(formData.password) ? "bg-green-500" : "bg-gray-300"}`}></div>
+              <div
+                className={`w-2 h-2 rounded-full mr-2 ${/(?=.*[A-Z])/.test(formData.password) ? "bg-green-500" : "bg-gray-300"}`}
+              ></div>
               {t("sign_up.requirements.uppercase")}
             </li>
             <li className="flex items-center">
-              <div className={`w-2 h-2 rounded-full mr-2 ${/(?=.*\d)/.test(formData.password) ? "bg-green-500" : "bg-gray-300"}`}></div>
+              <div
+                className={`w-2 h-2 rounded-full mr-2 ${/(?=.*\d)/.test(formData.password) ? "bg-green-500" : "bg-gray-300"}`}
+              ></div>
               {t("sign_up.requirements.number")}
             </li>
           </ul>
@@ -274,11 +318,17 @@ const SignupForm: React.FC<SignupFormProps> = ({ onSignupSuccess, locale }) => {
           <div className="ml-3 text-sm">
             <label htmlFor="terms" className="text-gray-600">
               {t("sign_up.terms_agreement")}{" "}
-              <a href="/terms-of-service" className="font-medium text-indigo-600 hover:text-indigo-500 transition-colors">
+              <a
+                href="/terms-of-service"
+                className="font-medium text-indigo-600 hover:text-indigo-500 transition-colors"
+              >
                 {t("sign_up.terms_of_service")}
               </a>{" "}
               {t("sign_up.and")}{" "}
-              <a href="/privacy-policy" className="font-medium text-indigo-600 hover:text-indigo-500 transition-colors">
+              <a
+                href="/privacy-policy"
+                className="font-medium text-indigo-600 hover:text-indigo-500 transition-colors"
+              >
                 {t("sign_up.privacy_policy")}
               </a>
             </label>
@@ -317,7 +367,10 @@ const SignupForm: React.FC<SignupFormProps> = ({ onSignupSuccess, locale }) => {
         <div className="text-center">
           <p className="text-sm text-gray-600">
             {t("sign_up.already_have_account")}{" "}
-            <Link href="/auth/signin" className="font-medium text-indigo-600 hover:text-indigo-500 transition-colors">
+            <Link
+              href="/auth/signin"
+              className="font-medium text-indigo-600 hover:text-indigo-500 transition-colors"
+            >
               {t("sign_up.sign_in_link")}
             </Link>
           </p>
@@ -331,7 +384,9 @@ const SignupForm: React.FC<SignupFormProps> = ({ onSignupSuccess, locale }) => {
             <div className="w-full border-t border-gray-300" />
           </div>
           <div className="relative flex justify-center text-sm">
-            <span className="px-2 bg-white text-gray-500">{t("sign_up.or_sign_up_with")}</span>
+            <span className="px-2 bg-white text-gray-500">
+              {t("sign_up.or_sign_up_with")}
+            </span>
           </div>
         </div>
 
@@ -385,9 +440,22 @@ interface EmailVerificationProps {
   locale: string;
 }
 
-const EmailVerification: React.FC<EmailVerificationProps> = ({ email, nickname, password, onVerificationSuccess, locale }) => {
+const EmailVerification: React.FC<EmailVerificationProps> = ({
+  email,
+  nickname,
+  password,
+  onVerificationSuccess,
+  locale,
+}) => {
   const t = useTranslations();
-  const [verificationCode, setVerificationCode] = useState(["", "", "", "", "", ""]);
+  const [verificationCode, setVerificationCode] = useState([
+    "",
+    "",
+    "",
+    "",
+    "",
+    "",
+  ]);
   const [isLoading, setIsLoading] = useState(false);
   const [error, setError] = useState("");
   const [resendCooldown, setResendCooldown] = useState(0);
@@ -422,7 +490,10 @@ const EmailVerification: React.FC<EmailVerificationProps> = ({ email, nickname, 
     }
 
     // Auto-submit when all fields are filled
-    if (newCode.every((digit) => digit !== "") && newCode.join("").length === 6) {
+    if (
+      newCode.every((digit) => digit !== "") &&
+      newCode.join("").length === 6
+    ) {
       handleVerify(newCode.join(""));
     }
   };
@@ -484,7 +555,9 @@ const EmailVerification: React.FC<EmailVerificationProps> = ({ email, nickname, 
       onVerificationSuccess();
     } catch (error) {
       console.error("Verification error:", error);
-      setError(error instanceof Error ? error.message : "Failed to verify code");
+      setError(
+        error instanceof Error ? error.message : "Failed to verify code",
+      );
       setVerificationCode(["", "", "", "", "", ""]);
       const firstInput = document.getElementById("code-0");
       firstInput?.focus();
@@ -530,7 +603,9 @@ const EmailVerification: React.FC<EmailVerificationProps> = ({ email, nickname, 
       }, 1000);
     } catch (error) {
       console.error("Resend error:", error);
-      alert(error instanceof Error ? error.message : "Failed to resend code");
+      toast.error(
+        error instanceof Error ? error.message : "Failed to resend code",
+      );
     } finally {
       setIsResending(false);
     }
@@ -587,7 +662,9 @@ const EmailVerification: React.FC<EmailVerificationProps> = ({ email, nickname, 
 
       {/* Resend Code */}
       <div className="text-center mt-6">
-        <p className="text-sm text-gray-600 mb-2">{t("sign_up.verification.didnt_receive_code")}</p>
+        <p className="text-sm text-gray-600 mb-2">
+          {t("sign_up.verification.didnt_receive_code")}
+        </p>
         <button
           onClick={handleResendCode}
           disabled={resendCooldown > 0 || isResending}
@@ -608,7 +685,9 @@ const EmailVerification: React.FC<EmailVerificationProps> = ({ email, nickname, 
 
       {/* Help Text */}
       <div className="text-center mt-6 pt-6 border-t border-gray-100">
-        <p className="text-xs text-gray-500">{t("sign_up.verification.check_spam")}</p>
+        <p className="text-xs text-gray-500">
+          {t("sign_up.verification.check_spam")}
+        </p>
       </div>
     </div>
   );
@@ -623,7 +702,9 @@ export default function SignInPage() {
   const t = useTranslations();
   const locale = (params.locale as string) || "en";
 
-  const [currentStep, setCurrentStep] = useState<"signup" | "verification">("signup");
+  const [currentStep, setCurrentStep] = useState<"signup" | "verification">(
+    "signup",
+  );
   const [userEmail, setUserEmail] = useState("");
   const [userData, setUserData] = useState({
     nickname: "",
@@ -654,7 +735,11 @@ export default function SignInPage() {
     return null;
   }
 
-  const handleSignupSuccess = (email: string, nickname: string, password: string) => {
+  const handleSignupSuccess = (
+    email: string,
+    nickname: string,
+    password: string,
+  ) => {
     setUserEmail(email);
     setUserData({ nickname, password });
     setCurrentStep("verification");
@@ -667,18 +752,31 @@ export default function SignInPage() {
         <div className="max-w-md w-full space-y-8">
           {/* Header */}
           <div className="text-center">
-            <Link href="/" className="inline-flex items-center space-x-3 mb-8 group">
+            <Link
+              href="/"
+              className="inline-flex items-center space-x-3 mb-8 group"
+            >
               <div className="w-10 h-10 bg-gradient-to-br from-indigo-500 to-purple-600 rounded-xl flex items-center justify-center shadow-lg group-hover:shadow-xl transition-all duration-300 transform group-hover:scale-110">
-                <img src="/logo.png" alt="logo" className="w-full h-full object-cover" />
+                <img
+                  src="/logo.png"
+                  alt="logo"
+                  className="w-full h-full object-cover"
+                />
               </div>
-              <span className="text-2xl font-bold text-gray-900">{t("metadata.name")}</span>
+              <span className="text-2xl font-bold text-gray-900">
+                {t("metadata.name")}
+              </span>
             </Link>
 
-            <h2 className="text-3xl font-bold text-gray-900 mb-2">{t("sign_up.title")}</h2>
+            <h2 className="text-3xl font-bold text-gray-900 mb-2">
+              {t("sign_up.title")}
+            </h2>
             <p className="text-gray-600">{t("sign_up.description")}</p>
           </div>
 
-          {currentStep === "signup" && <SignupForm onSignupSuccess={handleSignupSuccess} locale={locale} />}
+          {currentStep === "signup" && (
+            <SignupForm onSignupSuccess={handleSignupSuccess} locale={locale} />
+          )}
 
           {currentStep === "verification" && (
             <EmailVerification

@@ -18,6 +18,7 @@ export interface UpdateUserAssetParams {
   status?: "pending" | "processing" | "completed" | "failed";
   resultUrl?: string;
   resultDetail?: Record<string, any>;
+  providerJobId?: string;
   finishedAt?: Date;
 }
 
@@ -89,7 +90,13 @@ export async function updateUserAsset(
 ): Promise<UserAsset | null> {
   await db()
     .update(userAssets)
-    .set(updates)
+    .set({
+      status: updates.status,
+      result_url: updates.resultUrl,
+      result_detail: updates.resultDetail,
+      provider_job_id: updates.providerJobId,
+      finished_at: updates.finishedAt,
+    })
     .where(eq(userAssets.asset_uuid, assetUuid));
 
   // For now, return null - in production you'd fetch the updated record

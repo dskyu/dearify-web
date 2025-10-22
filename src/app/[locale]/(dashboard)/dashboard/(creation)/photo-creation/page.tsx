@@ -2,26 +2,15 @@
 
 import React, { useState, useCallback, useMemo } from "react";
 import {
-  ImageIcon,
   Sparkles,
   Palette,
   Camera,
   Wand2,
-  ArrowRight,
-  Star,
-  Clock,
-  Zap,
   Download,
   Share2,
-  RotateCcw,
   Settings,
-  Sliders,
-  Brush,
-  Layers,
   Eye,
-  EyeOff,
   Type,
-  Info,
   Upload,
   Search,
   X,
@@ -55,8 +44,8 @@ import {
 } from "@/components/ui/select";
 import { cn } from "@/lib/utils";
 import { useRouter } from "@/i18n/navigation";
-import RealTimePreview from "@/components/ui/real-time-preview";
 import { TemplateItem, templatesConfig } from "@/lib/templates";
+import { toast } from "sonner";
 
 interface GenerationSettings {
   style: string;
@@ -79,7 +68,6 @@ const ImageGenerationPage = () => {
   const [selectedStyle, setSelectedStyle] = useState<string>("free-style");
   const [isTemplateDialogOpen, setIsTemplateDialogOpen] = useState(false);
   const [textPrompt, setTextPrompt] = useState("");
-  const [isEnhancingPrompt, setIsEnhancingPrompt] = useState(false);
   const [templateSearchText, setTemplateSearchText] = useState("");
   const [selectedTag, setSelectedTag] = useState<string>("all");
   const [settings, setSettings] = useState<GenerationSettings>({
@@ -87,37 +75,17 @@ const ImageGenerationPage = () => {
     aspectRatio: "1:1",
     enhanceQuality: false,
     watermark: false,
-    model: "stable-diffusion",
+    model: "nano-banana",
   });
 
   const models = [
     {
-      id: "stable-diffusion",
-      name: "Stable Diffusion",
-      icon: "🎨",
-      credits: 3,
-      description: "High-quality image generation",
-    },
-    {
-      id: "flux-schnell",
-      name: "Flux Schnell",
-      icon: "⚡",
-      credits: 3,
-      description: "High-quality, fast image generation",
-    },
-    {
-      id: "flux-dev",
-      name: "Flux Dev",
-      icon: "🔧",
-      credits: 8,
-      description: "Advanced image generation with more control",
-    },
-    {
-      id: "dall-e-3",
-      name: "DALL-E 3",
-      icon: "🤖",
-      credits: 8,
-      description: "OpenAI's advanced image generation model",
+      id: "nano-banana",
+      name: "Nano Banana",
+      icon: "🍌",
+      credits: 5,
+      description:
+        "Google's advanced image editing model, unmatched character consistency",
     },
   ];
 
@@ -199,9 +167,27 @@ const ImageGenerationPage = () => {
     setGenerationStatus("starting");
 
     try {
-      // Prepare reference images URLs
-      const referenceImageUrls =
-        previewUrls.length > 0 ? previewUrls : undefined;
+      // If files are selected, upload to storage to get URLs
+      let referenceImageUrls: string[] | undefined = undefined;
+      if (selectedFiles.length > 0) {
+        const formData = new FormData();
+        selectedFiles.forEach((file) => formData.append("files", file));
+
+        const uploadResp = await fetch("/api/upload-reference-images", {
+          method: "POST",
+          body: formData,
+        });
+        if (!uploadResp.ok) {
+          const err = await uploadResp.json().catch(() => ({}));
+          throw new Error(err.error || "Failed to upload reference images");
+        }
+        const uploadData = await uploadResp.json();
+        referenceImageUrls =
+          uploadData.data?.urls || uploadData.urls || undefined;
+      } else if (previewUrls.length > 0) {
+        // Fallback to any existing preview URLs if no files
+        referenceImageUrls = previewUrls;
+      }
 
       // Call the async API
       const response = await fetch("/api/ai/generate-image-async", {
@@ -215,7 +201,7 @@ const ImageGenerationPage = () => {
           aspectRatio: settings.aspectRatio,
           enhanceQuality: settings.enhanceQuality,
           watermark: settings.watermark,
-          referenceImage: referenceImageUrls?.[0], // Use first reference image
+          referenceImages: referenceImageUrls,
           style: selectedStyle,
         }),
       });
@@ -238,7 +224,7 @@ const ImageGenerationPage = () => {
     } catch (error) {
       console.error("Generation failed:", error);
       setGenerationStatus("failed");
-      alert(
+      toast.error(
         `Generation failed: ${error instanceof Error ? error.message : "Unknown error"}`,
       );
     } finally {
@@ -249,7 +235,7 @@ const ImageGenerationPage = () => {
   // Poll generation status
   const pollGenerationStatus = useCallback(async (assetUuid: string) => {
     const pollInterval = 2000; // Poll every 2 seconds
-    const maxPollTime = 300000; // Max 5 minutes
+    const maxPollTime = 60000; // Max 1 minute
     const startTime = Date.now();
 
     const poll = async () => {
@@ -271,7 +257,9 @@ const ImageGenerationPage = () => {
           } else if (result.status === "failed") {
             setGenerationStatus("failed");
             setIsGenerating(false);
-            alert(`Generation failed: ${result.error || "Unknown error"}`);
+            toast.error(
+              `Generation failed: ${result.error || "Unknown error"}`,
+            );
             return;
           } else if (result.status === "processing") {
             // Continue polling
@@ -280,7 +268,7 @@ const ImageGenerationPage = () => {
             } else {
               setGenerationStatus("timeout");
               setIsGenerating(false);
-              alert("Generation timeout. Please try again.");
+              toast.warning("Generation timeout. Please try again.");
             }
           }
         }
@@ -288,7 +276,9 @@ const ImageGenerationPage = () => {
         console.error("Polling error:", error);
         setGenerationStatus("error");
         setIsGenerating(false);
-        alert("Failed to check generation status. Please refresh the page.");
+        toast.error(
+          "Failed to check generation status. Please refresh the page.",
+        );
       }
     };
 
@@ -296,22 +286,40 @@ const ImageGenerationPage = () => {
     setTimeout(poll, pollInterval);
   }, []);
 
-  const handleDownload = () => {
+  const handleDownload = async () => {
     if (generatedImage) {
-      const link = document.createElement("a");
-      link.href = generatedImage;
-      const model = models.find((m) => m.id === settings.model);
-      const modelName = model?.name || "unknown";
-      link.download = `generated-photo-${modelName}-${Date.now()}.jpg`;
-      link.click();
+      try {
+        // Fetch the image as a blob
+        const response = await fetch(generatedImage);
+        const blob = await response.blob();
+
+        // Create a blob URL
+        const blobUrl = URL.createObjectURL(blob);
+
+        // Create download link
+        const link = document.createElement("a");
+        link.href = blobUrl;
+        link.download = `dearify-generated-photo-${Date.now()}.jpg`;
+
+        // Trigger download
+        document.body.appendChild(link);
+        link.click();
+        document.body.removeChild(link);
+
+        // Clean up the blob URL
+        URL.revokeObjectURL(blobUrl);
+      } catch (error) {
+        console.error("Download failed:", error);
+        toast.error("Failed to download image. Please try again.");
+      }
     }
   };
 
   const handleShare = () => {
     if (generatedImage && navigator.share) {
       navigator.share({
-        title: "AI Generated Image",
-        text: "Check out this amazing AI-generated image!",
+        title: "Dearify Generated Image",
+        text: "Check out this amazing Dearify-generated image!",
         url: generatedImage,
       });
     }
@@ -765,7 +773,7 @@ const ImageGenerationPage = () => {
                     </p>
                     {currentAssetUuid && (
                       <p className="text-xs text-gray-400 mt-2">
-                        Task ID: {currentAssetUuid.slice(0, 8)}...
+                        Task ID: {currentAssetUuid}
                       </p>
                     )}
                   </div>
@@ -822,13 +830,12 @@ const ImageGenerationPage = () => {
                 </CardDescription>
               </CardHeader>
               <CardContent>
-                <div className="relative aspect-square bg-gray-100 rounded-lg overflow-hidden">
-                  <RealTimePreview
-                    type="image"
+                <div className="relative w-full max-w-full bg-gray-100 rounded-lg overflow-hidden flex items-center justify-center">
+                  <img
                     src={generatedImage}
                     alt="Generated image"
-                    className="w-full h-full"
-                    showControls={false}
+                    className="max-w-full max-h-96 object-contain"
+                    style={{ display: "block" }}
                   />
                   <div className="absolute top-2 right-2 flex gap-1">
                     <Button
@@ -838,14 +845,6 @@ const ImageGenerationPage = () => {
                       className="h-8 w-8 p-0"
                     >
                       <Download className="h-4 w-4" />
-                    </Button>
-                    <Button
-                      size="sm"
-                      variant="secondary"
-                      onClick={handleShare}
-                      className="h-8 w-8 p-0"
-                    >
-                      <Share2 className="h-4 w-4" />
                     </Button>
                   </div>
                 </div>
