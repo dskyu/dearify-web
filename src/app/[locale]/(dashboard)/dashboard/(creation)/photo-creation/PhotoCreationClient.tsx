@@ -1,6 +1,6 @@
 "use client";
 
-import React, { useState, useCallback, useMemo } from "react";
+import React, { useState, useCallback, useMemo, memo } from "react";
 import ReactCompareImage from "react-compare-image";
 import {
   Sparkles,
@@ -17,6 +17,7 @@ import {
   Upload,
   Search,
   X,
+  ImageIcon,
 } from "lucide-react";
 import {
   Tooltip,
@@ -57,6 +58,112 @@ import { useRouter } from "@/i18n/navigation";
 import { TemplateItem } from "@/types/blocks/templates";
 import { toast } from "sonner";
 
+// Text Section Component
+interface TextSectionProps {
+  textPrompt: string;
+  setTextPrompt: (value: string) => void;
+  requiredPrompt: boolean;
+  placeholder: string;
+}
+
+const TextSection = memo(
+  ({
+    textPrompt,
+    setTextPrompt,
+    requiredPrompt,
+    placeholder,
+  }: TextSectionProps) => (
+    <div className="space-y-2">
+      <div className="flex items-center gap-2">
+        <span className="text-sm font-medium text-gray-500">
+          Text Description {requiredPrompt ? "(Required)" : "(Optional)"}
+        </span>
+      </div>
+      <Textarea
+        placeholder={placeholder}
+        value={textPrompt}
+        onChange={(e) => setTextPrompt(e.target.value)}
+        className="min-h-[200px] resize-none"
+      />
+    </div>
+  ),
+);
+
+TextSection.displayName = "TextSection";
+
+// Image Section Component
+interface ImageSectionProps {
+  previewUrls: string[];
+  handleFileSelect: (file: File) => void;
+  handleFileRemove: (index: number) => void;
+  requirementText: string;
+  maxPhotos: number;
+}
+
+const ImageSection = memo(
+  ({
+    previewUrls,
+    handleFileSelect,
+    handleFileRemove,
+    requirementText,
+    maxPhotos,
+  }: ImageSectionProps) => (
+    <div className="space-y-2">
+      <div className="flex items-center gap-2">
+        <span className="text-sm font-medium text-gray-500">
+          Reference Photos {requirementText}
+        </span>
+      </div>
+      <div className="grid grid-cols-3 gap-1">
+        {previewUrls.map((url, index) => (
+          <div key={index} className="relative group">
+            <div className="aspect-square rounded-lg overflow-hidden bg-gray-100">
+              <img
+                src={url}
+                alt={`Reference ${index + 1}`}
+                className="w-full h-full object-cover"
+              />
+            </div>
+            <Button
+              size="sm"
+              variant="destructive"
+              className="absolute -top-1 -right-1 h-5 w-5 p-0 opacity-0 group-hover:opacity-100 transition-opacity"
+              onClick={() => handleFileRemove(index)}
+            >
+              ×
+            </Button>
+          </div>
+        ))}
+        {previewUrls.length < maxPhotos && (
+          <div className="aspect-square">
+            <div className="w-full h-full border-2 border-dashed border-gray-300 rounded-lg hover:border-gray-400 hover:bg-gray-50 transition-colors cursor-pointer flex flex-col items-center justify-center p-2">
+              <input
+                type="file"
+                accept="image/*"
+                onChange={(e) => {
+                  const file = e.target.files?.[0];
+                  if (file) handleFileSelect(file);
+                }}
+                className="hidden"
+                id={`upload-${previewUrls.length}`}
+              />
+              <label
+                htmlFor={`upload-${previewUrls.length}`}
+                className="w-full h-full flex flex-col items-center justify-center cursor-pointer"
+              >
+                <Upload className="h-4 w-4 text-gray-500 mb-1" />
+                <span className="text-xs text-gray-600">Upload</span>
+              </label>
+            </div>
+          </div>
+        )}
+      </div>
+    </div>
+  ),
+);
+
+ImageSection.displayName = "ImageSection";
+
 interface GenerationSettings {
   style: string;
   aspectRatio: string;
@@ -73,12 +180,14 @@ export default function PhotoCreationClient({
   const router = useRouter();
   const [selectedFiles, setSelectedFiles] = useState<File[]>([]);
   const [previewUrls, setPreviewUrls] = useState<string[]>([]);
-  const MAX_REFERENCE_PHOTOS = 3;
   const [isGenerating, setIsGenerating] = useState(false);
   const [generatedImage, setGeneratedImage] = useState<string | null>(null);
   const [currentAssetUuid, setCurrentAssetUuid] = useState<string | null>(null);
   const [generationStatus, setGenerationStatus] = useState<string>("idle");
   const [selectedStyle, setSelectedStyle] = useState<string>("free-style");
+
+  const MAX_REFERENCE_PHOTOS = 3;
+
   const [isTemplateDialogOpen, setIsTemplateDialogOpen] = useState(false);
   const [textPrompt, setTextPrompt] = useState("");
   const [templateSearchText, setTemplateSearchText] = useState("");
@@ -134,13 +243,28 @@ export default function PhotoCreationClient({
 
   const handleFileSelect = useCallback(
     (file: File) => {
-      if (selectedFiles.length < MAX_REFERENCE_PHOTOS) {
+      // Check file size (10MB = 10 * 1024 * 1024 bytes)
+      const maxFileSize = 10 * 1024 * 1024; // 10MB
+      if (file.size > maxFileSize) {
+        toast.error("File size must be less than 10MB");
+        return;
+      }
+
+      const currentTemplate = getTemplate(selectedStyle);
+      const requiredReferenceCount =
+        currentTemplate.image_settings?.required_reference_image_count;
+
+      // If required_reference_image_count is specified, use that as the limit
+      // Otherwise, use the default MAX_REFERENCE_PHOTOS
+      const maxPhotos = requiredReferenceCount || MAX_REFERENCE_PHOTOS;
+
+      if (selectedFiles.length < maxPhotos) {
         setSelectedFiles((prev) => [...prev, file]);
         const url = URL.createObjectURL(file);
         setPreviewUrls((prev) => [...prev, url]);
       }
     },
-    [selectedFiles.length],
+    [selectedFiles.length, selectedStyle],
   );
 
   const handleFileRemove = useCallback(
@@ -155,7 +279,27 @@ export default function PhotoCreationClient({
   );
 
   const handleGenerate = async () => {
-    if (!textPrompt && selectedFiles.length === 0) return;
+    const currentTemplate = getTemplate(selectedStyle);
+    const requiredPrompt =
+      currentTemplate.image_settings?.required_prompt ?? false;
+    const requiredReferenceImage =
+      currentTemplate.image_settings?.required_reference_image ?? false;
+    const requiredReferenceCount =
+      currentTemplate.image_settings?.required_reference_image_count ?? 0;
+
+    // Check if required prompt is provided
+    if (requiredPrompt && !textPrompt) return;
+
+    // Check if at least one reference image is required
+    if (requiredReferenceImage && selectedFiles.length === 0) return;
+
+    // Check if specific number of reference images is required
+    if (requiredReferenceCount > 0) {
+      if (selectedFiles.length !== requiredReferenceCount) return;
+    }
+
+    // For text-to-image, we need either text prompt or reference images if not required
+    if (!requiredPrompt && !textPrompt && selectedFiles.length === 0) return;
 
     setIsGenerating(true);
     setGeneratedImage(null);
@@ -408,8 +552,25 @@ export default function PhotoCreationClient({
                           key={template.slug}
                           className="flex flex-col items-center cursor-pointer hover:bg-gray-50 rounded-lg p-4 transition-colors"
                           onClick={() => {
+                            // Check if generation is in progress
+                            if (
+                              isGenerating ||
+                              generationStatus === "processing" ||
+                              generationStatus === "starting"
+                            ) {
+                              toast.error(
+                                "Cannot switch template during generation. Please wait for the current generation to complete.",
+                              );
+                              return;
+                            }
+
                             setSelectedStyle(template.slug);
                             setIsTemplateDialogOpen(false);
+
+                            // Reset generation results when switching templates
+                            setGeneratedImage(null);
+                            setCurrentAssetUuid(null);
+                            setGenerationStatus("idle");
                           }}
                         >
                           <div className="relative">
@@ -463,76 +624,91 @@ export default function PhotoCreationClient({
             </CardContent>
           </Card>
 
-          {/* Combined Prompt and Upload */}
+          {/* Main Content Area - Dynamic Layout Based on Template Type */}
           <Card>
             <CardHeader>
               <CardTitle className="flex items-center gap-2">
-                <Type className="h-5 w-5" />
+                <ImageIcon className="h-5 w-5" />
                 Describe Your Photo
               </CardTitle>
             </CardHeader>
-            <CardContent className="space-y-4">
-              <Textarea
-                placeholder="e.g., A cute orange cat sitting on a windowsill, warm sunlight streaming through the window, realistic style, high quality"
-                value={textPrompt}
-                onChange={(e) => setTextPrompt(e.target.value)}
-                className="min-h-[200px] resize-none"
-              />
+            <CardContent className="space-y-6">
+              {(() => {
+                const currentTemplate = getTemplate(selectedStyle);
+                const isImageToImage =
+                  currentTemplate.image_settings?.type === "image-to-image";
+                const requiredPrompt =
+                  currentTemplate.image_settings?.required_prompt ?? false;
+                const requiredReferenceImage =
+                  currentTemplate.image_settings?.required_reference_image ??
+                  false;
+                const requiredReferenceCount =
+                  currentTemplate.image_settings
+                    ?.required_reference_image_count ?? 0;
 
-              <div className="border-t pt-3">
-                <div className="flex items-center gap-2 mb-2">
-                  <Camera className="h-3 w-3" />
-                  <span className="text-xs font-medium text-gray-600">
-                    Reference Photos (Optional)
-                  </span>
-                </div>
+                // Get image requirement text
+                const getImageRequirementText = () => {
+                  if (requiredReferenceCount > 0) {
+                    return `(Required: ${requiredReferenceCount})`;
+                  } else if (requiredReferenceImage) {
+                    return `(Required: at least 1, up to ${MAX_REFERENCE_PHOTOS})`;
+                  } else {
+                    return `(Optional, up to ${MAX_REFERENCE_PHOTOS})`;
+                  }
+                };
 
-                {/* Photo Grid with Upload */}
-                <div className="grid grid-cols-3 gap-1 mt-3">
-                  {previewUrls.map((url, index) => (
-                    <div key={index} className="relative group">
-                      <div className="aspect-square rounded-lg overflow-hidden bg-gray-100">
-                        <img
-                          src={url}
-                          alt={`Reference ${index + 1}`}
-                          className="w-full h-full object-cover"
-                        />
-                      </div>
-                      <Button
-                        size="sm"
-                        variant="destructive"
-                        className="absolute -top-1 -right-1 h-5 w-5 p-0 opacity-0 group-hover:opacity-100 transition-opacity"
-                        onClick={() => handleFileRemove(index)}
-                      >
-                        ×
-                      </Button>
-                    </div>
-                  ))}
-                  {previewUrls.length < MAX_REFERENCE_PHOTOS && (
-                    <div className="aspect-square">
-                      <div className="w-full h-full border-2 border-dashed border-gray-300 rounded-lg hover:border-gray-400 hover:bg-gray-50 transition-colors cursor-pointer flex flex-col items-center justify-center p-2">
-                        <input
-                          type="file"
-                          accept="image/*"
-                          onChange={(e) => {
-                            const file = e.target.files?.[0];
-                            if (file) handleFileSelect(file);
-                          }}
-                          className="hidden"
-                          id={`upload-${previewUrls.length}`}
-                        />
-                        <label
-                          htmlFor={`upload-${previewUrls.length}`}
-                          className="w-full h-full flex flex-col items-center justify-center cursor-pointer"
-                        >
-                          <Upload className="h-4 w-4 text-gray-500 mb-1" />
-                          <span className="text-xs text-gray-600">Upload</span>
-                        </label>
-                      </div>
-                    </div>
-                  )}
-                </div>
-              </div>
+                // Get text placeholder
+                const getTextPlaceholder = () => {
+                  return requiredPrompt
+                    ? "Describe your photo in detail..."
+                    : "Add additional description to guide the AI transformation...";
+                };
+
+                // Get max photos for upload
+                const maxPhotos =
+                  requiredReferenceCount || MAX_REFERENCE_PHOTOS;
+
+                // Return layout based on template type
+                if (isImageToImage) {
+                  // Image-to-image: Images first, then text
+                  return (
+                    <>
+                      <ImageSection
+                        previewUrls={previewUrls}
+                        handleFileSelect={handleFileSelect}
+                        handleFileRemove={handleFileRemove}
+                        requirementText={getImageRequirementText()}
+                        maxPhotos={maxPhotos}
+                      />
+                      <TextSection
+                        textPrompt={textPrompt}
+                        setTextPrompt={setTextPrompt}
+                        requiredPrompt={requiredPrompt}
+                        placeholder={getTextPlaceholder()}
+                      />
+                    </>
+                  );
+                } else {
+                  // Text-to-image: Text first, then images
+                  return (
+                    <>
+                      <TextSection
+                        textPrompt={textPrompt}
+                        setTextPrompt={setTextPrompt}
+                        requiredPrompt={requiredPrompt}
+                        placeholder={getTextPlaceholder()}
+                      />
+                      <ImageSection
+                        previewUrls={previewUrls}
+                        handleFileSelect={handleFileSelect}
+                        handleFileRemove={handleFileRemove}
+                        requirementText={getImageRequirementText()}
+                        maxPhotos={maxPhotos}
+                      />
+                    </>
+                  );
+                }
+              })()}
             </CardContent>
           </Card>
 
@@ -640,7 +816,41 @@ export default function PhotoCreationClient({
           <Button
             onClick={handleGenerate}
             disabled={
-              (!textPrompt && selectedFiles.length === 0) ||
+              (() => {
+                const currentTemplate = getTemplate(selectedStyle);
+                const requiredPrompt =
+                  currentTemplate.image_settings?.required_prompt ?? false;
+                const requiredReferenceImage =
+                  currentTemplate.image_settings?.required_reference_image ??
+                  false;
+                const requiredReferenceCount =
+                  currentTemplate.image_settings
+                    ?.required_reference_image_count ?? 0;
+
+                // Check if required prompt is provided
+                if (requiredPrompt && !textPrompt) return true;
+
+                // Check if at least one reference image is required
+                if (requiredReferenceImage && selectedFiles.length === 0)
+                  return true;
+
+                // Check if specific number of reference images is required
+                if (
+                  requiredReferenceCount > 0 &&
+                  selectedFiles.length !== requiredReferenceCount
+                )
+                  return true;
+
+                // For text-to-image, we need either text prompt or reference images if not required
+                if (
+                  !requiredPrompt &&
+                  !textPrompt &&
+                  selectedFiles.length === 0
+                )
+                  return true;
+
+                return false;
+              })() ||
               isGenerating ||
               generationStatus === "processing" ||
               generationStatus === "starting"

@@ -16,11 +16,8 @@ export const templatesConfig: TemplateItem[] = [
     tags: [],
     category: "effects",
     image_settings: {
-      reference_image_limit: 1,
-      prompt: "A realistic portrait of a couple",
       type: "text-to-image",
-      resolution: "1024x1024",
-      aspect_ratio: "1:1",
+      required_prompt: true,
     },
   },
   {
@@ -31,11 +28,10 @@ export const templatesConfig: TemplateItem[] = [
     tags: ["Couples", "Wedding", "Portrait"],
     category: "effects",
     image_settings: {
-      reference_image_limit: 1,
-      prompt: "A studio wedding portrait of a couple",
-      type: "text-to-image",
-      resolution: "1024x1024",
-      aspect_ratio: "1:1",
+      required_reference_image_count: 2,
+      prompt:
+        "two adults (bride in classic white wedding dress, groom in tailored black tuxedo) standing in a clean white cyclorama studio, high-key lighting with large softbox and gentle fill, natural skin tones, elegant pose (embrace / holding hands), 85mm lens look, shallow depth of field, editorial minimalism, cinematic grading, award-winning wedding portrait, no heart shapes",
+      type: "image-to-image",
     },
   },
   {
@@ -50,12 +46,11 @@ export const templatesConfig: TemplateItem[] = [
     tags: ["Couples", "Anniversary", "Portrait", "Neon"],
     category: "effects",
     image_settings: {
-      reference_image_limit: 1,
+      required_reference_image: true,
       prompt:
         "A neon city night portrait of a couple, vibrant colors, modern style, enhanced skin, soft focus",
       type: "text-to-image",
-      resolution: "2048x2048",
-      aspect_ratio: "1:1",
+      required_prompt: true,
     },
   },
   {
@@ -115,12 +110,11 @@ export const templatesConfig: TemplateItem[] = [
     tags: ["Couples", "Outdoor", "Sunset", "Portrait"],
     category: "portraits",
     image_settings: {
-      reference_image_limit: 1,
+      required_reference_image: true,
+      required_prompt: true,
       prompt:
         "A romantic outdoor portrait of a couple at sunset, soft light, natural colors, scenic background",
       type: "text-to-image",
-      resolution: "2048x2048",
-      aspect_ratio: "4:5",
     },
   },
 

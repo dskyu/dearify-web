@@ -1,9 +1,9 @@
 export interface TemplateImageSettings {
-  reference_image_limit: number;
-  prompt: string;
+  required_reference_image_count?: number;
+  required_reference_image?: boolean;
+  required_prompt?: boolean;
   type: "text-to-image" | "image-to-image";
-  resolution: string;
-  aspect_ratio: string;
+  prompt?: string;
 }
 
 export interface TemplateAudioSettings {
