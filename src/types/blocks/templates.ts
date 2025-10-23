@@ -7,20 +7,16 @@ export interface TemplateImageSettings {
 }
 
 export interface TemplateAudioSettings {
-  lyrics: string;
-  reference_file: string;
-  vocal: string;
+  prompt?: string;
+  voice_type?: string;
+  no_human_voice?: boolean;
 }
 
 export interface TemplateVideoSettings {
-  first_frame?: string;
-  last_frame?: string;
-  prompt: string;
-  type: "text-to-video" | "image-to-video";
-  sound_effects?: string[];
+  prompt?: string;
   duration?: number;
-  resolution: string;
-  aspect_ratio: string;
+  reference_image?: string;
+  aspect_ratio?: "landscape" | "portrait";
 }
 
 export interface TemplateItem {
@@ -37,4 +33,20 @@ export interface TemplateItem {
   image_settings?: TemplateImageSettings;
   audio_settings?: TemplateAudioSettings;
   video_settings?: TemplateVideoSettings;
+  // Additional fields for category display
+  credits?: number;
+  time?: string;
+  rating?: number;
+}
+
+export interface TemplateCategory {
+  id: string;
+  name: string;
+  slug: string;
+  description: string;
+  icon: React.ComponentType<any>;
+  color: string;
+  gradientFrom: string;
+  gradientTo: string;
+  templates: TemplateItem[];
 }

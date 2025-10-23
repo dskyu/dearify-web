@@ -1214,11 +1214,11 @@ export default function PhotoCreationClient({
             /* Pre-generation State - Template Description & Preview */
             <div className="space-y-4">
               <div className="flex flex-col items-center justify-center text-center">
-                <h3 className="flex items-center gap-2 justify-center text-2xl font-bold">
+                <h1 className="flex items-center gap-2 justify-center text-2xl font-bold">
                   {getTemplate(selectedStyle).title}
-                </h3>
+                </h1>
                 <p className="text-md text-gray-600">
-                  <span
+                  <h2
                     dangerouslySetInnerHTML={{
                       __html: getTemplate(selectedStyle).description || "",
                     }}

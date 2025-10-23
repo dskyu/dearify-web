@@ -43,20 +43,9 @@ import {
 import { Button } from "@/components/ui/button";
 import { useAppContext } from "@/contexts/app";
 import { useRouter } from "@/i18n/navigation";
-import { ChatSessionRecord } from "@/types/chat";
-import { SiAppstore } from "react-icons/si";
-import { BsGooglePlay } from "react-icons/bs";
-import { SUPPORTED_COUNTRIES } from "@/types/language";
-import { toast } from "sonner";
 import InsufficientCreditsModal from "@/components/billing/insufficient-credits-modal";
 import Feedback from "@/components/feedback";
-import {
-  useCurrentUrl,
-  useSearchParam,
-  useAllSearchParams,
-} from "@/hooks/use-current-url";
-import { getCurrentFullUrl, getSearchParam } from "@/lib/url";
-import { stylesConfig } from "@/lib/styles-config";
+import { templatesConfig } from "@/lib/templates-config";
 
 interface SidebarCategory {
   category: string;
@@ -127,12 +116,23 @@ const DashboardClient = ({ children }: DashboardClientProps) => {
     },
     {
       category: "Categories",
-      items: stylesConfig.map((category) => ({
-        id: category.id,
-        label: category.name,
-        href: `/dashboard/styles/${category.slug}`,
-        icon: <category.icon className="w-5 h-5" />,
-      })),
+      items: (() => {
+        // 收集所有唯一的 tags
+        const allTags = new Set<string>();
+        templatesConfig.forEach((template) => {
+          template.tags.forEach((tag) => allTags.add(tag));
+        });
+
+        // 将 tags 转换为分类项
+        return Array.from(allTags)
+          .sort((a, b) => a.localeCompare(b))
+          .map((tag) => ({
+            id: tag.toLowerCase().replace(/\s+/g, "-"),
+            label: tag,
+            href: `/dashboard/category/${tag.toLowerCase().replace(/\s+/g, "-")}`,
+            icon: "🏷️",
+          }));
+      })(),
     },
   ];
 
