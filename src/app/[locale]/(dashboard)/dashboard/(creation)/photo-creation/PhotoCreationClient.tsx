@@ -164,6 +164,286 @@ const ImageSection = memo(
 
 ImageSection.displayName = "ImageSection";
 
+// Template Selector Component
+interface TemplateSelectorProps {
+  templates: TemplateItem[];
+  selectedStyle: string;
+  onTemplateSelect: (templateSlug: string) => void;
+  templateSearchText: string;
+  setTemplateSearchText: (text: string) => void;
+  selectedTag: string;
+  setSelectedTag: (tag: string) => void;
+  allTags: string[];
+  filteredTemplates: TemplateItem[];
+}
+
+const TemplateSelector = memo(
+  ({
+    templates,
+    selectedStyle,
+    onTemplateSelect,
+    templateSearchText,
+    setTemplateSearchText,
+    selectedTag,
+    setSelectedTag,
+    allTags,
+    filteredTemplates,
+  }: TemplateSelectorProps) => {
+    const getTemplate = (slug: string): TemplateItem => {
+      const foundTemplate = templates.find((t) => t.slug === slug);
+      if (foundTemplate) {
+        return foundTemplate;
+      }
+      const freeStyleTemplate = templates.find((t) => t.slug === "free-style");
+      return freeStyleTemplate!;
+    };
+
+    return (
+      <div className="space-y-4">
+        {/* Search and Filter Controls */}
+        <div className="space-y-4">
+          {/* Search Input */}
+          <div className="relative">
+            <Search className="absolute left-4 top-1/2 transform -translate-y-1/2 text-gray-400 h-5 w-5" />
+            <Input
+              placeholder="Search templates..."
+              value={templateSearchText}
+              onChange={(e) => setTemplateSearchText(e.target.value)}
+              className="pl-12 h-12 text-base"
+            />
+            {templateSearchText && (
+              <Button
+                variant="ghost"
+                size="sm"
+                className="absolute right-3 top-1/2 transform -translate-y-1/2 h-8 w-8 p-0"
+                onClick={() => setTemplateSearchText("")}
+              >
+                <X className="h-4 w-4" />
+              </Button>
+            )}
+          </div>
+
+          {/* Tag Filter */}
+          <div className="flex flex-wrap gap-3">
+            <Badge
+              variant={selectedTag === "all" ? "default" : "outline"}
+              className="cursor-pointer px-4 py-2 text-sm"
+              onClick={() => setSelectedTag("all")}
+            >
+              All
+            </Badge>
+            {allTags.map((tag) => (
+              <Badge
+                key={tag}
+                variant={selectedTag === tag ? "default" : "outline"}
+                className="cursor-pointer px-4 py-2 text-sm"
+                onClick={() => setSelectedTag(tag)}
+              >
+                {tag}
+              </Badge>
+            ))}
+          </div>
+        </div>
+
+        {/* Template Grid */}
+        <div
+          className={cn(
+            // 以最小宽度最优自适应，填满一行，根据屏幕宽度响应列数
+            "grid gap-3",
+            "grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-5 xl:grid-cols-6",
+          )}
+        >
+          {filteredTemplates.filter(
+            (template) => template.slug !== "free-style",
+          ).length > 0 ? (
+            filteredTemplates
+              .filter((template) => template.slug !== "free-style")
+              .map((template) => (
+                <div
+                  key={template.slug}
+                  className="flex flex-col items-center cursor-pointer hover:bg-gray-50 rounded-lg p-3 transition-colors"
+                  onClick={() => onTemplateSelect(template.slug)}
+                  style={{ minWidth: 0 }}
+                >
+                  <div className="relative">
+                    <img
+                      src={template.cover}
+                      alt={template.title}
+                      className={cn(
+                        "w-48 h-48 rounded-lg object-cover",
+                        selectedStyle === template.slug
+                          ? "ring-2 ring-blue-500 ring-offset-2"
+                          : "",
+                      )}
+                    />
+                  </div>
+                  <div className="text-center mt-2">
+                    <span className="text-md font-medium block">
+                      {template.title}
+                    </span>
+                  </div>
+                </div>
+              ))
+          ) : (
+            <div className="col-span-full flex flex-col items-center justify-center py-8 text-center">
+              <Search className="h-8 w-8 text-gray-400 mb-2" />
+              <h3 className="text-sm font-medium text-gray-900 mb-1">
+                No templates found
+              </h3>
+              <p className="text-xs text-gray-500 mb-2">
+                Try adjusting your search or filter criteria
+              </p>
+              <Button
+                variant="outline"
+                size="sm"
+                onClick={() => {
+                  setTemplateSearchText("");
+                  setSelectedTag("all");
+                }}
+              >
+                Clear filters
+              </Button>
+            </div>
+          )}
+        </div>
+      </div>
+    );
+  },
+);
+
+TemplateSelector.displayName = "TemplateSelector";
+
+// Template Dialog Content Component
+interface TemplateDialogContentProps {
+  templates: TemplateItem[];
+  selectedStyle: string;
+  onTemplateSelect: (templateSlug: string) => void;
+  templateSearchText: string;
+  setTemplateSearchText: (text: string) => void;
+  selectedTag: string;
+  setSelectedTag: (tag: string) => void;
+  allTags: string[];
+  filteredTemplates: TemplateItem[];
+}
+
+const TemplateDialogContent = memo(
+  ({
+    templates,
+    selectedStyle,
+    onTemplateSelect,
+    templateSearchText,
+    setTemplateSearchText,
+    selectedTag,
+    setSelectedTag,
+    allTags,
+    filteredTemplates,
+  }: TemplateDialogContentProps) => {
+    return (
+      <DialogContent className="max-w-4xl max-h-[80vh] overflow-y-auto">
+        <DialogHeader>
+          <DialogTitle>Choose Template</DialogTitle>
+        </DialogHeader>
+
+        {/* Search and Filter Controls */}
+        <div className="space-y-4 p-4 border-b">
+          {/* Search Input */}
+          <div className="relative">
+            <Search className="absolute left-4 top-1/2 transform -translate-y-1/2 text-gray-400 h-5 w-5" />
+            <Input
+              placeholder="Search templates..."
+              value={templateSearchText}
+              onChange={(e) => setTemplateSearchText(e.target.value)}
+              className="pl-12 h-12 text-base"
+            />
+            {templateSearchText && (
+              <Button
+                variant="ghost"
+                size="sm"
+                className="absolute right-3 top-1/2 transform -translate-y-1/2 h-8 w-8 p-0"
+                onClick={() => setTemplateSearchText("")}
+              >
+                <X className="h-4 w-4" />
+              </Button>
+            )}
+          </div>
+
+          {/* Tag Filter */}
+          <div className="flex flex-wrap gap-3">
+            <Badge
+              variant={selectedTag === "all" ? "default" : "outline"}
+              className="cursor-pointer px-4 py-2 text-sm"
+              onClick={() => setSelectedTag("all")}
+            >
+              All
+            </Badge>
+            {allTags.map((tag) => (
+              <Badge
+                key={tag}
+                variant={selectedTag === tag ? "default" : "outline"}
+                className="cursor-pointer px-4 py-2 text-sm"
+                onClick={() => setSelectedTag(tag)}
+              >
+                {tag}
+              </Badge>
+            ))}
+          </div>
+        </div>
+
+        <div className="grid grid-cols-3 gap-4 p-4">
+          {filteredTemplates.length > 0 ? (
+            filteredTemplates.map((template) => (
+              <div
+                key={template.slug}
+                className="flex flex-col items-center cursor-pointer hover:bg-gray-50 rounded-lg p-4 transition-colors"
+                onClick={() => onTemplateSelect(template.slug)}
+              >
+                <div className="relative">
+                  <img
+                    src={template.cover}
+                    alt={template.slug}
+                    className={cn(
+                      "w-36 h-36 rounded-lg object-cover",
+                      selectedStyle === template.slug
+                        ? "ring-2 ring-blue-500 ring-offset-2"
+                        : "",
+                    )}
+                  />
+                </div>
+                <div className="text-center mt-3">
+                  <span className="text-sm font-medium block">
+                    {template.title}
+                  </span>
+                </div>
+              </div>
+            ))
+          ) : (
+            <div className="col-span-3 flex flex-col items-center justify-center py-12 text-center">
+              <Search className="h-12 w-12 text-gray-400 mb-4" />
+              <h3 className="text-lg font-medium text-gray-900 mb-2">
+                No templates found
+              </h3>
+              <p className="text-gray-500 mb-4">
+                Try adjusting your search or filter criteria
+              </p>
+              <Button
+                variant="outline"
+                onClick={() => {
+                  setTemplateSearchText("");
+                  setSelectedTag("all");
+                }}
+              >
+                Clear filters
+              </Button>
+            </div>
+          )}
+        </div>
+      </DialogContent>
+    );
+  },
+);
+
+TemplateDialogContent.displayName = "TemplateDialogContent";
+
 interface GenerationSettings {
   style: string;
   aspectRatio: string;
@@ -454,185 +734,82 @@ export default function PhotoCreationClient({
       {/* Main Interface */}
       <div className="flex flex-col lg:flex-row gap-8 lg:items-start">
         {/* Left Panel - Controls */}
-        <div className="w-full lg:w-120 lg:min-w-120 lg:max-w-120 space-y-2">
+        <div className="w-full lg:w-120 lg:min-w-120 lg:max-w-120 h-[calc(100vh-8rem)] flex flex-col bg-white border border-gray-200 rounded-xl p-6 shadow-sm">
           {/* Template Selection */}
-          <Card>
-            <CardHeader>
-              <CardTitle className="flex items-center gap-2">
-                <Palette className="h-5 w-5" />
-                Choose Template
-              </CardTitle>
-            </CardHeader>
-            <CardContent>
-              <Dialog
-                open={isTemplateDialogOpen}
-                onOpenChange={setIsTemplateDialogOpen}
-              >
-                <DialogTrigger asChild>
-                  <Button
-                    variant="outline"
-                    className="w-full h-16 justify-start gap-3 p-3"
-                  >
-                    {(() => {
-                      const template = getTemplate(selectedStyle);
-                      return (
-                        <>
-                          <img
-                            src={template.cover}
-                            alt={template.slug}
-                            className="w-10 h-10 rounded object-cover flex-shrink-0"
-                          />
-                          <div className="flex flex-col items-start text-left">
-                            <span className="text-sm font-medium">
-                              {template.title || template.slug}
-                            </span>
-                            <span className="text-xs text-gray-500 truncate max-w-[20rem] block whitespace-nowrap overflow-hidden">
-                              {template.description || ""}
-                            </span>
-                          </div>
-                        </>
-                      );
-                    })()}
-                  </Button>
-                </DialogTrigger>
-                <DialogContent className="max-w-4xl max-h-[80vh] overflow-y-auto">
-                  <DialogHeader>
-                    <DialogTitle>Choose Template</DialogTitle>
-                  </DialogHeader>
-
-                  {/* Search and Filter Controls */}
-                  <div className="space-y-4 p-4 border-b">
-                    {/* Search Input */}
-                    <div className="relative">
-                      <Search className="absolute left-3 top-1/2 transform -translate-y-1/2 text-gray-400 h-4 w-4" />
-                      <Input
-                        placeholder="Search templates..."
-                        value={templateSearchText}
-                        onChange={(e) => setTemplateSearchText(e.target.value)}
-                        className="pl-10"
-                      />
-                      {templateSearchText && (
-                        <Button
-                          variant="ghost"
-                          size="sm"
-                          className="absolute right-2 top-1/2 transform -translate-y-1/2 h-6 w-6 p-0"
-                          onClick={() => setTemplateSearchText("")}
-                        >
-                          <X className="h-3 w-3" />
-                        </Button>
-                      )}
-                    </div>
-
-                    {/* Tag Filter */}
-                    <div className="flex flex-wrap gap-2">
-                      <Badge
-                        variant={selectedTag === "all" ? "default" : "outline"}
-                        className="cursor-pointer"
-                        onClick={() => setSelectedTag("all")}
-                      >
-                        All
-                      </Badge>
-                      {allTags.map((tag) => (
-                        <Badge
-                          key={tag}
-                          variant={selectedTag === tag ? "default" : "outline"}
-                          className="cursor-pointer"
-                          onClick={() => setSelectedTag(tag)}
-                        >
-                          {tag}
-                        </Badge>
-                      ))}
-                    </div>
-                  </div>
-
-                  <div className="grid grid-cols-3 gap-4 p-4">
-                    {filteredTemplates.length > 0 ? (
-                      filteredTemplates.map((template) => (
-                        <div
-                          key={template.slug}
-                          className="flex flex-col items-center cursor-pointer hover:bg-gray-50 rounded-lg p-4 transition-colors"
-                          onClick={() => {
-                            // Check if generation is in progress
-                            if (
-                              isGenerating ||
-                              generationStatus === "processing" ||
-                              generationStatus === "starting"
-                            ) {
-                              toast.error(
-                                "Cannot switch template during generation. Please wait for the current generation to complete.",
-                              );
-                              return;
-                            }
-
-                            setSelectedStyle(template.slug);
-                            setIsTemplateDialogOpen(false);
-
-                            // Reset generation results when switching templates
-                            setGeneratedImage(null);
-                            setCurrentAssetUuid(null);
-                            setGenerationStatus("idle");
-                          }}
-                        >
-                          <div className="relative">
-                            <img
-                              src={template.cover}
-                              alt={template.slug}
-                              className={cn(
-                                "w-36 h-36 rounded-lg object-cover",
-                                selectedStyle === template.slug
-                                  ? "ring-2 ring-blue-500 ring-offset-2"
-                                  : "",
-                              )}
-                            />
-                          </div>
-                          <div className="text-center mt-3">
-                            <span className="text-sm font-medium block">
-                              {template.slug
-                                .replace(/-/g, " ")
-                                .replace(/\b\w/g, (l) => l.toUpperCase())}
-                            </span>
-                            <span className="text-xs text-gray-500 mt-1 block">
-                              {template.image_settings?.prompt ||
-                                "AI-generated image"}
-                            </span>
-                          </div>
+          <div className="space-y-2 mb-6">
+            <div className="flex items-center gap-2">
+              <Palette className="h-5 w-5" />
+              <span className="text-sm font-medium">Choose Template</span>
+            </div>
+            <Dialog
+              open={isTemplateDialogOpen}
+              onOpenChange={setIsTemplateDialogOpen}
+            >
+              <DialogTrigger asChild>
+                <Button
+                  variant="outline"
+                  className="w-full h-16 justify-start gap-3 p-3"
+                >
+                  {(() => {
+                    const template = getTemplate(selectedStyle);
+                    return (
+                      <>
+                        <img
+                          src={template.cover}
+                          alt={template.slug}
+                          className="w-10 h-10 rounded object-cover flex-shrink-0"
+                        />
+                        <div className="flex flex-col items-start text-left">
+                          <span className="text-sm font-medium">
+                            {template.title || template.slug}
+                          </span>
                         </div>
-                      ))
-                    ) : (
-                      <div className="col-span-3 flex flex-col items-center justify-center py-12 text-center">
-                        <Search className="h-12 w-12 text-gray-400 mb-4" />
-                        <h3 className="text-lg font-medium text-gray-900 mb-2">
-                          No templates found
-                        </h3>
-                        <p className="text-gray-500 mb-4">
-                          Try adjusting your search or filter criteria
-                        </p>
-                        <Button
-                          variant="outline"
-                          onClick={() => {
-                            setTemplateSearchText("");
-                            setSelectedTag("all");
-                          }}
-                        >
-                          Clear filters
-                        </Button>
-                      </div>
-                    )}
-                  </div>
-                </DialogContent>
-              </Dialog>
-            </CardContent>
-          </Card>
+                      </>
+                    );
+                  })()}
+                </Button>
+              </DialogTrigger>
+              <TemplateDialogContent
+                templates={templates}
+                selectedStyle={selectedStyle}
+                onTemplateSelect={(templateSlug) => {
+                  // Check if generation is in progress
+                  if (
+                    isGenerating ||
+                    generationStatus === "processing" ||
+                    generationStatus === "starting"
+                  ) {
+                    toast.error(
+                      "Cannot switch template during generation. Please wait for the current generation to complete.",
+                    );
+                    return;
+                  }
+
+                  setSelectedStyle(templateSlug);
+                  setIsTemplateDialogOpen(false);
+
+                  // Reset generation results when switching templates
+                  setGeneratedImage(null);
+                  setCurrentAssetUuid(null);
+                  setGenerationStatus("idle");
+                }}
+                templateSearchText={templateSearchText}
+                setTemplateSearchText={setTemplateSearchText}
+                selectedTag={selectedTag}
+                setSelectedTag={setSelectedTag}
+                allTags={allTags}
+                filteredTemplates={filteredTemplates}
+              />
+            </Dialog>
+          </div>
 
           {/* Main Content Area - Dynamic Layout Based on Template Type */}
-          <Card>
-            <CardHeader>
-              <CardTitle className="flex items-center gap-2">
-                <ImageIcon className="h-5 w-5" />
-                Describe Your Photo
-              </CardTitle>
-            </CardHeader>
-            <CardContent className="space-y-6">
+          <div className="flex-1 space-y-6">
+            <div className="flex items-center gap-2">
+              <ImageIcon className="h-5 w-5" />
+              <span className="text-sm font-medium">Describe Your Photo</span>
+            </div>
+            <div className="space-y-6">
               {(() => {
                 const currentTemplate = getTemplate(selectedStyle);
                 const isImageToImage =
@@ -709,306 +886,346 @@ export default function PhotoCreationClient({
                   );
                 }
               })()}
-            </CardContent>
-          </Card>
+            </div>
+          </div>
 
-          {/* Settings */}
-          <Card>
-            <CardHeader>
-              <CardTitle className="flex items-center gap-2">
-                <Settings className="h-5 w-5" />
-                Advanced Settings
-              </CardTitle>
-            </CardHeader>
-            <CardContent className="space-y-4">
-              {/* Aspect Ratio */}
-              <div className="space-y-2">
-                <Label className="text-sm font-medium">Aspect Ratio</Label>
-                <div className="grid grid-cols-5 gap-2">
-                  {["1:1", "16:9", "9:16", "4:3", "3:4"].map((ratio) => (
-                    <Button
-                      key={ratio}
-                      variant={
-                        settings.aspectRatio === ratio ? "default" : "outline"
-                      }
-                      size="sm"
-                      onClick={() =>
-                        setSettings((prev) => ({
-                          ...prev,
-                          aspectRatio: ratio,
-                        }))
-                      }
-                    >
-                      {ratio}
-                    </Button>
-                  ))}
+          {/* Advanced Settings */}
+          <div className="space-y-4 mb-6">
+            <div className="flex items-center gap-2">
+              <Settings className="h-5 w-5" />
+              <span className="text-sm font-medium">Advanced Settings</span>
+            </div>
+
+            {/* Aspect Ratio */}
+            <div className="space-y-2">
+              <Label className="text-sm font-medium">Aspect Ratio</Label>
+              <div className="grid grid-cols-5 gap-2">
+                {["1:1", "16:9", "9:16", "4:3", "3:4"].map((ratio) => (
+                  <Button
+                    key={ratio}
+                    variant={
+                      settings.aspectRatio === ratio ? "default" : "outline"
+                    }
+                    size="sm"
+                    onClick={() =>
+                      setSettings((prev) => ({
+                        ...prev,
+                        aspectRatio: ratio,
+                      }))
+                    }
+                  >
+                    {ratio}
+                  </Button>
+                ))}
+              </div>
+            </div>
+
+            {/* Options */}
+            <div className="space-y-3">
+              <div className="flex items-center justify-between">
+                <Label
+                  htmlFor="enhance-quality"
+                  className="text-sm font-medium flex items-center gap-1"
+                >
+                  Enhance Quality
+                  <Tooltip>
+                    <TooltipTrigger asChild>
+                      <span className="inline-flex cursor-help text-muted-foreground">
+                        <AlertCircle className="h-3.5 w-3.5" />
+                      </span>
+                    </TooltipTrigger>
+                    <TooltipContent>
+                      Enhance image resolution and details (Pro or higher)
+                    </TooltipContent>
+                  </Tooltip>
+                </Label>
+                <div className="flex items-center gap-2">
+                  <Crown className="h-4 w-4 text-amber-500" />
+                  <Switch
+                    id="enhance-quality"
+                    checked={settings.enhanceQuality}
+                    onCheckedChange={(checked) =>
+                      setSettings((prev) => ({
+                        ...prev,
+                        enhanceQuality: checked,
+                      }))
+                    }
+                  />
                 </div>
               </div>
-
-              {/* Options */}
-              <div className="space-y-3">
-                <div className="flex items-center justify-between">
-                  <Label
-                    htmlFor="enhance-quality"
-                    className="text-sm font-medium flex items-center gap-1"
-                  >
-                    Enhance Quality
-                    <Tooltip>
-                      <TooltipTrigger asChild>
-                        <span className="inline-flex cursor-help text-muted-foreground">
-                          <AlertCircle className="h-3.5 w-3.5" />
-                        </span>
-                      </TooltipTrigger>
-                      <TooltipContent>
-                        Enhance image resolution and details (Pro or higher)
-                      </TooltipContent>
-                    </Tooltip>
-                  </Label>
-                  <div className="flex items-center gap-2">
-                    <Crown className="h-4 w-4 text-amber-500" />
-                    <Switch
-                      id="enhance-quality"
-                      checked={settings.enhanceQuality}
-                      onCheckedChange={(checked) =>
-                        setSettings((prev) => ({
-                          ...prev,
-                          enhanceQuality: checked,
-                        }))
-                      }
-                    />
-                  </div>
-                </div>
-                <div className="flex items-center justify-between">
-                  <Label
-                    htmlFor="watermark"
-                    className="text-sm font-medium flex items-center gap-1"
-                  >
-                    No Watermark
-                    <Tooltip>
-                      <TooltipTrigger asChild>
-                        <span className="inline-flex cursor-help text-muted-foreground">
-                          <AlertCircle className="h-3.5 w-3.5" />
-                        </span>
-                      </TooltipTrigger>
-                      <TooltipContent>
-                        Generate images without watermark (Pro or higher)
-                      </TooltipContent>
-                    </Tooltip>
-                  </Label>
-                  <div className="flex items-center gap-2">
-                    <Crown className="h-4 w-4 text-amber-500" />
-                    <Switch
-                      id="watermark"
-                      checked={settings.noWatermark}
-                      onCheckedChange={(checked) =>
-                        setSettings((prev) => ({
-                          ...prev,
-                          noWatermark: checked,
-                        }))
-                      }
-                    />
-                  </div>
+              <div className="flex items-center justify-between">
+                <Label
+                  htmlFor="watermark"
+                  className="text-sm font-medium flex items-center gap-1"
+                >
+                  No Watermark
+                  <Tooltip>
+                    <TooltipTrigger asChild>
+                      <span className="inline-flex cursor-help text-muted-foreground">
+                        <AlertCircle className="h-3.5 w-3.5" />
+                      </span>
+                    </TooltipTrigger>
+                    <TooltipContent>
+                      Generate images without watermark (Pro or higher)
+                    </TooltipContent>
+                  </Tooltip>
+                </Label>
+                <div className="flex items-center gap-2">
+                  <Crown className="h-4 w-4 text-amber-500" />
+                  <Switch
+                    id="watermark"
+                    checked={settings.noWatermark}
+                    onCheckedChange={(checked) =>
+                      setSettings((prev) => ({
+                        ...prev,
+                        noWatermark: checked,
+                      }))
+                    }
+                  />
                 </div>
               </div>
-            </CardContent>
-          </Card>
-          {/* Generate Button */}
-          <Button
-            onClick={handleGenerate}
-            disabled={
-              (() => {
-                const currentTemplate = getTemplate(selectedStyle);
-                const requiredPrompt =
-                  currentTemplate.image_settings?.required_prompt ?? false;
-                const requiredReferenceImage =
-                  currentTemplate.image_settings?.required_reference_image ??
-                  false;
-                const requiredReferenceCount =
-                  currentTemplate.image_settings
-                    ?.required_reference_image_count ?? 0;
+            </div>
+          </div>
 
-                // Check if required prompt is provided
-                if (requiredPrompt && !textPrompt) return true;
+          {/* Generate Button - Fixed at Bottom */}
+          <div className="mt-auto">
+            <Button
+              onClick={handleGenerate}
+              disabled={
+                (() => {
+                  const currentTemplate = getTemplate(selectedStyle);
+                  const requiredPrompt =
+                    currentTemplate.image_settings?.required_prompt ?? false;
+                  const requiredReferenceImage =
+                    currentTemplate.image_settings?.required_reference_image ??
+                    false;
+                  const requiredReferenceCount =
+                    currentTemplate.image_settings
+                      ?.required_reference_image_count ?? 0;
 
-                // Check if at least one reference image is required
-                if (requiredReferenceImage && selectedFiles.length === 0)
-                  return true;
+                  // Check if required prompt is provided
+                  if (requiredPrompt && !textPrompt) return true;
 
-                // Check if specific number of reference images is required
-                if (
-                  requiredReferenceCount > 0 &&
-                  selectedFiles.length !== requiredReferenceCount
-                )
-                  return true;
+                  // Check if at least one reference image is required
+                  if (requiredReferenceImage && selectedFiles.length === 0)
+                    return true;
 
-                // For text-to-image, we need either text prompt or reference images if not required
-                if (
-                  !requiredPrompt &&
-                  !textPrompt &&
-                  selectedFiles.length === 0
-                )
-                  return true;
+                  // Check if specific number of reference images is required
+                  if (
+                    requiredReferenceCount > 0 &&
+                    selectedFiles.length !== requiredReferenceCount
+                  )
+                    return true;
 
-                return false;
-              })() ||
-              isGenerating ||
+                  // For text-to-image, we need either text prompt or reference images if not required
+                  if (
+                    !requiredPrompt &&
+                    !textPrompt &&
+                    selectedFiles.length === 0
+                  )
+                    return true;
+
+                  return false;
+                })() ||
+                isGenerating ||
+                generationStatus === "processing" ||
+                generationStatus === "starting"
+              }
+              className="w-full h-14 bg-primary hover:from-purple-600 hover:to-pink-600 rounded-full text-md font-bold"
+              size="lg"
+            >
+              {isGenerating ||
               generationStatus === "processing" ||
-              generationStatus === "starting"
-            }
-            className="w-full h-14 bg-primary hover:from-purple-600 hover:to-pink-600 rounded-full text-md font-bold mt-5"
-            size="lg"
-          >
-            {isGenerating ||
-            generationStatus === "processing" ||
-            generationStatus === "starting" ? (
-              <>
-                <div className="animate-spin rounded-full h-4 w-4 border-b-2 border-white mr-2"></div>
-                {generationStatus === "starting"
-                  ? "Starting..."
-                  : "Generating..."}
-              </>
-            ) : (
-              <>
-                <Wand2 className="h-5 w-5 mr-2" />
-                Generate Photo
-                {(textPrompt || selectedFiles.length > 0) && (
-                  <>
-                    <span className="text-xs px-2 py-1 flex items-center gap-1">
-                      🍃 5
-                    </span>
-                  </>
-                )}
-              </>
-            )}
-          </Button>
+              generationStatus === "starting" ? (
+                <>
+                  <div className="animate-spin rounded-full h-4 w-4 border-b-2 border-white mr-2"></div>
+                  {generationStatus === "starting"
+                    ? "Starting..."
+                    : "Generating..."}
+                </>
+              ) : (
+                <>
+                  <Wand2 className="h-5 w-5 mr-2" />
+                  Generate Photo
+                  {(textPrompt || selectedFiles.length > 0) && (
+                    <>
+                      <span className="text-xs px-2 py-1 flex items-center gap-1">
+                        🍃 5
+                      </span>
+                    </>
+                  )}
+                </>
+              )}
+            </Button>
+          </div>
         </div>
 
         {/* Right Panel - Preview & Results */}
-        <div className="flex-1 flex flex-col justify-end">
+        <div className="flex-1 flex flex-col justify-start min-h-[calc(100vh-8rem)] bg-white border border-gray-200 rounded-xl p-6 shadow-sm">
           {isGenerating || generationStatus === "processing" ? (
             /* Loading State */
-            <Card>
-              <CardHeader>
-                <CardTitle className="flex items-center gap-2">
-                  <div className="animate-spin rounded-full h-5 w-5 border-b-2 border-purple-600"></div>
+            <div className="space-y-4">
+              <div className="flex items-center gap-2">
+                <div className="animate-spin rounded-full h-5 w-5 border-b-2 border-purple-600"></div>
+                <h3 className="text-lg font-semibold">
                   {generationStatus === "starting"
                     ? "Starting Generation..."
                     : "Generating Your Photo"}
-                </CardTitle>
-                <CardDescription>
-                  {generationStatus === "starting"
-                    ? "Preparing your request..."
-                    : "AI is creating your masterpiece, please wait..."}
-                </CardDescription>
-              </CardHeader>
-              <CardContent>
-                <div className="flex items-center justify-center h-64">
-                  <div className="text-center">
-                    <div className="animate-spin rounded-full h-16 w-16 border-b-2 border-purple-600 mx-auto mb-4"></div>
-                    <p className="text-lg font-medium text-gray-700 mb-2">
-                      {generationStatus === "starting"
-                        ? "Starting..."
-                        : "Generating..."}
+                </h3>
+              </div>
+              <p className="text-sm text-gray-600">
+                {generationStatus === "starting"
+                  ? "Preparing your request..."
+                  : "AI is creating your masterpiece, please wait..."}
+              </p>
+              <div className="flex items-center justify-center h-64">
+                <div className="text-center">
+                  <div className="animate-spin rounded-full h-16 w-16 border-b-2 border-purple-600 mx-auto mb-4"></div>
+                  <p className="text-lg font-medium text-gray-700 mb-2">
+                    {generationStatus === "starting"
+                      ? "Starting..."
+                      : "Generating..."}
+                  </p>
+                  <p className="text-sm text-gray-500">
+                    {generationStatus === "starting"
+                      ? "Setting up your generation task"
+                      : "This may take a few moments"}
+                  </p>
+                  {currentAssetUuid && (
+                    <p className="text-xs text-gray-400 mt-2">
+                      Task ID: {currentAssetUuid}
                     </p>
-                    <p className="text-sm text-gray-500">
-                      {generationStatus === "starting"
-                        ? "Setting up your generation task"
-                        : "This may take a few moments"}
-                    </p>
-                    {currentAssetUuid && (
-                      <p className="text-xs text-gray-400 mt-2">
-                        Task ID: {currentAssetUuid}
-                      </p>
-                    )}
-                  </div>
+                  )}
                 </div>
-              </CardContent>
-            </Card>
+              </div>
+            </div>
           ) : generationStatus === "failed" ? (
             /* Failed State */
-            <Card>
-              <CardHeader>
-                <CardTitle className="flex items-center gap-2 text-red-600">
-                  <X className="h-5 w-5" />
-                  Generation Failed
-                </CardTitle>
-                <CardDescription>
-                  Something went wrong during generation
-                </CardDescription>
-              </CardHeader>
-              <CardContent>
-                <div className="flex items-center justify-center h-64">
-                  <div className="text-center">
-                    <div className="rounded-full h-16 w-16 bg-red-100 flex items-center justify-center mx-auto mb-4">
-                      <X className="h-8 w-8 text-red-600" />
-                    </div>
-                    <p className="text-lg font-medium text-gray-700 mb-2">
-                      Generation Failed
-                    </p>
-                    <p className="text-sm text-gray-500 mb-4">
-                      Please try again with different settings
-                    </p>
-                    <Button
-                      onClick={() => {
-                        setGenerationStatus("idle");
-                        setCurrentAssetUuid(null);
-                      }}
-                      variant="outline"
-                    >
-                      Try Again
-                    </Button>
+            <div className="space-y-4">
+              <div className="flex items-center gap-2 text-red-600">
+                <X className="h-5 w-5" />
+                <h3 className="text-lg font-semibold">Generation Failed</h3>
+              </div>
+              <p className="text-sm text-gray-600">
+                Something went wrong during generation
+              </p>
+              <div className="flex items-center justify-center h-64">
+                <div className="text-center">
+                  <div className="rounded-full h-16 w-16 bg-red-100 flex items-center justify-center mx-auto mb-4">
+                    <X className="h-8 w-8 text-red-600" />
                   </div>
-                </div>
-              </CardContent>
-            </Card>
-          ) : generatedImage ? (
-            /* Generated Result */
-            <Card>
-              <CardHeader>
-                <div className="flex items-center justify-between">
-                  <div>
-                    <CardTitle className="flex items-center gap-2">
-                      <Sparkles className="h-5 w-5" />
-                      Generated Result
-                    </CardTitle>
-                    <CardDescription>
-                      Your AI-generated photo is ready!
-                    </CardDescription>
-                  </div>
+                  <p className="text-lg font-medium text-gray-700 mb-2">
+                    Generation Failed
+                  </p>
+                  <p className="text-sm text-gray-500 mb-4">
+                    Please try again with different settings
+                  </p>
                   <Button
-                    size="icon"
-                    variant="secondary"
-                    onClick={handleDownload}
-                    className="h-9 w-9"
-                    title="Download"
+                    onClick={() => {
+                      setGenerationStatus("idle");
+                      setCurrentAssetUuid(null);
+                    }}
+                    variant="outline"
                   >
-                    <Download className="h-4 w-4" />
+                    Try Again
                   </Button>
                 </div>
-              </CardHeader>
-              <CardContent>
-                <div className="relative flex h-80 w-full items-center justify-center overflow-hidden rounded-lg bg-muted/30 md:h-[70vh]">
-                  <img
-                    src={generatedImage}
-                    alt="Generated image"
-                    className="max-h-full max-w-full object-contain"
-                    style={{ display: "block" }}
-                  />
+              </div>
+            </div>
+          ) : generatedImage ? (
+            /* Generated Result */
+            <div className="space-y-4">
+              <div className="flex items-center justify-between">
+                <div>
+                  <h3 className="flex items-center gap-2 text-lg font-semibold">
+                    <Sparkles className="h-5 w-5" />
+                    Generated Result
+                  </h3>
+                  <p className="text-sm text-gray-600">
+                    Your AI-generated photo is ready!
+                  </p>
                 </div>
-              </CardContent>
-            </Card>
+                <Button
+                  size="icon"
+                  variant="secondary"
+                  onClick={handleDownload}
+                  className="h-9 w-9"
+                  title="Download"
+                >
+                  <Download className="h-4 w-4" />
+                </Button>
+              </div>
+              <div className="relative flex h-80 w-full items-center justify-center overflow-hidden rounded-lg bg-muted/30 md:h-[70vh]">
+                <img
+                  src={generatedImage}
+                  alt="Generated image"
+                  className="max-h-full max-w-full object-contain"
+                  style={{ display: "block" }}
+                />
+              </div>
+            </div>
+          ) : selectedStyle === "free-style" ? (
+            /* Free-style Template Selector */
+            <div className="space-y-4">
+              <div className="flex flex-col items-center justify-center text-center">
+                <h3 className="flex items-center gap-2 justify-center text-2xl font-bold">
+                  {getTemplate(selectedStyle).title}
+                </h3>
+                <p className="text-md text-gray-600">
+                  <span
+                    dangerouslySetInnerHTML={{
+                      __html: getTemplate(selectedStyle).description || "",
+                    }}
+                  />
+                </p>
+              </div>
+              <TemplateSelector
+                templates={templates}
+                selectedStyle={selectedStyle}
+                onTemplateSelect={(templateSlug) => {
+                  // Check if generation is in progress
+                  if (
+                    isGenerating ||
+                    generationStatus === "processing" ||
+                    generationStatus === "starting"
+                  ) {
+                    toast.error(
+                      "Cannot switch template during generation. Please wait for the current generation to complete.",
+                    );
+                    return;
+                  }
+
+                  setSelectedStyle(templateSlug);
+
+                  // Reset generation results when switching templates
+                  setGeneratedImage(null);
+                  setCurrentAssetUuid(null);
+                  setGenerationStatus("idle");
+                }}
+                templateSearchText={templateSearchText}
+                setTemplateSearchText={setTemplateSearchText}
+                selectedTag={selectedTag}
+                setSelectedTag={setSelectedTag}
+                allTags={allTags}
+                filteredTemplates={filteredTemplates}
+              />
+            </div>
           ) : (
             /* Pre-generation State - Template Description & Preview */
-            <Card>
-              <CardHeader className="flex flex-col items-center justify-center text-center">
-                <CardTitle className="flex items-center gap-2 justify-center text-2xl font-bold">
+            <div className="space-y-4">
+              <div className="flex flex-col items-center justify-center text-center">
+                <h3 className="flex items-center gap-2 justify-center text-2xl font-bold">
                   {getTemplate(selectedStyle).title}
-                </CardTitle>
-                <CardDescription className="text-md">
-                  {getTemplate(selectedStyle).description}
-                </CardDescription>
-              </CardHeader>
-              <CardContent>
+                </h3>
+                <p className="text-md text-gray-600">
+                  <span
+                    dangerouslySetInnerHTML={{
+                      __html: getTemplate(selectedStyle).description || "",
+                    }}
+                  />
+                </p>
+              </div>
+              <div>
                 <div className="space-y-4">
                   {/* Template Preview Carousel */}
                   <div className="flex items-center justify-center">
@@ -1128,8 +1345,8 @@ export default function PhotoCreationClient({
                     </div>
                   </div>
                 </div>
-              </CardContent>
-            </Card>
+              </div>
+            </div>
           )}
         </div>
       </div>
