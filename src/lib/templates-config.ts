@@ -1,11 +1,8 @@
-import { TemplateItem, TemplateCategory } from "@/types/blocks/templates";
-import { Heart, Baby, Users, User, Palette } from "lucide-react";
+import { TemplateItem } from "@/types/blocks/templates";
 
 export const templatesConfig: TemplateItem[] = [
   {
     slug: "free-style",
-    title: "Free Style",
-    description: "Create unique artistic effects with AI-powered filters",
     cover: "https://picsum.photos/300/300?random=0",
     type: "image",
     samples: [
@@ -14,11 +11,7 @@ export const templatesConfig: TemplateItem[] = [
       "https://picsum.photos/300/300?random=2",
     ],
     compare: true,
-    tags: ["FREE", "Art Style"],
-    category: "effects",
-    credits: 0,
-    time: "30s",
-    rating: 4.8,
+    tags: [],
     image_settings: {
       type: "text-to-image",
       required_prompt: true,
@@ -32,10 +25,6 @@ export const templatesConfig: TemplateItem[] = [
     type: "image",
     samples: ["https://picsum.photos/300/300?random=1"],
     tags: ["Couples", "Wedding", "Portrait", "AI Filters"],
-    category: "effects",
-    credits: 5,
-    time: "45s",
-    rating: 4.9,
     image_settings: {
       required_reference_image_count: 2,
       prompt:
@@ -55,10 +44,6 @@ export const templatesConfig: TemplateItem[] = [
       "https://picsum.photos/300/300?random=5",
     ],
     tags: ["Couples", "Portrait"],
-    category: "effects",
-    credits: 4,
-    time: "40s",
-    rating: 4.7,
     image_settings: {
       required_reference_image: true,
       prompt:
@@ -79,10 +64,6 @@ export const templatesConfig: TemplateItem[] = [
       "https://picsum.photos/300/300?random=6",
     ],
     tags: ["Couples", "Babies", "Families"],
-    category: "effects",
-    credits: 8,
-    time: "90s",
-    rating: 4.6,
     video_settings: {
       prompt: "A proposal video of a couple",
       duration: 90,
@@ -97,10 +78,6 @@ export const templatesConfig: TemplateItem[] = [
     type: "video",
     samples: ["https://picsum.photos/300/300?random=5"],
     tags: ["Wedding"],
-    category: "effects",
-    credits: 6,
-    time: "4s",
-    rating: 4.8,
     video_settings: {
       prompt: "A proposal video of a couple",
       duration: 4,
@@ -115,10 +92,6 @@ export const templatesConfig: TemplateItem[] = [
     type: "audio",
     samples: ["https://picsum.photos/300/300?random=6"],
     tags: ["Couples"],
-    category: "effects",
-    credits: 3,
-    time: "60s",
-    rating: 4.7,
     audio_settings: {
       prompt: "A custom anniversary piano theme song, warm and emotive",
       voice_type: "ambient",
@@ -132,10 +105,6 @@ export const templatesConfig: TemplateItem[] = [
     type: "image",
     samples: ["https://picsum.photos/300/300?random=7"],
     tags: ["Couples", "Portrait"],
-    category: "portraits",
-    credits: 5,
-    time: "35s",
-    rating: 4.9,
     image_settings: {
       required_reference_image: true,
       required_prompt: true,
@@ -152,10 +121,6 @@ export const templatesConfig: TemplateItem[] = [
     type: "image",
     samples: ["https://picsum.photos/300/300?random=8"],
     tags: ["Portrait", "Professional"],
-    category: "portraits",
-    credits: 4,
-    time: "30s",
-    rating: 4.7,
     image_settings: {
       required_reference_image: true,
       prompt:
@@ -171,10 +136,6 @@ export const templatesConfig: TemplateItem[] = [
     type: "image",
     samples: ["https://picsum.photos/300/300?random=9"],
     tags: ["Portrait", "Art Style"],
-    category: "portraits",
-    credits: 6,
-    time: "45s",
-    rating: 4.8,
     image_settings: {
       required_reference_image: true,
       required_prompt: true,
@@ -191,10 +152,6 @@ export const templatesConfig: TemplateItem[] = [
     type: "image",
     samples: ["https://picsum.photos/300/300?random=10"],
     tags: ["Editing", "Color"],
-    category: "editing",
-    credits: 2,
-    time: "20s",
-    rating: 4.6,
     image_settings: {
       required_reference_image: true,
       type: "image-to-image",
@@ -208,10 +165,6 @@ export const templatesConfig: TemplateItem[] = [
     type: "image",
     samples: ["https://picsum.photos/300/300?random=11"],
     tags: ["Editing", "Background"],
-    category: "editing",
-    credits: 3,
-    time: "25s",
-    rating: 4.5,
     image_settings: {
       required_reference_image: true,
       type: "image-to-image",
@@ -225,10 +178,6 @@ export const templatesConfig: TemplateItem[] = [
     type: "audio",
     samples: ["https://picsum.photos/300/300?random=2"],
     tags: ["Couples", "Wedding"],
-    category: "effects",
-    credits: 4,
-    time: "45s",
-    rating: 4.5,
     audio_settings: {
       prompt: "A studio wedding portrait of a couple",
       voice_type: "ambient",

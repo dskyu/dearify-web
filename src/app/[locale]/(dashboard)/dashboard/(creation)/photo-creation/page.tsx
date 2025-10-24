@@ -19,12 +19,20 @@ export default async function Page({
       const fillItem = templatesPage?.items?.find(
         (item) => item.slug === template.slug,
       );
-      return {
+
+      const x = {
         ...template,
         name: fillItem?.name ?? template.name,
         title: fillItem?.title ?? template.title,
         description: fillItem?.description ?? template.description,
+        instructions: fillItem?.instructions ?? template.instructions,
       };
+
+      if (template.slug === "free-style") {
+        console.log(x);
+      }
+
+      return x;
     });
 
   return <PhotoCreationClient templates={templates} />;

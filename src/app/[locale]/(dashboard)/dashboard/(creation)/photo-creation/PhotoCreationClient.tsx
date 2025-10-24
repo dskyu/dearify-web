@@ -33,13 +33,6 @@ import {
   type CarouselApi,
 } from "@/components/ui/carousel";
 import { Button } from "@/components/ui/button";
-import {
-  Card,
-  CardContent,
-  CardDescription,
-  CardHeader,
-  CardTitle,
-} from "@/components/ui/card";
 import { Switch } from "@/components/ui/switch";
 import { Label } from "@/components/ui/label";
 import { Textarea } from "@/components/ui/textarea";
@@ -261,7 +254,7 @@ const TemplateSelector = memo(
               .map((template) => (
                 <div
                   key={template.slug}
-                  className="flex flex-col items-center cursor-pointer hover:bg-gray-50 rounded-lg p-3 transition-colors"
+                  className="flex flex-col items-center cursor-pointer  rounded-lg p-3 transition-colors"
                   onClick={() => onTemplateSelect(template.slug)}
                   style={{ minWidth: 0 }}
                 >
@@ -270,7 +263,7 @@ const TemplateSelector = memo(
                       src={template.cover}
                       alt={template.title}
                       className={cn(
-                        "w-48 h-48 rounded-lg object-cover",
+                        "w-48 h-48 rounded-lg object-cover transition-transform duration-300 hover:scale-105 hover:shadow-lg",
                         selectedStyle === template.slug
                           ? "ring-2 ring-blue-500 ring-offset-2"
                           : "",
@@ -394,7 +387,7 @@ const TemplateDialogContent = memo(
             filteredTemplates.map((template) => (
               <div
                 key={template.slug}
-                className="flex flex-col items-center cursor-pointer hover:bg-gray-50 rounded-lg p-4 transition-colors"
+                className="flex flex-col items-center cursor-pointer rounded-lg p-4 transition-colors"
                 onClick={() => onTemplateSelect(template.slug)}
               >
                 <div className="relative">
@@ -402,7 +395,7 @@ const TemplateDialogContent = memo(
                     src={template.cover}
                     alt={template.slug}
                     className={cn(
-                      "w-36 h-36 rounded-lg object-cover",
+                      "w-36 h-36 rounded-lg object-cover transition-transform duration-300 hover:scale-105 hover:shadow-lg",
                       selectedStyle === template.slug
                         ? "ring-2 ring-blue-500 ring-offset-2"
                         : "",
@@ -1174,7 +1167,10 @@ export default function PhotoCreationClient({
                 <p className="text-md text-gray-600">
                   <span
                     dangerouslySetInnerHTML={{
-                      __html: getTemplate(selectedStyle).description || "",
+                      __html:
+                        getTemplate(selectedStyle).instructions ||
+                        getTemplate(selectedStyle).description ||
+                        "",
                     }}
                   />
                 </p>
@@ -1217,13 +1213,15 @@ export default function PhotoCreationClient({
                 <h1 className="flex items-center gap-2 justify-center text-2xl font-bold">
                   {getTemplate(selectedStyle).title}
                 </h1>
-                <p className="text-md text-gray-600">
-                  <h2
-                    dangerouslySetInnerHTML={{
-                      __html: getTemplate(selectedStyle).description || "",
-                    }}
-                  />
-                </p>
+                <div
+                  className="text-md text-gray-600"
+                  dangerouslySetInnerHTML={{
+                    __html:
+                      getTemplate(selectedStyle).instructions ||
+                      getTemplate(selectedStyle).description ||
+                      "",
+                  }}
+                />
               </div>
               <div>
                 <div className="space-y-4">

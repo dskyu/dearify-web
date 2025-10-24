@@ -24,29 +24,13 @@ export interface TemplateItem {
   name?: string;
   title?: string;
   description?: string;
+  instructions?: string;
   cover: string;
   type: "image" | "audio" | "video";
   samples: string[];
   compare?: boolean;
   tags: string[];
-  category: "effects" | "editing" | "portraits";
   image_settings?: TemplateImageSettings;
   audio_settings?: TemplateAudioSettings;
   video_settings?: TemplateVideoSettings;
-  // Additional fields for category display
-  credits?: number;
-  time?: string;
-  rating?: number;
-}
-
-export interface TemplateCategory {
-  id: string;
-  name: string;
-  slug: string;
-  description: string;
-  icon: React.ComponentType<any>;
-  color: string;
-  gradientFrom: string;
-  gradientTo: string;
-  templates: TemplateItem[];
 }

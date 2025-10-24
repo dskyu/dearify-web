@@ -5,7 +5,8 @@
       "name": "Free Style",
       "title": "Free Style – Create Freely, Your Way",
       "type": "image",
-      "description": "<span style=\"font-weight:600; color:#7c3aed;\">Unleash total creative freedom:</span> describe <span style=\"font-weight:500; color:#f59e42;\">anything</span> you can imagine and bring your ideas to life with a unique AI-generated image.<br><span style=\"font-weight:600; color:#e11d48;\">Free Style</span> lets you experiment and express yourself, your way.<br><br><span style=\"background:#f3f4f6; padding:4px 8px; border-radius:6px; font-weight:500; color:#334155;\">Not sure where to start?</span> <span style=\"color:#6366f1;\">Choose a template below</span> for inspiration or guided creation."
+      "description": "Describe anything you can imagine and bring your ideas to life with a unique AI-generated image. Free Style lets you experiment and express yourself, your way.",
+      "instructions": "<span style=\"font-weight:600; color:#7c3aed;\">Unleash total creative freedom:</span> describe <span style=\"font-weight:500; color:#f59e42;\">anything</span> you can imagine and bring your ideas to life with a unique AI-generated image.<br><span style=\"font-weight:600; color:#e11d48;\">Free Style</span> lets you experiment and express yourself, your way.<br><br><span style=\"background:#f3f4f6; padding:4px 8px; border-radius:6px; font-weight:500; color:#334155;\">Not sure where to start?</span> <span style=\"color:#6366f1;\">Choose a template below</span> for inspiration or guided creation."
     },
     {
       "slug": "wedding-studio-classic-white",
